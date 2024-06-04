@@ -11,23 +11,25 @@ datasource db {
 }
 
 model users {
-  id             Int        @id @default(autoincrement())
-  email          String
-  display_name   String
-  is_verified    Boolean    @default(false)
-  password       String?
-  refresh_token  String?
-  image_url      String?
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
-  role           roles      @relation(fields: [rolesId], references: [id])
-  rolesId        Int
-  provider       providers  @relation(fields: [providersId], references: [id])
-  tenant_profile tenants    @relation(fields: [tenantsId], references: [id])
-  tenantsId      String
-  bookings       bookings[]
-  reviews        reviews[]
-  providersId    Int
+  id            String     @id @default(uuid())
+  email         String
+  display_name  String
+  is_verified   Boolean    @default(false)
+  password      String?
+  refresh_token String?
+  image_url     String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  role          roles      @relation(fields: [rolesId], references: [id])
+  rolesId       Int
+  provider      providers  @relation(fields: [providersId], references: [id])
+  bookings      bookings[]
+  reviews       reviews[]
+  providersId   Int
+  tenants       tenants?
+  created_at    DateTime   @default(now())
+  updated_at    DateTime   @updatedAt
+  deleted_at    DateTime?
 }
 
 model roles {
@@ -37,37 +39,46 @@ model roles {
 }
 
 model providers {
-  id     Int     @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   provider String
-  users  users[]
+  users    users[]
 }
 
 model tenants {
-  id           String     @id @default(uuid())
-  display_name String
-  image_url    String?
-  id_number    String?
-  phone        String?
-  users        users[]
-  listings     listings[]
-  bookings     bookings[]
+  id             String     @id @default(uuid())
+  display_name   String
+  image_url      String?
+  id_card_number String?
+  phone          String?
+  listings       listings[]
+  bookings       bookings[]
+  user           users      @relation(fields: [usersId], references: [id])
+  usersId        String     @unique
+  created_at     DateTime   @default(now())
+  updated_at     DateTime   @updatedAt
+  deleted_at     DateTime?
 }
 
 model listings {
-  id              Int               @id @default(autoincrement())
-  title           String
-  description     String            @db.LongText
-  location        Json
-  country         String?
-  tenant          tenants           @relation(fields: [tenantsId], references: [id])
-  tenantsId       String
-  rooms           rooms[]
-  facility        facilities[]
-  category        categories        @relation(fields: [categoriesId], references: [id])
-  categoriesId    Int
-  nonavailability nonavailability[]
-  listing_images  listing_images[]
-  reviews         reviews[]
+  id                  Int               @id @default(autoincrement())
+  title               String
+  description         String            @db.LongText
+  location_coordinate Json
+  address             String
+  country             String?
+  contact_person      String
+  tenant              tenants           @relation(fields: [tenantsId], references: [id])
+  tenantsId           String
+  rooms               rooms[]
+  facility            facilities[]
+  category            categories        @relation(fields: [categoriesId], references: [id])
+  categoriesId        Int
+  nonavailability     nonavailability[]
+  listing_images      listing_images[]
+  reviews             reviews[]
+  created_at          DateTime          @default(now())
+  updated_at          DateTime          @updatedAt
+  deleted_at          DateTime?
 }
 
 model nonavailability {
@@ -76,6 +87,8 @@ model nonavailability {
   end_date   DateTime
   listing    listings @relation(fields: [listingsId], references: [id])
   listingsId Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model facilities {
@@ -92,49 +105,60 @@ model categories {
 }
 
 model listing_images {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   image_url  String
-  listing    listings @relation(fields: [listingsId], references: [id])
+  listing    listings  @relation(fields: [listingsId], references: [id])
   listingsId Int
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
 }
 
 model rooms {
-  id                Int             @id @default(autoincrement())
-  name              String
-  price             Decimal
-  description       String?         @db.LongText
-  capacity          Int
-  stock             Int             @default(1)
-  listing           listings        @relation(fields: [listingsId], references: [id])
-  listingsId        Int
-  seasonal_price    seasonal_prices @relation(fields: [seasonal_pricesId], references: [id])
-  seasonal_pricesId Int
-  room_images       room_images[]
-  bookings          bookings[]
+  id             Int               @id @default(autoincrement())
+  name           String
+  price          Decimal           @db.Decimal(11, 2)
+  description    String?           @db.LongText
+  capacity       Int
+  stock          Int               @default(1)
+  listing        listings          @relation(fields: [listingsId], references: [id])
+  listingsId     Int
+  seasonal_price seasonal_prices[]
+  room_images    room_images[]
+  bookings       bookings[]
+  total_bookings Int
+  created_at     DateTime          @default(now())
+  updated_at     DateTime          @updatedAt
+  deleted_at     DateTime?
 }
 
 model room_images {
-  id        Int    @id @default(autoincrement())
-  image_url String
-  room      rooms  @relation(fields: [roomsId], references: [id])
-  roomsId   Int
+  id         Int       @id @default(autoincrement())
+  image_url  String
+  room       rooms     @relation(fields: [roomsId], references: [id])
+  roomsId    Int
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
 }
 
 model seasonal_prices {
   id         Int      @id @default(autoincrement())
-  price      Decimal
+  price      Decimal  @db.Decimal(11, 2)
   start_date DateTime
   end_date   DateTime
   rooms      rooms[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model bookings {
   id                String              @id @default(uuid())
   user              users               @relation(fields: [usersId], references: [id])
-  usersId           Int
+  usersId           String
   room              rooms               @relation(fields: [roomsId], references: [id])
   roomsId           Int
-  total_price       String
+  total_price       Int
   start_date        DateTime
   end_date          DateTime
   num_of_guests     Int
@@ -160,14 +184,17 @@ model payment_types {
 model promotions {
   id               Int        @id @default(autoincrement())
   code             String
+  amount           Decimal    @db.Decimal(4, 2)
   name             String
   description      String
   minimum_purchase Int?
   qty              Int?
   start_date       DateTime
   end_date         DateTime
-  created_at       DateTime   @default(now())
   bookings         bookings[]
+  created_at       DateTime   @default(now())
+  updated_at       DateTime   @updatedAt
+  deleted_at       DateTime?
 }
 
 model booking_histories {
@@ -177,6 +204,7 @@ model booking_histories {
   status           booking_status @relation(fields: [booking_statusId], references: [id])
   booking_statusId Int
   created_at       DateTime
+  updated_at       DateTime       @updatedAt
 }
 
 model booking_status {
@@ -190,12 +218,15 @@ model reviews {
   rating         Int
   review         String           @db.LongText
   user           users            @relation(fields: [usersId], references: [id])
-  usersId        Int
+  usersId        String
   listing        listings         @relation(fields: [listingsId], references: [id])
   listingsId     Int
   booking        bookings         @relation(fields: [bookingsId], references: [id])
   bookingsId     String
   review_replies review_replies[]
+  created_at     DateTime         @default(now())
+  updated_at     DateTime         @updatedAt
+  deleted_at     DateTime?
 }
 
 model review_replies {

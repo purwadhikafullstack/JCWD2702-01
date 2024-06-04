@@ -118,6 +118,7 @@ const booking_status = [
     status: 'Waiting for payment',
     status: 'Waiting for confirmation',
     status: 'Booking confirmed',
+    status: 'Booking cancelled',
   },
 ];
 
@@ -149,6 +150,12 @@ async function main() {
   for (let facility of facilities) {
     await prisma.facilities.create({
       data: facility,
+    });
+  }
+
+  for (let payment_type of payment_types) {
+    await prisma.payment_types.create({
+      data: payment_type,
     });
   }
 }
