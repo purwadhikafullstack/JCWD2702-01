@@ -1,4 +1,4 @@
-import { buttonVariants } from './ui/button';
+import { buttonVariants } from '@/components/ui/button';
 
 export const Header = () => {
   return (

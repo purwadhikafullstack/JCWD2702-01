@@ -10,12 +10,197 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Sample {
-  id        Int      @id @default(autoincrement())
-  name      String
-  code      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model users {
+  id             Int        @id @default(autoincrement())
+  email          String
+  display_name   String
+  is_verified    Boolean    @default(false)
+  password       String?
+  refresh_token  String?
+  image_url      String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  role           roles      @relation(fields: [rolesId], references: [id])
+  rolesId        Int
+  provider       providers  @relation(fields: [providersId], references: [id])
+  tenant_profile tenants    @relation(fields: [tenantsId], references: [id])
+  tenantsId      String
+  bookings       bookings[]
+  reviews        reviews[]
+  providersId    Int
+}
 
-  @@map("samples") // if you want to use snake_case format
+model roles {
+  id    Int     @id @default(autoincrement())
+  role  String
+  users users[]
+}
+
+model providers {
+  id     Int     @id @default(autoincrement())
+  provider String
+  users  users[]
+}
+
+model tenants {
+  id           String     @id @default(uuid())
+  display_name String
+  image_url    String?
+  id_number    String?
+  phone        String?
+  users        users[]
+  listings     listings[]
+  bookings     bookings[]
+}
+
+model listings {
+  id              Int               @id @default(autoincrement())
+  title           String
+  description     String            @db.LongText
+  location        Json
+  country         String?
+  tenant          tenants           @relation(fields: [tenantsId], references: [id])
+  tenantsId       String
+  rooms           rooms[]
+  facility        facilities[]
+  category        categories        @relation(fields: [categoriesId], references: [id])
+  categoriesId    Int
+  nonavailability nonavailability[]
+  listing_images  listing_images[]
+  reviews         reviews[]
+}
+
+model nonavailability {
+  id         Int      @id @default(autoincrement())
+  start_date DateTime
+  end_date   DateTime
+  listing    listings @relation(fields: [listingsId], references: [id])
+  listingsId Int
+}
+
+model facilities {
+  id       Int        @id @default(autoincrement())
+  facility String
+  icon     String
+  listing  listings[]
+}
+
+model categories {
+  id       Int        @id @default(autoincrement())
+  category String
+  listings listings[]
+}
+
+model listing_images {
+  id         Int      @id @default(autoincrement())
+  image_url  String
+  listing    listings @relation(fields: [listingsId], references: [id])
+  listingsId Int
+}
+
+model rooms {
+  id                Int             @id @default(autoincrement())
+  name              String
+  price             Decimal
+  description       String?         @db.LongText
+  capacity          Int
+  stock             Int             @default(1)
+  listing           listings        @relation(fields: [listingsId], references: [id])
+  listingsId        Int
+  seasonal_price    seasonal_prices @relation(fields: [seasonal_pricesId], references: [id])
+  seasonal_pricesId Int
+  room_images       room_images[]
+  bookings          bookings[]
+}
+
+model room_images {
+  id        Int    @id @default(autoincrement())
+  image_url String
+  room      rooms  @relation(fields: [roomsId], references: [id])
+  roomsId   Int
+}
+
+model seasonal_prices {
+  id         Int      @id @default(autoincrement())
+  price      Decimal
+  start_date DateTime
+  end_date   DateTime
+  rooms      rooms[]
+}
+
+model bookings {
+  id                String              @id @default(uuid())
+  user              users               @relation(fields: [usersId], references: [id])
+  usersId           Int
+  room              rooms               @relation(fields: [roomsId], references: [id])
+  roomsId           Int
+  total_price       String
+  start_date        DateTime
+  end_date          DateTime
+  num_of_guests     Int
+  expired_at        DateTime
+  created_at        DateTime            @default(now())
+  tenant            tenants             @relation(fields: [tenantsId], references: [id])
+  tenantsId         String
+  payment_proof     String?
+  payment_type      payment_types       @relation(fields: [payment_typesId], references: [id])
+  payment_typesId   Int
+  booking_histories booking_histories[]
+  reviews           reviews[]
+  promotion         promotions          @relation(fields: [promotionsId], references: [id])
+  promotionsId      Int
+}
+
+model payment_types {
+  id       Int        @id @default(autoincrement())
+  type     String
+  bookings bookings[]
+}
+
+model promotions {
+  id               Int        @id @default(autoincrement())
+  code             String
+  name             String
+  description      String
+  minimum_purchase Int?
+  qty              Int?
+  start_date       DateTime
+  end_date         DateTime
+  created_at       DateTime   @default(now())
+  bookings         bookings[]
+}
+
+model booking_histories {
+  id               Int            @id @default(autoincrement())
+  booking          bookings       @relation(fields: [bookingsId], references: [id])
+  bookingsId       String
+  status           booking_status @relation(fields: [booking_statusId], references: [id])
+  booking_statusId Int
+  created_at       DateTime
+}
+
+model booking_status {
+  id                Int                 @id @default(autoincrement())
+  status            String
+  booking_histories booking_histories[]
+}
+
+model reviews {
+  id             Int              @id @default(autoincrement())
+  rating         Int
+  review         String           @db.LongText
+  user           users            @relation(fields: [usersId], references: [id])
+  usersId        Int
+  listing        listings         @relation(fields: [listingsId], references: [id])
+  listingsId     Int
+  booking        bookings         @relation(fields: [bookingsId], references: [id])
+  bookingsId     String
+  review_replies review_replies[]
+}
+
+model review_replies {
+  id        Int     @id @default(autoincrement())
+  review    reviews @relation(fields: [reviewsId], references: [id])
+  reviewsId Int
+  reply     String  @db.LongText
 }
