@@ -3,7 +3,7 @@ import styles from './page.module.css';
 
 export default function Home() {
   return (
-    <main>
+    <main className="h-screen">
       <div></div>
     </main>
   );

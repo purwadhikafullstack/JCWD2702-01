@@ -11,9 +11,9 @@ datasource db {
 }
 
 model users {
-  id            String     @id @default(uuid())
-  email         String
-  display_name  String
+  uid           String     @id @default(uuid())
+  email         String     @unique
+  display_name  String?    @unique
   is_verified   Boolean    @default(false)
   password      String?
   refresh_token String?
@@ -21,7 +21,7 @@ model users {
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
   role          roles      @relation(fields: [rolesId], references: [id])
-  rolesId       Int
+  rolesId       Int        @default(1)
   provider      providers  @relation(fields: [providersId], references: [id])
   bookings      bookings[]
   reviews       reviews[]
@@ -46,13 +46,13 @@ model providers {
 
 model tenants {
   id             String     @id @default(uuid())
-  display_name   String
+  display_name   String     @unique
   image_url      String?
   id_card_number String?
   phone          String?
   listings       listings[]
   bookings       bookings[]
-  user           users      @relation(fields: [usersId], references: [id])
+  user           users      @relation(fields: [usersId], references: [uid])
   usersId        String     @unique
   created_at     DateTime   @default(now())
   updated_at     DateTime   @updatedAt
@@ -154,7 +154,7 @@ model seasonal_prices {
 
 model bookings {
   id                String              @id @default(uuid())
-  user              users               @relation(fields: [usersId], references: [id])
+  user              users               @relation(fields: [usersId], references: [uid])
   usersId           String
   room              rooms               @relation(fields: [roomsId], references: [id])
   roomsId           Int
@@ -217,7 +217,7 @@ model reviews {
   id             Int              @id @default(autoincrement())
   rating         Int
   review         String           @db.LongText
-  user           users            @relation(fields: [usersId], references: [id])
+  user           users            @relation(fields: [usersId], references: [uid])
   usersId        String
   listing        listings         @relation(fields: [listingsId], references: [id])
   listingsId     Int
