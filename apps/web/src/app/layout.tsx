@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Raleway } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/cores/Header';
 import { Footer } from '@/components/cores/Footer';
-
+import TanstackProvider from '@/providers/TanstackProvider';
+import { usePathname } from 'next/navigation';
+const raleway = Raleway({ subsets: ['latin'] });
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -18,13 +20,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="container">
+      <TanstackProvider>
+        <head>
+          <script
+            defer
+            src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
+            async
+          ></script>
+        </head>
+        <body className={raleway.className}>
           <Header />
-          {children}
+          <div className="min-h-screen">{children}</div>
           <Footer />
-        </div>
-      </body>
+        </body>
+      </TanstackProvider>
     </html>
   );
 }
