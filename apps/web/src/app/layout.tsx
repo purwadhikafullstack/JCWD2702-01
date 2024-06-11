@@ -1,11 +1,14 @@
 import type { Metadata } from 'next';
-import { Inter, Raleway } from 'next/font/google';
+import { Inter, Raleway, Montserrat } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/cores/Header';
 import { Footer } from '@/components/cores/Footer';
 import TanstackProvider from '@/providers/TanstackProvider';
 import { usePathname } from 'next/navigation';
+import { Suspense } from 'react';
+import Loading from './loading';
 const raleway = Raleway({ subsets: ['latin'] });
+const montserrat = Montserrat({ subsets: ['latin'] });
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -28,9 +31,11 @@ export default function RootLayout({
             async
           ></script>
         </head>
-        <body className={raleway.className}>
+        <body className={`${raleway.className}`}>
           <Header />
-          <div className="min-h-screen">{children}</div>
+          <Suspense fallback={<Loading />}>
+            <div className="min-h-screen">{children}</div>
+          </Suspense>
           <Footer />
         </body>
       </TanstackProvider>

@@ -47,13 +47,13 @@ export default function SearchBar() {
   }, []);
 
   const formSchema = z.object({
-    location: z.string(),
+    location: z.string({ required_error: 'Must be filled' }),
     duration: z.object({
       from: z.date(),
       to: z.date(),
     }),
     guests: z.object({
-      adults: z.number().min(0),
+      adults: z.number().min(1),
       children: z.number().min(0),
       pets: z.number().min(0),
     }),
@@ -177,7 +177,7 @@ export default function SearchBar() {
                         id="date"
                         variant="outline"
                         className={cn(
-                          ' justify-start lg:w-72 text-left font-medium p-8 rounded-full lg:rounded-none lg:rounded-r-full',
+                          'text-semibold justify-start lg:w-72 text-left font-medium p-8 rounded-full lg:rounded-none lg:rounded-r-full',
                           Object.values(form.watch('guests')).reduce(
                             (acc, x) => acc + x,
                             0,

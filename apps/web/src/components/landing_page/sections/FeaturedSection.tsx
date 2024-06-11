@@ -1,7 +1,7 @@
 import Autoplay from 'embla-carousel-autoplay';
 import { ArrowRight, ArrowRightCircle } from 'lucide-react';
 import { Button } from '../../ui/button';
-import { ListingCard } from '@/components/cores/cards/ListingCard';
+import { ListingCard } from '@/components/cards/ListingCard';
 import {
   Carousel,
   CarouselContent,

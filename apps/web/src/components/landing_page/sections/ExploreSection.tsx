@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ThumbnailCard } from '@/components/cores/cards/ThumbnailCard';
+import { ThumbnailCard } from '@/components/cards/ThumbnailCard';
 export const ExploreCity = () => {
   return (
     <div>

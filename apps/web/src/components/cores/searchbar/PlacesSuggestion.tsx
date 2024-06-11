@@ -42,9 +42,9 @@ export default function PlacesAutocomplete({
   });
 
   useEffect(() => {
-    // window.initAutocomplete = () => {
-    //   console.log('Google Maps API script loaded and ready');
-    // };
+    window.initAutocomplete = () => {
+      console.log('Google Maps API script loaded and ready');
+    };
     console.log('value', value);
     console.log('ready?', ready);
     console.log('isloaded?', isLoaded);
@@ -67,6 +67,19 @@ export default function PlacesAutocomplete({
       clearSuggestions();
       getGeocode({ address: description }).then((results) => {
         const { lat, lng } = getLatLng(results[0]);
+
+        let city = '';
+        let country = '';
+        results[0].address_components.forEach((component) => {
+          if (component.types.includes('locality')) {
+            city = component.long_name;
+          }
+          if (component.types.includes('country')) {
+            country = component.long_name;
+          }
+        });
+
+        console.log(`City: ${city}, Country: ${country}`);
         setValue('location', `${lat},${lng}`);
       });
     };
@@ -110,7 +123,7 @@ export default function PlacesAutocomplete({
           placeholder="Where are you going?"
           className={
             className +
-            ' truncate text-black focus:outline-none rounded-full lg:rounded-none lg:rounded-l-full w-80 p-8'
+            'truncate text-black focus:outline-none rounded-full lg:rounded-none lg:rounded-l-full w-80 p-8'
           }
         />
         {status === 'OK' && value && <ul>{renderSuggestions()}</ul>}

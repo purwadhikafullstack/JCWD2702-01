@@ -1,16 +1,11 @@
+'use client';
 import { Home, Tent, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from '@/components/ui/accordion';
 import Image from 'next/image';
-import Link from 'next/link';
 import { FaqAccordion } from '@/components/be_a_tenant/faq_accordion';
+import { useRouter } from 'next/navigation';
 export default function Page() {
+  const router = useRouter();
   return (
     <div className="mt-32 md:w-[80vw] grid gap-16 xl:w-[70vw] mx-8 md:mx-auto">
       <div className="justify-items-center grid gap-6 md:gap-8 pt-8">
@@ -26,7 +21,11 @@ export default function Page() {
           >
             Read FAQ
           </Button>
-          <Button size={'lg'} className="order-1 lg:order-2">
+          <Button
+            onClick={() => router.push('/be-a-tenant/set-up')}
+            size={'lg'}
+            className="order-1 lg:order-2"
+          >
             <Home className="mr-3" />
             Set up a profile now
             <ArrowRight className="ml-3" />
@@ -43,10 +42,13 @@ export default function Page() {
           alt="Roomer tenant"
           className="w-full xl:h-[600px] xl:object-cover rounded-lg object-bottom"
         />
-        <div className="w-[80%] font-medium text-center">
-          We’ve partnered with apartment buildings across the US so you can rent
-          a place to live and host on Airbnb part-time. The typical host
-          earned $3650/year and hosted 28 nights.
+        <div className="md:w-[80%] text-lg font-medium  md:text-center">
+          With over 500,000 users worldwide, Roomer partners with top apartment
+          buildings across the globe, offering you a seamless way to rent and
+          earn. List your place part-time on Roomer and join thousands of hosts
+          who earned an average of $4,000 annually, hosting 30 nights a year.
+          Our easy-to-use platform and dedicated support team make it simple to
+          maximize your rental income while enjoying the flexibility you need.
         </div>
       </div>
 

@@ -9,7 +9,7 @@ interface IListingCard {
   country: string;
   avgRating: number;
   price: number;
-  seasonalPrice: number | undefined;
+  seasonalPrice?: number | undefined;
 }
 
 export const ListingCard = ({
@@ -86,7 +86,7 @@ export const ListingCard = ({
             </div>
           </div>
         ) : (
-          <div>
+          <div className="font-bold">
             {price.toLocaleString('id-ID', {
               style: 'currency',
               currency: 'IDR',

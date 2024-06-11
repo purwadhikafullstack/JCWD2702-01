@@ -20,20 +20,23 @@ export default function LandingPage() {
   ];
 
   const rooms = [
-    { id: 1, price: 560000, seasonal_price: seasonal_price[0].price },
+    { id: 0, price: 560000, seasonal_price: seasonal_price[0].price },
     { id: 1, price: 560000, seasonal_price: seasonal_price[1].price },
+    { id: 2, price: 560000 },
   ];
 
   const listings = [
     {
+      id: "uifsjw241",
       title: 'Accommodation Name',
       city: 'Jakarta',
       country: 'Indonesia',
       avg_rating: 4.8,
-      roomId: 0,
+      roomId: 2,
       listing_images: listing_images[0].image_url,
     },
     {
+      id: "73vcasfui84",
       title: 'Accommodation Name',
       city: 'Sydney',
       country: 'Australia',
@@ -42,6 +45,7 @@ export default function LandingPage() {
       listing_images: listing_images[0].image_url,
     },
     {
+      id: "2dgasgd43",
       title: 'Accommodation Name',
       city: 'Makassar',
       country: 'Indonesia',
@@ -50,6 +54,7 @@ export default function LandingPage() {
       listing_images: listing_images[0].image_url,
     },
     {
+      id:  "x42gnim653",
       title: 'Accommodation Name',
       city: 'Bandung',
       country: 'Indonesia',
@@ -58,6 +63,7 @@ export default function LandingPage() {
       listing_images: listing_images[0].image_url,
     },
     {
+      id:  "503mkdfm3",
       title: 'Accommodation Name',
       city: 'Phuket',
       country: 'Thailand',
@@ -66,6 +72,7 @@ export default function LandingPage() {
       listing_images: listing_images[0].image_url,
     },
     {
+      id:  "xfsopgod352",
       title: 'Accommodation Name',
       city: 'Bali',
       country: 'Indonesia',
@@ -74,6 +81,7 @@ export default function LandingPage() {
       listing_images: listing_images[0].image_url,
     },
     {
+      id:  "eoi2dsfk303",
       title: 'Accommodation Name',
       city: 'Tokyo',
       country: 'Japan',
@@ -87,8 +95,8 @@ export default function LandingPage() {
   return (
     <div>
       <div className="w-full overflow-hidden">
-        <div className="absolute z-[5] flex flex-col gap-12 items-center justify-center inset-0 h-[85vh] md:h-[70vh]">
-          <div className="drop-shadow-[0_5px_15px_rgba(0,0,0,0.4)] font-bold w-[60%] text-3xl w-[50%] lg:w-full text-center text-white">
+        <div className="absolute z-[15] flex flex-col gap-12 items-center justify-center inset-0 h-[85vh] md:h-[70vh]">
+          <div className="drop-shadow-[0_5px_15px_rgba(0,0,0,0.4)] font-bold w-[60%] text-5xl w-[50%] lg:w-full text-center text-white">
             Find the accommodation of your next adventure
           </div>
           <SearchBar></SearchBar>
