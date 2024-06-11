@@ -11,7 +11,7 @@ const storage = multer.diskStorage({
         if (isDirectoryExist === false) {
             fs.mkdirSync(`${defaultDirectory}/${childDirectoryBasedOnMimetype}`, { recursive: true })
         }
-        cb(null, `${defaultDirectory}/${childDirectoryBasedOnMimetype}`) // 'images/webp or application/pdf'
+        cb(null, `${defaultDirectory}/${childDirectoryBasedOnMimetype}`)
     },
     filename: function (req, file, cb) {
         const randomNumber = Math.ceil(Math.random() * 10000000000000)

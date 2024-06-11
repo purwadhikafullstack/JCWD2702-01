@@ -42,7 +42,6 @@ export default function ProfileForm() {
       const acceptedFormat = ['jpg', 'jpeg', 'webp', 'png'];
       const files: any = [...event.target.files];
 
-      console.log(event.target.files);
       files.forEach((file: any) => {
         if (
           !acceptedFormat.includes(
@@ -60,9 +59,7 @@ export default function ProfileForm() {
 
       if (files.length > 1) throw { message: 'Selected Files more than 1' };
 
-      console.log('files after process', files);
       setImages(files);
-      console.log('should show image ', images);
     } catch (error: any) {
       alert(error.message);
     }
@@ -80,8 +77,6 @@ export default function ProfileForm() {
   const { isDirty } = formState;
 
   const onSubmit = async (values: z.infer<typeof ProfileFormSchema>) => {
-    console.log({ values: values });
-
     const fd = new FormData();
 
     fd.append(
@@ -99,12 +94,14 @@ export default function ProfileForm() {
       mutationUpdateUserProfile(fd, {
         onSuccess: () => {
           reset();
+          window.location.reload();
         },
       });
     } else {
       mutationUpdateTenantProfile(fd, {
         onSuccess: () => {
           reset();
+          window.location.reload();
         },
       });
     }

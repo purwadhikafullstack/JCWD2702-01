@@ -10,7 +10,6 @@ export const useUpdateUserProfile = () => {
 
     const { mutate: mutationUpdateUserProfile } = useUpdateUserMutation({
         onSuccess: (res: any) => {
-            console.log({ UpdateUserRes: res })
             setCookie(res.data.data.accesstoken)
             dispatch(
                 setUser({

@@ -14,7 +14,6 @@ export const useSignin = () => {
 
     const { mutate: mutationSignin } = useSigninMutation({
         onSuccess: (res: any) => {
-            console.log({ LoginRes: res })
             setCookie(res.data.data.accesstoken)
             dispatch(
                 setUser({

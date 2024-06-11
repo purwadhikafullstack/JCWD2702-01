@@ -6,7 +6,6 @@ export const useSignupUser = () => {
 
     const { mutate: mutationSignupUser } = useSignupUserMutation({
         onSuccess: (res: any) => {
-            console.log({ SignupRes: res.data.provider })
             if (res.data.provider === 1) {
                 toast({
                     title: `${res.data.message}`,
@@ -19,7 +18,6 @@ export const useSignupUser = () => {
             }
         },
         onError: (err: any) => {
-            console.log({ SignupErr: err })
             toast({
                 variant: "destructive",
                 title: "Uh oh! Something went wrong.",

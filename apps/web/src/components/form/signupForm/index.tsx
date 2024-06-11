@@ -33,8 +33,6 @@ const SignupForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof SignupFormSchema>) => {
-    console.log({ values: values });
-
     mutationSignupUser({
       email: values.email,
     });
@@ -42,8 +40,6 @@ const SignupForm = () => {
 
   const signupWithGoogle = async () => {
     signInWithPopup(auth, provider).then(async (res) => {
-      console.log({ GoogleSignupRes: res.user });
-
       if (res.user) {
         mutationSignupUser({
           uid: res.user.uid,

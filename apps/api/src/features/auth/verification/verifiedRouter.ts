@@ -7,8 +7,8 @@ import { handleErrorValidator } from "@/middleware/validator/handleErrorExpressV
 
 const router = Router()
 
-router.put('/', tokenVerify, uploader, VerifiyAccountValidator, handleErrorValidator, VerifiedUserAccount) // Verified User Account and Set User Data
-router.get('/status', tokenVerify, CheckAccountVerifiedStatus) // Check User Account Verified Status
-router.post('/reverify', NewVerificationLinkValidator, handleErrorValidator, newVerificationLink) // Resend Email if jwt expired
+router.put('/', tokenVerify, uploader, VerifiyAccountValidator, handleErrorValidator, VerifiedUserAccount)
+router.get('/status', tokenVerify, CheckAccountVerifiedStatus)
+router.post('/reverify', NewVerificationLinkValidator, handleErrorValidator, newVerificationLink)
 
 export default router

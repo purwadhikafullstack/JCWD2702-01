@@ -7,17 +7,17 @@ import TenantRouter from '../features/tenant/tenantRouter'
 import UserRouter from '../features/user/userRouter'
 import SignouRouter from '../features/auth/signout/signoutRouter'
 
-// Define Router
+
 const router = Router();
 router.use(cors());
-router.use(express.json()); // Body Parser
+router.use(express.json());
 router.use('*/image', express.static('src/public/image'));
 
-router.use('/signup', SignupRouter) //SIGNUP
-router.use('/verification', VerfiedRouter) //VERIFICATION
-router.use('/signin', SigninRouter) //SIGNIN
-router.use('/signout', SignouRouter) //SIGNOUT
-router.use('/tenant', TenantRouter) //TENANT
-router.use('/user', UserRouter) //USER
+router.use('/signup', SignupRouter)
+router.use('/verification', VerfiedRouter)
+router.use('/signin', SigninRouter)
+router.use('/signout', SignouRouter)
+router.use('/tenant', TenantRouter)
+router.use('/user', UserRouter)
 
 export default router;

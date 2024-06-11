@@ -32,7 +32,6 @@ const SigninForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof SigninFormSchema>) => {
-    console.log({ SigninValues: values });
     try {
       mutationSignin({
         email: values.email,
@@ -46,7 +45,6 @@ const SigninForm = () => {
   const signinWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      console.log({ result: result });
 
       if (result.user) {
         mutationSignin({
@@ -87,7 +85,6 @@ const SigninForm = () => {
                 <FormItem>
                   <FormLabel>password</FormLabel>
                   <FormControl>
-                    {/* <Input type="password" placeholder="password" {...field} /> */}
                     <PasswordInput {...field} placeholder="password" />
                   </FormControl>
                   <FormMessage />

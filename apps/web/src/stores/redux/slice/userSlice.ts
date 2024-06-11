@@ -12,7 +12,6 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         setUser: (prevState, action) => {
-            console.log("<<<<<")
             prevState.uid = action.payload.uid;
             prevState.rolesId = action.payload.rolesId;
             prevState.display_name = action.payload.display_name;

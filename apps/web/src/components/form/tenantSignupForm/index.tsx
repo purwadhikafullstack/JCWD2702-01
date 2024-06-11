@@ -27,7 +27,6 @@ export default function TenantSignupForm({ nextStep }: any) {
       const acceptedFormat = ['jpg', 'jpeg', 'webp', 'png'];
       const files: any = [...event.target.files];
 
-      console.log(event.target.files);
       files.forEach((file: any) => {
         if (
           !acceptedFormat.includes(
@@ -45,9 +44,7 @@ export default function TenantSignupForm({ nextStep }: any) {
 
       if (files.length > 1) throw { message: 'Selected Files more than 1' };
 
-      console.log('files after process', files);
       setImages(files);
-      console.log('should show image ', images);
     } catch (error: any) {
       alert(error.message);
     }
@@ -67,8 +64,6 @@ export default function TenantSignupForm({ nextStep }: any) {
   const { isDirty } = formState;
 
   const onSubmit = async (values: z.infer<typeof TenantSignupFormSchema>) => {
-    console.log({ values: values });
-
     const fd = new FormData();
 
     fd.append(

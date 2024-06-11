@@ -29,7 +29,6 @@ export default function TenantBankDetailsForm({ nextStep }: any) {
   const onSubmit = async (
     values: z.infer<typeof TenantBankDetailsFormSchema>,
   ) => {
-    console.log({ values: values });
     nextStep();
   };
   return (

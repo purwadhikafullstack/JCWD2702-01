@@ -30,8 +30,6 @@ export default function ExpiredVerifiedForm() {
   const onSubmit = async (
     values: z.infer<typeof ExpiredVerifiedFormSchema>,
   ) => {
-    console.log({ values: values });
-
     mutationNewVerificationLink({
       email: values.email,
     });

@@ -8,9 +8,6 @@ const app: Express = express();
 app.use(cors());
 app.use(express.json())
 
-
-// Import index.ts /routers
-
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello, Purwadhika Student!');
 });

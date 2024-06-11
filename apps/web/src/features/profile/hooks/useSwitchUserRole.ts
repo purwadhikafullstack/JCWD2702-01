@@ -11,7 +11,6 @@ export const useSwitchUserRole = () => {
 
     const { mutate: mutationSwitchUserRole } = useSwitchUserRoleMutation({
         onSuccess: (res: any) => {
-            console.log({ SwitchRole: res })
             setCookie(res.data.data.accesstoken)
             dispatch(
                 setUser({
@@ -29,7 +28,6 @@ export const useSwitchUserRole = () => {
             )
         },
         onError: (err: any) => {
-            console.log("ini error")
             console.log(err)
             router.push('/tenant/signup')
         }

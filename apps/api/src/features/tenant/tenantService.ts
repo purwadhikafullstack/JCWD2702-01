@@ -37,7 +37,7 @@ export const registerTenant = async (uid: string, tenantData: any, images: any) 
             return await prisma.tenants.create({
                 data: {
                     display_name: tenantData.display_name,
-                    image_url: `http://localhost:8000/${imagesToCreate[0]}`,
+                    image_url: `${process.env.SERVER_URL as string}/${imagesToCreate[0]}`,
                     id_card_number: tenantData.id_card_number,
                     phone: tenantData.phone,
                     usersId: uid
@@ -98,7 +98,8 @@ export const updateProfile = async (uid: string, profileData: any, images: any) 
 
         if (images) {
             const imagesToCreate = images.map((item: any) => item.path);
-            updatedData.image_url = `http://localhost:8000/${imagesToCreate[0]}`;
+            updatedData.image_url = `${process.env.SERVER_URL as string}/${imagesToCreate[0]}`
+
         }
         return await prisma.tenants.update({
             where: {

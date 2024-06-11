@@ -1,6 +1,5 @@
 import { useToast } from "@/components/ui/use-toast";
 import { useSignupTenantMutation } from "../api/useSignupTenantMutation";
-import { useRouter } from "next/navigation";
 import { setCookie } from "@/utils/Cookies";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/stores/redux/slice/userSlice";
@@ -8,12 +7,10 @@ import { setTenant } from "@/stores/redux/slice/tenantSlice";
 
 export const useSignupTenant = (nextStep: any) => {
     const { toast } = useToast()
-    const router = useRouter()
     const dispatch = useDispatch()
 
     const { mutate: mutationSignupTenant } = useSignupTenantMutation({
         onSuccess: (res: any) => {
-            console.log({ hooks: res })
             setCookie(res.data.data.accesstoken)
             dispatch(
                 setUser({
@@ -34,7 +31,6 @@ export const useSignupTenant = (nextStep: any) => {
                 description: "Tenant profile has been created successfully"
             })
             nextStep()
-            // router.push('/')
         },
         onError: (err: any) => {
             toast({

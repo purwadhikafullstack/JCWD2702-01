@@ -57,9 +57,9 @@ export const newVerificationLink = async (req: Request, res: Response, next: Nex
             accesstoken = await createToken({ data: { uid: searchUserResult.uid, email: searchUserResult.email, isVerified: searchUserResult.is_verified }, expiresIn: "1h" })
         }
 
-        const verificationHTML = fs.readFileSync('src/public/template/verification.html', 'utf-8')
+        const verificationHTML = fs.readFileSync(process.env.NODEMAILER_TEMPLATE_PATH as string, 'utf-8')
         let verificationHTMLCompiled: any = await Handlebars.compile(verificationHTML)
-        verificationHTMLCompiled = verificationHTMLCompiled({ username: email, link: `http://localhost:3000/verification/${accesstoken}` })
+        verificationHTMLCompiled = verificationHTMLCompiled({ username: email, link: `${process.env.WEB_URL}/verification/${accesstoken}` })
 
         transporterNodemailer.sendMail({
             from: 'Roomer',

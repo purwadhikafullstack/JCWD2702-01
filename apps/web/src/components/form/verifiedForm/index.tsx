@@ -36,7 +36,6 @@ export default function VerifiedForm({ token }: VerifiedFormProps) {
       const acceptedFormat = ['jpg', 'jpeg', 'webp', 'png'];
       const files: any = [...event.target.files];
 
-      console.log(event.target.files);
       files.forEach((file: any) => {
         if (
           !acceptedFormat.includes(
@@ -54,9 +53,7 @@ export default function VerifiedForm({ token }: VerifiedFormProps) {
 
       if (files.length > 1) throw { message: 'Selected Files more than 1' };
 
-      console.log('files after process', files);
       setImages(files);
-      console.log('should show image ', images);
     } catch (error: any) {
       alert(error.message);
     }
@@ -75,8 +72,6 @@ export default function VerifiedForm({ token }: VerifiedFormProps) {
   const { isDirty } = formState;
 
   const onSubmit = async (values: z.infer<typeof VerifiedFormSchema>) => {
-    console.log({ values: values });
-
     const fd = new FormData();
 
     fd.append(

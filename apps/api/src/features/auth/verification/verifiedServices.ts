@@ -28,7 +28,7 @@ export const VerifiedAccount = async (uid: string, userData: any, images: any) =
                     uid: uid
                 },
                 data: {
-                    image_url: `http://localhost:8000/${imagesToCreate[0]}`
+                    image_url: `${process.env.SERVER_URL as string}/${imagesToCreate[0]}`
                 }
             })
 

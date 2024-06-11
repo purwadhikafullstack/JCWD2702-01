@@ -6,7 +6,7 @@ import { handleErrorValidator } from "@/middleware/validator/handleErrorExpressV
 
 const router = Router()
 
-router.post('/', SigninValidator, handleErrorValidator, signin) // Login User
-router.post('/persist', tokenVerify, persistSignin) // Keep Login
+router.post('/', SigninValidator, handleErrorValidator, signin)
+router.post('/persist', tokenVerify, persistSignin)
 
 export default router

@@ -6,7 +6,6 @@ export const useVerifiedAccount = () => {
 
     const { mutate: mutationVerifiedAccount } = useVerifiedAccountMutation({
         onSuccess: (res: any) => {
-            console.log({ hooks: res })
             window.location.reload()
         },
         onError: (err: any) => {

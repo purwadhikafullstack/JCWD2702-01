@@ -1,50 +1,5 @@
 'use client';
 
-// import { useState } from 'react';
-// import ProfileForm from '@/components/form/profileForm';
-// import ProfileSidebar from '@/components/profile/profileSidebar';
-// import orderHistory from '@/components/profile/user/orderHistory';
-// import myReviews from '@/components/profile/user/myReviews';
-// import settings from '@/components/profile/user/settings';
-// import issueComplaint from '@/components/profile/user/issueComplaint';
-// import { Label } from '@/components/ui/label';
-// import { Switch } from '@/components/ui/switch';
-
-// export default function Profile() {
-//   const [selectedMenuItem, setSelectedMenuItem] = useState('Profile');
-
-//   let SelectedComponent = ProfileForm;
-
-//   if (selectedMenuItem === 'Order history') {
-//     SelectedComponent = orderHistory;
-//   } else if (selectedMenuItem === 'My reviews') {
-//     SelectedComponent = myReviews;
-//   } else if (selectedMenuItem === 'Settings') {
-//     SelectedComponent = settings;
-//   } else if (selectedMenuItem === 'Issue complaint') {
-//     SelectedComponent = issueComplaint;
-//   }
-//   return (
-//     <div className="w-full flex justify-center">
-//       <div className="flex justify-center gap-12 p-14 w-full">
-//         <ProfileSidebar onSelectMenuItem={setSelectedMenuItem} />
-//         <div className="flex flex-col gap-7 text-2xl">
-//           <div className="font-semibold flex justify-between">
-//             {selectedMenuItem}
-//             <div className="flex items-center space-x-2">
-//               <Switch id="full-width" />
-//               <Label htmlFor="full-width" className="font-light">
-//                 Full-width
-//               </Label>
-//             </div>
-//           </div>
-//           <SelectedComponent />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 import { useState } from 'react';
 import ProfileForm from '@/components/form/profileForm';
 import ProfileSidebar from '@/components/profile/profileSidebar';
