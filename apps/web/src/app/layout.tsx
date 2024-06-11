@@ -3,12 +3,14 @@ import { Inter, Raleway, Montserrat } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/cores/Header';
 import { Footer } from '@/components/cores/Footer';
-import TanstackProvider from '@/providers/TanstackProvider';
-import { usePathname } from 'next/navigation';
 import { Suspense } from 'react';
 import Loading from './loading';
 const raleway = Raleway({ subsets: ['latin'] });
 const montserrat = Montserrat({ subsets: ['latin'] });
+import { Toaster } from '@/components/ui/toaster';
+import TanstackProvider from '@/providers/TanstackProvider';
+import ReduxProvider from '@/providers/ReduxProvider';
+import ProtectedRoute from '@/components/ProtectedRoute';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -23,22 +25,29 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <TanstackProvider>
-        <head>
-          <script
-            defer
-            src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
-            async
-          ></script>
-        </head>
-        <body className={`${raleway.className}`}>
-          <Header />
-          <Suspense fallback={<Loading />}>
-            <div className="min-h-screen">{children}</div>
-          </Suspense>
-          <Footer />
-        </body>
-      </TanstackProvider>
+      <head>
+        <script
+          defer
+          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
+          async
+        ></script>
+      </head>
+      <body className={raleway.className}>
+        <ReduxProvider>
+          <TanstackProvider>
+            <ProtectedRoute>
+              <Header />
+              <Suspense fallback={<Loading />}>
+                <div className="min-h-screen">
+                  {children}
+                  <Toaster />
+                </div>
+              </Suspense>
+              <Footer />
+            </ProtectedRoute>
+          </TanstackProvider>
+        </ReduxProvider>
+      </body>
     </html>
   );
 }
