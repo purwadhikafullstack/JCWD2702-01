@@ -6,10 +6,8 @@ interface ISignupTenantProps {
 
 const SignupTenant: FC<ISignupTenantProps> = ({ children }) => {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="rounded-lg flex justify-center items-center">
-        {children}
-      </div>
+    <div className="flex justify-center items-center h-screen w-screen">
+      {children}
     </div>
   );
 };

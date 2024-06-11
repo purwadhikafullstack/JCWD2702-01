@@ -17,7 +17,10 @@ export const useUpdateTenantProfile = () => {
             )
         },
         onError: (err: any) => {
-            console.log(err)
+            toast({
+                variant: "destructive",
+                description: `${err.response.data.message}`
+            })
         }
     })
 

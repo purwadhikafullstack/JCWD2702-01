@@ -1,58 +1,106 @@
 'use client';
 
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import {
-  IPersistSignin,
-  IPersistTenantData,
-} from '@/features/auth/signin/type';
+// import { useState } from 'react';
+// import ProfileForm from '@/components/form/profileForm';
+// import ProfileSidebar from '@/components/profile/profileSidebar';
+// import orderHistory from '@/components/profile/user/orderHistory';
+// import myReviews from '@/components/profile/user/myReviews';
+// import settings from '@/components/profile/user/settings';
+// import issueComplaint from '@/components/profile/user/issueComplaint';
+// import { Label } from '@/components/ui/label';
+// import { Switch } from '@/components/ui/switch';
+
+// export default function Profile() {
+//   const [selectedMenuItem, setSelectedMenuItem] = useState('Profile');
+
+//   let SelectedComponent = ProfileForm;
+
+//   if (selectedMenuItem === 'Order history') {
+//     SelectedComponent = orderHistory;
+//   } else if (selectedMenuItem === 'My reviews') {
+//     SelectedComponent = myReviews;
+//   } else if (selectedMenuItem === 'Settings') {
+//     SelectedComponent = settings;
+//   } else if (selectedMenuItem === 'Issue complaint') {
+//     SelectedComponent = issueComplaint;
+//   }
+//   return (
+//     <div className="w-full flex justify-center">
+//       <div className="flex justify-center gap-12 p-14 w-full">
+//         <ProfileSidebar onSelectMenuItem={setSelectedMenuItem} />
+//         <div className="flex flex-col gap-7 text-2xl">
+//           <div className="font-semibold flex justify-between">
+//             {selectedMenuItem}
+//             <div className="flex items-center space-x-2">
+//               <Switch id="full-width" />
+//               <Label htmlFor="full-width" className="font-light">
+//                 Full-width
+//               </Label>
+//             </div>
+//           </div>
+//           <SelectedComponent />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+import { useState } from 'react';
 import ProfileForm from '@/components/form/profileForm';
+import ProfileSidebar from '@/components/profile/profileSidebar';
+import OrderHistory from '@/components/profile/user/orderHistory';
+import MyReviews from '@/components/profile/user/myReviews';
+import Settings from '@/components/profile/user/settings';
+import IssueComplaint from '@/components/profile/user/issueComplaint';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
 
 export default function Profile() {
-  const [userData, setUserData] = useState<IPersistSignin>(
-    {} as IPersistSignin,
-  );
-  const [tenantData, setTenantData] = useState<IPersistTenantData>(
-    {} as IPersistTenantData,
-  );
-  const stateUser = useSelector((state: any) => state.user);
-  const stateTenant = useSelector((state: any) => state.tenant);
+  const [selectedMenuItem, setSelectedMenuItem] = useState('Profile');
+  const [isFullWidth, setIsFullWidth] = useState(false);
 
-  useEffect(() => {
-    setUserData(stateUser);
-    setTenantData(stateTenant);
-  }, [stateUser, stateTenant]);
+  let SelectedComponent = ProfileForm;
+
+  if (selectedMenuItem === 'Order history') {
+    SelectedComponent = OrderHistory;
+  } else if (selectedMenuItem === 'My reviews') {
+    SelectedComponent = MyReviews;
+  } else if (selectedMenuItem === 'Settings') {
+    SelectedComponent = Settings;
+  } else if (selectedMenuItem === 'Issue complaint') {
+    SelectedComponent = IssueComplaint;
+  }
+
+  const handleSwitchChange = (checked: boolean) => {
+    setIsFullWidth(checked);
+  };
+
   return (
-    <div>
-      <div className="text-2xl font-bold">Personal Info</div>
-      <div className="flex flex-col pt-7 space-y-5">
-        {userData.rolesId == 1 && userData.image_url ? (
-          <div className="w-[80px] h-[80px] bg-zinc-100 rounded-full text-white text-sm flex justify-center items-center relative text-center pr-2">
-            <Image
-              src={userData.image_url}
-              fill={true}
-              alt="Image Profile"
-              quality={100}
-              style={{ objectFit: 'cover' }}
-              className="rounded-full"
-            />
+    <div className={`w-full flex justify-center p-14`}>
+      <div
+        className={`${isFullWidth ? 'flex gap-12 w-full' : 'flex w-3/5 gap-12'}`}
+      >
+        <ProfileSidebar onSelectMenuItem={setSelectedMenuItem} />
+        <div
+          className={`flex flex-col gap-7 text-2xl ${isFullWidth ? 'w-3/4' : 'w-full'}`}
+        >
+          <div className="font-semibold flex justify-between">
+            {selectedMenuItem}
+            <div className=" sm:hidden md:flex items-center space-x-2">
+              <Switch
+                id="full-width"
+                checked={isFullWidth}
+                onCheckedChange={handleSwitchChange}
+              />
+              <Label htmlFor="full-width" className="font-light">
+                Full-width
+              </Label>
+            </div>
           </div>
-        ) : userData.rolesId == 2 && tenantData?.image_url ? (
-          <div className="w-[80px] h-[80px] bg-zinc-100 rounded-full text-white text-sm flex justify-center items-center relative text-center pr-2">
-            <Image
-              src={tenantData.image_url}
-              fill={true}
-              alt="Tenant Profile Image"
-              quality={100}
-              style={{ objectFit: 'cover' }}
-              className="rounded-full"
-            />
+          <div className={isFullWidth ? 'w-full' : 'flex-grow'}>
+            <SelectedComponent />
           </div>
-        ) : (
-          <div className="w-[80px] h-[80px] bg-zinc-100 rounded-full text-xl flex justify-center items-center relative text-center pr-2 text-black"></div>
-        )}
-        <ProfileForm />
+        </div>
       </div>
     </div>
   );

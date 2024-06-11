@@ -5,7 +5,11 @@ interface IProfileLayoutProps {
 }
 
 const Profile: FC<IProfileLayoutProps> = ({ children }) => {
-  return <div className="h-screen pt-7 container">{children}</div>;
+  return (
+    <div className="h-screen flex pt-10 justify-center md:container">
+      {children}
+    </div>
+  );
 };
 
 export default Profile;

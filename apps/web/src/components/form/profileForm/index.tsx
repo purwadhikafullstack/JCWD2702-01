@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import * as z from 'zod';
 import { ProfileFormSchema } from '@/features/profile/schemas/ProfileFormSchema';
-import { User2 } from 'lucide-react';
+import { Image, User2 } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import {
   IPersistSignin,
@@ -51,9 +51,9 @@ export default function ProfileForm() {
         ) {
           throw { message: `${file.name} Format Not Acceptable` };
         }
-        if (file.size > 1000000000000000) {
+        if (file.size > 1000000) {
           throw {
-            message: `${file.name} is too Large! Maximum Filesize is 1Kb`,
+            message: `${file.name} is too Large! Maximum Filesize is 1Mb`,
           };
         }
       });
@@ -72,8 +72,12 @@ export default function ProfileForm() {
     resolver: zodResolver(ProfileFormSchema),
     defaultValues: {
       username: '',
+      image_url: '',
     },
   });
+
+  const { formState, reset } = form;
+  const { isDirty } = formState;
 
   const onSubmit = async (values: z.infer<typeof ProfileFormSchema>) => {
     console.log({ values: values });
@@ -92,9 +96,17 @@ export default function ProfileForm() {
       });
     }
     if (userData.rolesId == 1) {
-      mutationUpdateUserProfile(fd);
+      mutationUpdateUserProfile(fd, {
+        onSuccess: () => {
+          reset();
+        },
+      });
     } else {
-      mutationUpdateTenantProfile(fd);
+      mutationUpdateTenantProfile(fd, {
+        onSuccess: () => {
+          reset();
+        },
+      });
     }
   };
 
@@ -104,7 +116,7 @@ export default function ProfileForm() {
   }, [stateUser, stateTenant]);
 
   return (
-    <div className="w-80">
+    <div className="flex flex-col gap-7 md:w-96">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
           <FormField
@@ -123,15 +135,45 @@ export default function ProfileForm() {
                     }
                     {...field}
                     suffix={<User2 />}
+                    className=" rounded-full bg-zinc-100"
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button className="w-full mt-5" type="submit">
-            Update!
-          </Button>
+          <FormField
+            control={form.control}
+            name="image_url"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Display Picture</FormLabel>
+                <FormControl>
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    {...field}
+                    onChange={(event) => {
+                      onSetFiles(event);
+                      field.onChange(event);
+                    }}
+                    suffix={<Image />}
+                    className=" rounded-full"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="full flex justify-end">
+            <Button
+              className="w-2/5 mt-5 rounded-full"
+              type="submit"
+              disabled={!isDirty}
+            >
+              Save Changes
+            </Button>
+          </div>
         </form>
       </Form>
     </div>

@@ -16,12 +16,11 @@ export const signin = async (req: Request, res: Response, next: NextFunction) =>
             } else {
                 throw new Error('Password is required for this account!');
             }
-        } else {
-            if (password) {
-                throw new Error('This account uses social login, please use the appropriate login method.');
-            }
+        } else if (password && !findLoginUserByEmailResult.password && findLoginUserByEmailResult.providersId === 1) {
+            throw new Error("This account is not verified!")
+        } else if (password) {
+            throw new Error('This account uses social login, please use the appropriate login method.');
         }
-
 
         const accesstoken = await createToken({ data: { uid: findLoginUserByEmailResult.uid, display_name: findLoginUserByEmailResult.display_name, rolesId: findLoginUserByEmailResult.rolesId, image_url: findLoginUserByEmailResult.image_url }, expiresIn: "3h" })
 

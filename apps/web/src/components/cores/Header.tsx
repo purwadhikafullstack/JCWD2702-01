@@ -5,9 +5,11 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import { useSelector } from 'react-redux';
-import { IPersistSignin } from '@/features/auth/signin/type';
+import {
+  IPersistSignin,
+  IPersistTenantData,
+} from '@/features/auth/signin/type';
 import HeaderDropDown from '../dropdown/header';
-import { IPersistTenantData } from '@/features/auth/signin/type';
 
 export const Header = () => {
   const [userData, setUserData] = useState<IPersistSignin>(
@@ -59,7 +61,7 @@ export const Header = () => {
               ) : (
                 <div className="w-6 h-6 bg-zinc-100 rounded-full text-xl flex justify-center items-center relative text-center pr-2 text-black"></div>
               )}
-              <div className="text-white pr-2 w-auto text-sm font-light">
+              <div className="hidden md:flex text-white pr-2 w-auto text-sm font-light">
                 {userData.rolesId == 1
                   ? userData.display_name
                   : tenantData?.display_name}
@@ -69,15 +71,15 @@ export const Header = () => {
               </div>
             </div>
           ) : (
-            <div className="space-x-4">
+            <div className="space-x-4 flex">
               <Link href={'/signup'}>
-                <Button className="rounded-full text-sm h-8 w-24 font-light">
+                <Button className="hidden md:flex rounded-full text-sm h-8 w-24 font-light bg-black">
                   Sign Up
                 </Button>
               </Link>
               <Link href={'/signin'}>
                 <Button
-                  className="rounded-full text-sm h-8 w-24 border-black font-light"
+                  className="rounded-full text-sm h-8 w-24 font-light bg-black text-white md:text-black md:bg-transparent md:border-black"
                   variant={'outline'}
                 >
                   Sign In

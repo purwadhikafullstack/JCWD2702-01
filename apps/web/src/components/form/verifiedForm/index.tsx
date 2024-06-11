@@ -45,9 +45,9 @@ export default function VerifiedForm({ token }: VerifiedFormProps) {
         ) {
           throw { message: `${file.name} Format Not Acceptable` };
         }
-        if (file.size > 1000000000000000) {
+        if (file.size > 1000000) {
           throw {
-            message: `${file.name} is too Large! Maximum Filesize is 1Kb`,
+            message: `${file.name} is too Large! Maximum Filesize is 1Mb`,
           };
         }
       });
@@ -70,6 +70,9 @@ export default function VerifiedForm({ token }: VerifiedFormProps) {
       profilePict: '',
     },
   });
+
+  const { formState } = form;
+  const { isDirty } = formState;
 
   const onSubmit = async (values: z.infer<typeof VerifiedFormSchema>) => {
     console.log({ values: values });
@@ -139,7 +142,10 @@ export default function VerifiedForm({ token }: VerifiedFormProps) {
                     }
                     accept="image/*"
                     {...field}
-                    onChange={(event) => onSetFiles(event)}
+                    onChange={(event) => {
+                      onSetFiles(event);
+                      field.onChange(event);
+                    }}
                     suffix={<Image />}
                   />
                 </FormControl>
@@ -147,7 +153,7 @@ export default function VerifiedForm({ token }: VerifiedFormProps) {
               </FormItem>
             )}
           />
-          <Button className="w-full mt-5" type="submit">
+          <Button className="w-full mt-5" type="submit" disabled={!isDirty}>
             Verified!
           </Button>
         </form>

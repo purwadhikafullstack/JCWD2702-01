@@ -82,7 +82,7 @@ export const useLogout = () => {
                 setUser({
                     uid: '',
                     role: '',
-                    username: '',
+                    display_name: '',
                 })
             );
             dispatch(

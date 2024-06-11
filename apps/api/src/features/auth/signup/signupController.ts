@@ -12,7 +12,7 @@ export const newUser = async (req: Request, res: Response, next: NextFunction) =
         const createdUser = await createUser({ uid, email, display_name, is_verified, image_url })
 
         if (createdUser) {
-            const accesstoken = await createToken({ data: { uid: createdUser.uid, email: createdUser.email, isVerified: createdUser.is_verified }, expiresIn: "1h" })
+            const accesstoken = await createToken({ data: { uid: createdUser.uid, email: createdUser.email, isVerified: createdUser.is_verified }, expiresIn: "5s" })
 
             const verificationHTML = fs.readFileSync('src/public/template/verification.html', 'utf-8')
             let verificationHTMLCompiled: any = await Handlebars.compile(verificationHTML)

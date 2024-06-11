@@ -18,9 +18,9 @@ import { TenantSignupFormSchema } from '@/features/tenant/signup/schemas/TenantS
 import { Image, Phone, User2 } from 'lucide-react';
 import { useSignupTenant } from '@/features/tenant/signup/hooks/useSignupTenant';
 
-export default function TenantSignupForm() {
+export default function TenantSignupForm({ nextStep }: any) {
   const [images, setImages] = useState([]);
-  const { mutationSignupTenant } = useSignupTenant();
+  const { mutationSignupTenant } = useSignupTenant(nextStep);
 
   const onSetFiles = (event: any) => {
     try {
@@ -36,9 +36,9 @@ export default function TenantSignupForm() {
         ) {
           throw { message: `${file.name} Format Not Acceptable` };
         }
-        if (file.size > 1000000000000000) {
+        if (file.size > 1000000) {
           throw {
-            message: `${file.name} is too Large! Maximum Filesize is 1Kb`,
+            message: `${file.name} is too Large! Maximum Filesize is 1Mb`,
           };
         }
       });
@@ -63,6 +63,9 @@ export default function TenantSignupForm() {
     },
   });
 
+  const { formState } = form;
+  const { isDirty } = formState;
+
   const onSubmit = async (values: z.infer<typeof TenantSignupFormSchema>) => {
     console.log({ values: values });
 
@@ -85,7 +88,13 @@ export default function TenantSignupForm() {
     mutationSignupTenant(fd);
   };
   return (
-    <div className="w-80">
+    <div className="w-full md:w-1/2 lg:w-1/3 flex flex-col gap-7 items-center">
+      <div className="flex flex-col items-center gap-3">
+        <div className="text-sm text-zinc-400">Step 1 of 2</div>
+        <div className="text-center text-2xl font-bold">
+          Set up your tenant profile
+        </div>
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
           <FormField
@@ -95,7 +104,12 @@ export default function TenantSignupForm() {
               <FormItem>
                 <FormLabel>username</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="username" suffix={<User2 />} />
+                  <Input
+                    {...field}
+                    placeholder="username"
+                    suffix={<User2 />}
+                    className=" rounded-full"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -115,8 +129,12 @@ export default function TenantSignupForm() {
                     }
                     accept="image/*"
                     {...field}
-                    onChange={(event) => onSetFiles(event)}
+                    onChange={(event) => {
+                      onSetFiles(event);
+                      field.onChange(event);
+                    }}
                     suffix={<Image />}
+                    className=" rounded-full"
                   />
                 </FormControl>
                 <FormMessage />
@@ -132,8 +150,9 @@ export default function TenantSignupForm() {
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder="Id Card Number"
+                    placeholder="phone"
                     suffix={<Phone />}
+                    className=" rounded-full"
                   />
                 </FormControl>
                 <FormMessage />
@@ -147,17 +166,30 @@ export default function TenantSignupForm() {
               <FormItem>
                 <FormLabel>id card</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Id Card Number" />
+                  <Input
+                    {...field}
+                    placeholder="Id Card Number"
+                    className=" rounded-full"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button className="w-full mt-5" type="submit">
+          <Button
+            className="w-full mt-5 rounded-full"
+            type="submit"
+            disabled={!isDirty}
+          >
             Sign Up as Tenant
           </Button>
         </form>
       </Form>
+      <div className=" text-xs text-center font-light w-full">
+        * All data must be valid. This data will be used as reference in the
+        case of emergency <br />* By filling up the form, you are agreeing to
+        our terms and conditions
+      </div>
     </div>
   );
 }

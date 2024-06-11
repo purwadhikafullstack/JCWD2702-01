@@ -2,6 +2,15 @@ import { prisma } from "@/connection";
 
 export const updateProfile = async (uid: string, profileData: any, images: any) => {
     return await prisma.$transaction(async (prisma) => {
+        const existingProfile = await prisma.users.findUnique({
+            where: {
+                uid: uid
+            }
+        });
+
+        if (!existingProfile) {
+            throw new Error('Profile not found!');
+        }
         const checkDuplicateDisplayName = await prisma.users.findMany({
             where: {
                 NOT: {
@@ -17,29 +26,21 @@ export const updateProfile = async (uid: string, profileData: any, images: any) 
             throw new Error('Username already registered!')
         }
 
+        const updatedData = {
+            display_name: profileData.display_name || existingProfile.display_name,
+            image_url: existingProfile.image_url
+        };
+
         if (images) {
-            const imagesToCreate: any = []
-            images.forEach((item: any) => {
-                imagesToCreate.push(item.path)
-            })
-            return await prisma.users.update({
-                where: {
-                    uid: uid
-                },
-                data: {
-                    display_name: profileData.display_name,
-                    image_url: `http://localhost:8000/${imagesToCreate[0]}`
-                }
-            })
+            const imagesToCreate = images.map((item: any) => item.path);
+            updatedData.image_url = `http://localhost:8000/${imagesToCreate[0]}`;
         }
 
         return await prisma.users.update({
             where: {
                 uid: uid
             },
-            data: {
-                display_name: profileData.display_name
-            }
+            data: updatedData
         })
     })
 }

@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "@/stores/redux/slice/userSlice";
 import { setTenant } from "@/stores/redux/slice/tenantSlice";
 
-export const useSignupTenant = () => {
+export const useSignupTenant = (nextStep: any) => {
     const { toast } = useToast()
     const router = useRouter()
     const dispatch = useDispatch()
@@ -33,7 +33,8 @@ export const useSignupTenant = () => {
                 title: `${res.data.message}`,
                 description: "Tenant profile has been created successfully"
             })
-            router.push('/')
+            nextStep()
+            // router.push('/')
         },
         onError: (err: any) => {
             toast({

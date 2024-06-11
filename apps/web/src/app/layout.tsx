@@ -27,7 +27,7 @@ export default function RootLayout({
           <TanstackProvider>
             <ProtectedRoute>
               <Header />
-              <div className="container">
+              <div className="">
                 {children}
                 <Toaster />
               </div>

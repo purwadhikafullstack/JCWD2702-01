@@ -66,6 +66,16 @@ export const registerTenant = async (uid: string, tenantData: any, images: any) 
 
 export const updateProfile = async (uid: string, profileData: any, images: any) => {
     return await prisma.$transaction(async (prisma) => {
+        const existingProfile = await prisma.tenants.findUnique({
+            where: {
+                usersId: uid
+            }
+        });
+
+        if (!existingProfile) {
+            throw new Error('Profile not found!');
+        }
+
         const checkDuplicateDisplayName = await prisma.tenants.findMany({
             where: {
                 NOT: {
@@ -81,30 +91,20 @@ export const updateProfile = async (uid: string, profileData: any, images: any) 
             throw new Error('Username already registered!')
         }
 
-        if (images) {
-            const imagesToCreate: any = []
-            images.forEach((item: any) => {
-                imagesToCreate.push(item.path)
-            })
-            return await prisma.tenants.update({
-                where: {
-                    usersId: uid
-                },
-                data: {
-                    display_name: profileData.display_name,
-                    image_url: `http://localhost:8000/${imagesToCreate[0]}`
-                }
-            })
-        }
+        const updatedData = {
+            display_name: profileData.display_name || existingProfile.display_name,
+            image_url: existingProfile.image_url
+        };
 
+        if (images) {
+            const imagesToCreate = images.map((item: any) => item.path);
+            updatedData.image_url = `http://localhost:8000/${imagesToCreate[0]}`;
+        }
         return await prisma.tenants.update({
             where: {
                 usersId: uid
             },
-            data: {
-                display_name: profileData.display_name
-            }
+            data: updatedData
         })
-
     })
 }
