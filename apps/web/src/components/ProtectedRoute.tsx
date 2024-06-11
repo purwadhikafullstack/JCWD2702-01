@@ -5,11 +5,9 @@ import { useState, useEffect } from 'react';
 import { usePersistSignin } from '@/features/auth/signin/hooks/useSignin';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import Spinner from './general/spinner';
 import { getCookie } from '@/utils/Cookies';
 
 export default function ProtectedRoute({ children }: any) {
-  const dispatch = useDispatch();
   const router = useRouter();
   const path = usePathname();
   const { mutationPersist } = usePersistSignin();
@@ -54,5 +52,5 @@ export default function ProtectedRoute({ children }: any) {
     }
   }, [loading, path]);
 
-  return loading ? <Spinner /> : <>{children}</>;
+  return loading ? <div>Loading</div> : <>{children}</>;
 }

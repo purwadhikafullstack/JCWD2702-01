@@ -38,7 +38,7 @@ export default function Verified({ params }: { params: { token: string } }) {
         {verifiedStatus == true ? (
           <h1>
             <Link href="/signin">
-              <div>You're verified!</div>
+              <div className="text-2xl font-semibold">You're Verified!</div>
             </Link>
           </h1>
         ) : result === 'error' ? (
