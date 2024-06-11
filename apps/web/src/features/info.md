@@ -5,14 +5,15 @@ Create new types.ts for interfaces
 Folder tree sample:
 
 > features
+
 > auth
 > login
 > api
 
         -UseAuthLoginMutation.ts
-      >hooks
+      > hooks
         -UseAuthLogin.ts
-      >schemas
+      > schemas
         -LoginFormSchema
 
 > users
@@ -22,6 +23,6 @@ Folder tree sample:
         -UseFetchAddressQuery.ts
       >hooks
         -UseFetcgAdress.ts
-      -types.ts
+    -types.ts
 
 -type.ts

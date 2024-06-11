@@ -3,6 +3,10 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/cores/Header';
 import { Footer } from '@/components/cores/Footer';
+import { Toaster } from '@/components/ui/toaster';
+import TanstackProvider from '@/providers/TanstackProvider';
+import ReduxProvider from '@/providers/ReduxProvider';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,11 +23,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="container">
-          <Header />
-          {children}
-          <Footer />
-        </div>
+        <ReduxProvider>
+          <TanstackProvider>
+            <ProtectedRoute>
+              <Header />
+              <div className="">
+                {children}
+                <Toaster />
+              </div>
+              <Footer />
+            </ProtectedRoute>
+          </TanstackProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
