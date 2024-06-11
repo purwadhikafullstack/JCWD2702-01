@@ -45,11 +45,6 @@ export default function PlacesAutocomplete({
     window.initAutocomplete = () => {
       console.log('Google Maps API script loaded and ready');
     };
-    console.log('value', value);
-    console.log('ready?', ready);
-    console.log('isloaded?', isLoaded);
-    console.log('status', status);
-    console.log('suggestion', { status, data });
   }, [isLoaded, ready, value]);
 
   const ref = useOnclickOutside(() => {
@@ -79,7 +74,6 @@ export default function PlacesAutocomplete({
           }
         });
 
-        console.log(`City: ${city}, Country: ${country}`);
         setValue('location', `${lat},${lng}`);
       });
     };

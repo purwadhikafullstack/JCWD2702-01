@@ -252,26 +252,26 @@ const room_facilities = [
 const listing_images = [
   [
     {
-      image_url: '/src/image/room2_1.webp',
+      image_url: process.env.SERVER_URL + '/src/image/room2_1.webp',
     },
     {
-      image_url: '/src/image/room2_2.webp',
+      image_url: process.env.SERVER_URL + '/src/image/room2_2.webp',
     },
     {
-      image_url: '/src/image/room2_3.webp',
+      image_url: process.env.SERVER_URL + '/src/image/room2_3.webp',
     },
   ],
   [
     {
-      image_url: '/src/image/hotel_1_1.webp',
+      image_url: process.env.SERVER_URL + '/src/image/hotel_1_1.webp',
       listingsId: 1,
     },
     {
-      image_url: '/src/image/hotel_1_2.webp',
+      image_url: process.env.SERVER_URL + '/src/image/hotel_1_2.webp',
       listingsId: 1,
     },
     {
-      image_url: '/src/image/hotel_1_3.webp',
+      image_url: process.env.SERVER_URL + '/src/image/hotel_1_3.webp',
       listingsId: 1,
     },
   ],
@@ -279,15 +279,15 @@ const listing_images = [
 
 const room_images = [
   {
-    image_url: '/src/image/hotel_1_type_1.webp',
+    image_url: process.env.SERVER_URL + '/src/image/hotel_1_type_1.webp',
     room_typesId: 2,
   },
   {
-    image_url: '/src/image/hotel_1_type_2.webp',
+    image_url: process.env.SERVER_URL + '/src/image/hotel_1_type_2.webp',
     room_typesId: 3,
   },
   {
-    image_url: '/src/image/hotel_1_type_3.webp',
+    image_url: process.env.SERVER_URL + '/src/image/hotel_1_type_3.webp',
     room_typesId: 4,
   },
 ];
@@ -385,11 +385,8 @@ async function main() {
         email: user.email,
       },
     });
-    console.log(data);
     userInfo.push(data);
   }
-
-  await console.log('what is this', userInfo);
 
   const tenantInfo = [];
 
@@ -403,7 +400,6 @@ async function main() {
 
     tenantInfo.push(newTenant);
 
-    console.log('NEW TENANT', newTenant);
     listing[i].tenantsId = newTenant.id;
 
     const newListing = await prisma.listings.create({
@@ -430,8 +426,6 @@ async function main() {
           listingsId: newListing.id,
         },
       });
-
-      console.log('NEW ROOM', new_room_type);
     }
 
     for (let x of listing_facilities[i]) {
@@ -473,7 +467,6 @@ async function main() {
   }
 
   for (let book of bookings) {
-    console.log(book);
     await prisma.bookings.create({
       data: {
         ...book,

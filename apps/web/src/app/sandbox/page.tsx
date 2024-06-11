@@ -18,7 +18,6 @@ import { FacilityBadge } from '@/components/cores/FacilityBadge';
 
 export default function Page() {
   const { listings } = useGetListings();
-  console.log(listings);
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
     to: addDays(new Date(), 2),
@@ -185,7 +184,7 @@ export default function Page() {
       {listings.map((x: any) => (
         <Link href={`/sandbox/${x.slug}`}>
           <ListingCard
-            key={x.id} // Add a unique key for each element
+            key={x.id}
             imageUrl={`http://localhost:8000/${x.listing_images[0].image_url}`}
             title={x.title}
             avgRating={x.avg_rating}

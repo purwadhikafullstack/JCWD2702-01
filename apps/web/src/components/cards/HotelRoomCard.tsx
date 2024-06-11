@@ -7,7 +7,7 @@ export default function HotelRoomCard({ roomData }: { roomData: any }) {
     <Card className="flex justify-between p-4 border mb-3">
       <div className="flex">
         <Image
-          src={`http://localhost:8000/${roomData.room_images[0].image_url}`}
+          src={`${process.env.NEXT_PUBLIC_BASE_API_URL}${roomData.room_images[0].image_url}`}
           width={100}
           height={100}
           alt="Room Image"

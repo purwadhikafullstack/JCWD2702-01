@@ -10,7 +10,7 @@ export default function ImageTiles({
       <div className="grid grid-cols-2 gap-3">
         <div className="">
           <Image
-            src={`http://localhost:8000/${imageCollection[0]}`}
+            src={imageCollection[0]}
             width={100}
             height={100}
             alt={'picture'}
@@ -22,7 +22,7 @@ export default function ImageTiles({
         <div className="grid grid-cols-2 gap-3">
           <div>
             <Image
-              src={`http://localhost:8000/${imageCollection[1]}`}
+              src={imageCollection[1]}
               width={100}
               height={100}
               alt={'picture'}
@@ -33,7 +33,7 @@ export default function ImageTiles({
           </div>
           <div>
             <Image
-              src={`http://localhost:8000/${imageCollection[2]}`}
+              src={imageCollection[2]}
               width={100}
               height={100}
               alt={'picture'}
@@ -44,7 +44,7 @@ export default function ImageTiles({
           </div>
           <div>
             <Image
-              src={`http://localhost:8000/${imageCollection[3]}`}
+              src={imageCollection[3]}
               width={100}
               height={100}
               alt={'picture'}
@@ -55,7 +55,7 @@ export default function ImageTiles({
           </div>
           <div>
             <Image
-              src={`http://localhost:8000/${imageCollection[4]}`}
+              src={imageCollection[4]}
               width={100}
               height={100}
               alt={'picture'}

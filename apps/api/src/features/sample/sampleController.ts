@@ -102,8 +102,6 @@ export class SampleController {
       let isBookOverlap;
       let isNonavOverlap;
       const bookCheck = [];
-
-      console.log(x);
       if (!x.nonavailability.length) {
         isNonavOverlap = false;
       } else {
@@ -132,28 +130,8 @@ export class SampleController {
             }
           }
         }
-        console.log('Bookcheck result', bookCheck);
         isBookOverlap = x.stock - bookCheck.length > 0 ? false : true;
       }
-
-      // for (let book of x.bookings) {
-      //   if (!room.bookings.length) {
-      //     roomCheck.push(false);
-      //   } else {
-      //     for (let book of room.bookings) {
-      //       if (book.status.id < 4) {
-      //         const roomOverlap = areIntervalsOverlapping(date, {
-      //           start: new Date(book.start_date),
-      //           end: new Date(book.end_date),
-      //         });
-      //         roomCheck.push(roomOverlap);
-      //       }
-      //     }
-      //   }
-
-      //   console.log('room check ? >', roomCheck);
-      //   isBookOverlap = !roomCheck.some((x) => x === false);
-      // }
 
       if (!isNonavOverlap && !isBookOverlap) toShow.push(x);
     }

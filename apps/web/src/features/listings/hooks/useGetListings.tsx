@@ -4,7 +4,6 @@ import {
 } from '../api/useGetListingsQuery';
 
 export const useGetListings = () => {
-  console.log('GET LISTINGS?');
   const { data: listings, isSuccess, isError } = useGetListingsQuery();
   console.log(listings?.data);
   return {
@@ -13,7 +12,6 @@ export const useGetListings = () => {
 };
 
 export const useGetListingById = ({ id }: { id: string }) => {
-  console.log('GET LISTING BY ID?');
   const { data: listingById, isSuccess, isError } = useGetListingByIdQuery(id);
   console.log(listingById?.data);
   return {
