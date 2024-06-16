@@ -52,7 +52,7 @@ export default function HeaderDropDown() {
             variant={'ghost'}
             className="w-auto h-auto outline-transparent"
           >
-            <MdOutlineKeyboardArrowDown className="text-white text-md text-thin" />
+            <MdOutlineKeyboardArrowDown className="text-md text-thin" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className=" w-56 mr-7 mt-2 rounded-2xl pr-5 pt-3 md:pt-0 pb-3 space-y-3">

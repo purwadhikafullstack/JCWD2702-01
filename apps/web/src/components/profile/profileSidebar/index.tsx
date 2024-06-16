@@ -87,6 +87,14 @@ export default function ProfileSidebar({
             My listings
           </div>
         )}
+        {userData.rolesId == 2 ? (
+          <div
+            onClick={() => handleMenuItemClick('Booking requests')}
+            className={`cursor-pointer flex items-center pl-2 h-8 ${selectedMenuItem === 'Booking requests' ? 'bg-zinc-100 rounded-lg' : ''}`}
+          >
+            Booking Requests
+          </div>
+        ) : null}
         {userData.rolesId == 1 ? (
           <div
             onClick={() => handleMenuItemClick('My reviews')}

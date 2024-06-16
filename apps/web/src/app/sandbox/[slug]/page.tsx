@@ -13,8 +13,6 @@ export default function Page({ params }: any) {
   if (!listingById) return <Loading />;
 
   const { sample, imageCollection } = listingById;
-
-  if (sample.categoriesId === 10)
-    return <HotelPage data={sample} imageCollection={imageCollection} />;
-  return <PropertyPage data={sample} imageCollection={imageCollection} />;
+  
+  return <HotelPage data={sample} imageCollection={imageCollection} />;
 }

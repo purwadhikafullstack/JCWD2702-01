@@ -31,6 +31,7 @@ export const getSampleDataById = async (req: Request, res: Response) => {
     where: { id },
     include: {
       tenant: true,
+
       category: true,
       listing_facilities: {
         include: {
@@ -48,6 +49,7 @@ export const getSampleDataById = async (req: Request, res: Response) => {
               status: true,
             },
           },
+          nonavailability: true,
         },
       },
     },
@@ -69,6 +71,30 @@ export const getSampleDataById = async (req: Request, res: Response) => {
   }
 
   return res.status(200).send({ sample, imageCollection });
+};
+
+export const getRoomTypeById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const room = await prisma.room_types.findUnique({
+    where: {
+      id: Number(id),
+    },
+    include: {
+      room_images: true,
+    },
+  });
+
+  const image = await prisma.listings.findUnique({
+    where: {
+      id: room?.listingsId,
+    },
+    include: {
+      listing_images: true,
+    },
+  });
+
+  return res.status(200).send({ room, image });
 };
 
 export const getSampleDataByQuery = async (req: Request, res: Response) => {

@@ -3,13 +3,46 @@ import { Badge } from '../ui/badge';
 import ImageTiles from './ImageTiles';
 import { Button } from '../ui/button';
 import RenderStars from '../cores/RenderStars';
-import { Ellipsis, MapPin } from 'lucide-react';
+import { Baby, Dog, Ellipsis, MapPin, User } from 'lucide-react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 import { Calendar } from '../ui/calendar';
 import { FacilityBadge } from '../cores/FacilityBadge';
-import { useState } from 'react';
-import { addDays } from 'date-fns';
-import { DateRange } from 'react-day-picker';
+import { useState, useCallback } from 'react';
+import {
+  Interval,
+  addDays,
+  areIntervalsOverlapping,
+  closestTo,
+  differenceInDays,
+  eachDayOfInterval,
+  getOverlappingDaysInIntervals,
+  isWithinInterval,
+  subDays,
+} from 'date-fns';
+import { DateRange, DayContentProps } from 'react-day-picker';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { format } from 'date-fns';
+import { CalendarIcon } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { cn } from '@/lib/utils';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { toast } from '@/components/ui/use-toast';
+import { CounterComponent } from '../cores/searchbar/CounterComponent';
+import { useRouter } from 'next/navigation';
+import FilterCard from './filter_card/FilterCard';
+
 export default function PropertyPage({
   data,
   imageCollection,
@@ -17,20 +50,39 @@ export default function PropertyPage({
   data: any;
   imageCollection: string[];
 }) {
-  const [date, setDate] = useState<DateRange | undefined>({
-    from: new Date(),
-    to: addDays(new Date(), 2),
-  });
-  const handleDateChange = (selectedDate: DateRange | undefined) => {
-    setDate(selectedDate);
-  };
+  const router = useRouter();
+  const listingId = data.id;
+  const room_typesId = data.room_types[0].id;
+
+  const bookings = [...data.room_types[0].bookings].map((x) => ({
+    from: new Date(x.start_date),
+    to: subDays(new Date(x.end_date), 1),
+  }));
+
+  const nonavailabilities = [...data.room_types[0].nonavailability].map(
+    (x) => ({
+      from: new Date(x.start_date),
+      to: new Date(x.end_date),
+    }),
+  );
+
+  const no_book = [...bookings, ...nonavailabilities];
+
+  const seasonal_prices = [...data.room_types[0].seasonal_prices].map((x) => ({
+    start: new Date(new Date(x.start_date).setHours(0, 0, 0, 0)),
+    end: new Date(x.end_date),
+    price: Number(x.price),
+  }));
+
+  // console.log(priceBasedOnRange);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
     libraries: ['places'],
   });
+
   if (isLoaded)
     return (
-      <div className="py-32 w-[70vw] mx-auto">
+      <div className="py-32 mx-12 lg:w-[70vw] lg:mx-auto">
         <ImageTiles imageCollection={imageCollection} />
         <div className=" mt-6 flex w-full items-start gap-8">
           <div className="h-screen w-full">
@@ -50,11 +102,11 @@ export default function PropertyPage({
             </div>
             <div id="Description">
               <div className="text-lg w-80 font-bold">Description</div>
-              <div>{data.description}</div>
+              <div className="text-sm">{data.description}</div>
             </div>
             <div id="Amenities">
               <div className="text-lg w-80 font-bold">Amenities</div>
-              <div className="grid lg:w-[40%] grid-rows-5 grid-cols-2 gap-2">
+              <div className="grid lg:w-[40%] grid-rows-5 grid-cols-2">
                 {data.listing_facilities.slice(0, 9).map((x: any) => (
                   <div className="">
                     <FacilityBadge
@@ -93,28 +145,16 @@ export default function PropertyPage({
               </div>
             </div>
             <div id="Reviews">
-              <div className="text-lg w-80 font-bold">Reviews</div>
+              <div className="text-lg w-full font-bold">Reviews</div>
             </div>
           </div>
-          <div className="sticky top-24 shadow-md rounded-xl p-3">
-            <div>{data.room_types[0].price}</div>
-            <Calendar
-              initialFocus
-              mode="range"
-              min={2}
-              fromDate={new Date()}
-              defaultMonth={date?.from}
-              selected={date}
-              onSelect={handleDateChange}
-              numberOfMonths={1}
-              className="numbers-font"
-            ></Calendar>
-            <div>
-              <div>Price details</div>
-              <div>Rooms</div>
-            </div>
-            <Button>Reserve Room</Button>
-          </div>
+          {/* <FilterCard
+            no_book={no_book}
+            seasonal_prices={seasonal_prices}
+            data={data}
+            listingId={listingId}
+            room_typesId={room_typesId}
+          /> */}
         </div>
       </div>
     );

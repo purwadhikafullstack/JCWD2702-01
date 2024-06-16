@@ -1,5 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
+import bcrypt from 'bcrypt';
+const saltRounds = 10;
 
 const roles = [
   {
@@ -328,6 +330,12 @@ const seasonal_prices = [
     end_date: new Date('2024-06-20'),
     room_typesId: 2,
   },
+  {
+    price: 240000,
+    start_date: new Date('2024-07-10'),
+    end_date: new Date('2024-07-15'),
+    room_typesId: 1,
+  },
 ];
 
 const nonavailable = [
@@ -335,6 +343,11 @@ const nonavailable = [
     room_typesId: 3,
     start_date: new Date('2024-06-12'),
     end_date: new Date('2024-06-20'),
+  },
+  {
+    room_typesId: 1,
+    start_date: new Date('2024-06-24'),
+    end_date: new Date('2024-06-30'),
   },
 ];
 
@@ -377,6 +390,9 @@ async function main() {
 
   const userInfo = [];
   for (let user of users) {
+    let { password } = user;
+    password = await bcrypt.hash(password, saltRounds);
+    user.password = password;
     await prisma.users.create({
       data: user,
     });
@@ -393,7 +409,7 @@ async function main() {
   for (let i = 0; i < userInfo.length; i++) {
     const newTenant = await prisma.tenants.create({
       data: {
-        usersId: userInfo[i].id,
+        usersId: userInfo[i].uid,
         display_name: tenant_profile[i].display_name,
       },
     });
@@ -470,7 +486,7 @@ async function main() {
     await prisma.bookings.create({
       data: {
         ...book,
-        usersId: userInfo[1].id,
+        usersId: userInfo[1].uid,
       },
     });
   }

@@ -6,6 +6,7 @@ import { usePersistSignin } from '@/features/auth/signin/hooks/useSignin';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getCookie } from '@/utils/Cookies';
+import Loading from '@/app/loading';
 
 export default function ProtectedRoute({ children }: any) {
   const router = useRouter();
@@ -52,5 +53,5 @@ export default function ProtectedRoute({ children }: any) {
     }
   }, [loading, path]);
 
-  return loading ? <div>Loading</div> : <>{children}</>;
+  return loading ? <Loading /> : <>{children}</>;
 }
