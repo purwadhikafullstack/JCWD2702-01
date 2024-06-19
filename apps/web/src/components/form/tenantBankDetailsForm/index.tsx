@@ -19,7 +19,10 @@ export default function TenantBankDetailsForm({ nextStep }: any) {
   const form = useForm<z.infer<typeof TenantBankDetailsFormSchema>>({
     resolver: zodResolver(TenantBankDetailsFormSchema),
     defaultValues: {
-      bank: '',
+      card_holder_name: '',
+      card_number: '',
+      exp_date: '',
+      cvv: '',
     },
   });
 
@@ -41,14 +44,14 @@ export default function TenantBankDetailsForm({ nextStep }: any) {
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
           <FormField
             control={form.control}
-            name="bank"
+            name="card_holder_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>bank details</FormLabel>
+                <FormLabel>Card Holder Name</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder="bank details"
+                    placeholder="card holder name"
                     className=" rounded-full"
                   />
                 </FormControl>
@@ -59,14 +62,14 @@ export default function TenantBankDetailsForm({ nextStep }: any) {
 
           <FormField
             control={form.control}
-            name="bank"
+            name="card_number"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>bank details</FormLabel>
+                <FormLabel>Card Number</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder="bank details"
+                    placeholder="card number"
                     className=" rounded-full"
                   />
                 </FormControl>
@@ -76,14 +79,31 @@ export default function TenantBankDetailsForm({ nextStep }: any) {
           />
           <FormField
             control={form.control}
-            name="bank"
+            name="exp_date"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>bank details</FormLabel>
+                <FormLabel>Expiry Date</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder="Id Card Number"
+                    placeholder="expiry date"
+                    className=" rounded-full"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="cvv"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Card verification value</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    placeholder="card verification value"
                     className=" rounded-full"
                   />
                 </FormControl>

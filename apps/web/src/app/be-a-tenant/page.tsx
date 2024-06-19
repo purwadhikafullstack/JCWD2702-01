@@ -22,7 +22,7 @@ export default function Page() {
             Read FAQ
           </Button>
           <Button
-            onClick={() => router.push('/be-a-tenant/set-up')}
+            onClick={() => router.push('/tenant/set-up')}
             size={'lg'}
             className="order-1 lg:order-2"
           >

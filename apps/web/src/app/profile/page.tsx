@@ -7,6 +7,7 @@ import OrderHistory from '@/components/profile/user/orderHistory';
 import MyReviews from '@/components/profile/user/myReviews';
 import Settings from '@/components/profile/user/settings';
 import IssueComplaint from '@/components/profile/user/issueComplaint';
+import MyListings from '@/components/profile/tenant/myListing';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 
@@ -24,6 +25,8 @@ export default function Profile() {
     SelectedComponent = Settings;
   } else if (selectedMenuItem === 'Issue complaint') {
     SelectedComponent = IssueComplaint;
+  } else if (selectedMenuItem === 'My listings') {
+    SelectedComponent = MyListings;
   }
 
   const handleSwitchChange = (checked: boolean) => {
@@ -31,7 +34,7 @@ export default function Profile() {
   };
 
   return (
-    <div className={`w-full flex justify-center p-14`}>
+    <div className="w-full flex justify-center p-14">
       <div
         className={`${isFullWidth ? 'flex gap-12 w-full' : 'flex w-3/5 gap-12'}`}
       >
@@ -52,7 +55,7 @@ export default function Profile() {
               </Label>
             </div>
           </div>
-          <div className={isFullWidth ? 'w-full' : 'flex-grow'}>
+          <div className={isFullWidth ? 'w-full h-full' : 'flex-grow'}>
             <SelectedComponent />
           </div>
         </div>

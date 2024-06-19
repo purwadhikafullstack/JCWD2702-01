@@ -393,7 +393,7 @@ async function main() {
   for (let i = 0; i < userInfo.length; i++) {
     const newTenant = await prisma.tenants.create({
       data: {
-        usersId: userInfo[i].id,
+        usersId: userInfo[i].uid,
         display_name: tenant_profile[i].display_name,
       },
     });
@@ -470,7 +470,7 @@ async function main() {
     await prisma.bookings.create({
       data: {
         ...book,
-        usersId: userInfo[1].id,
+        usersId: userInfo[1].uid,
       },
     });
   }
