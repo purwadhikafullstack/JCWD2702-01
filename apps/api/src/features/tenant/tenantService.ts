@@ -251,6 +251,7 @@ export const findMyListing = async (tenantsId: string) => {
                     room_facilities: true,
                     room_images: true,
                     seasonal_prices: true,
+                    nonavailability: true,
                     bookings: {
                         include: {
                             status: true,
@@ -264,7 +265,6 @@ export const findMyListing = async (tenantsId: string) => {
 
 export const deleteMyListing = async (listingId: string) => {
     await prisma.$transaction(async (prisma) => {
-        // Retrieve all room types related to the listing
         const listingRoomtypes = await prisma.room_types.findMany({
             where: {
                 listingsId: listingId,
@@ -275,21 +275,18 @@ export const deleteMyListing = async (listingId: string) => {
             },
         });
 
-        // Delete listing images associated with the listing
         await prisma.listing_images.deleteMany({
             where: {
                 listingsId: listingId,
             },
         });
 
-        // Delete listing facilities associated with the listing
         await prisma.listing_facilities.deleteMany({
             where: {
                 listingsId: listingId,
             },
         });
 
-        // Delete room facilities and room images for each room type
         for (const roomtype of listingRoomtypes) {
             await prisma.room_facilities.deleteMany({
                 where: {
@@ -303,14 +300,12 @@ export const deleteMyListing = async (listingId: string) => {
             });
         }
 
-        // Finally, delete the room types associated with the listing
         await prisma.room_types.deleteMany({
             where: {
                 listingsId: listingId,
             },
         });
 
-        // Delete the listing itself
         await prisma.listings.delete({
             where: {
                 id: listingId,

@@ -35,6 +35,7 @@ export const listingRoomtypeFormSchema = z.object({
 
 export const setSeasonalPriceFormSchema = z.object({
     price: z.string().min(1, { message: "Price is required!" }),
-    // start_date: z.string().min(1, { message: "Start Date is required!" }),
-    // end_date: z.string().min(1, { message: "End Date is required!" }),
+    room_types: z.number(),
+    start_date: z.date(),
+    end_date: z.date(),
 })

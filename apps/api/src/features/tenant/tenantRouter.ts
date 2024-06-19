@@ -3,6 +3,7 @@ import { newTenant, updateTenantProfile, newListing, myListing, deleteListing } 
 import { tokenVerify } from "@/helpers/Token";
 import { listingUploader, uploader } from "@/middleware/Uploader";
 import { NewTenantValidator, UpdateTenantProfileValidator, NewListingValidator } from "@/middleware/validator/tenant/TenantValidator";
+import { addSeasonalPrice } from "./property/propertyController";
 import { handleErrorValidator } from "@/middleware/validator/handleErrorExpressValidator";
 import { isTenantVerify } from "@/middleware/RoleVerify";
 
@@ -13,5 +14,7 @@ router.put("/profile", tokenVerify, uploader, UpdateTenantProfileValidator, hand
 router.post('/listing', tokenVerify, isTenantVerify, listingUploader, NewListingValidator, handleErrorValidator, newListing)
 router.get('/my-listings', tokenVerify, myListing)
 router.delete('/listing/:listingId', deleteListing)
+router.post('/set-seasonal-price', tokenVerify, addSeasonalPrice)
 
+// localhost:8000/tenant/properties/listing 
 export default router

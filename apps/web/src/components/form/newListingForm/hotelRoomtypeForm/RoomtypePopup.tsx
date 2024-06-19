@@ -104,7 +104,7 @@ export const HotelRoomTypePopup = () => {
         reader.readAsDataURL(selectedFile);
         reader.addEventListener('load', () => {
           const url = reader.result;
-          localStorage.setItem('my-images', url);
+          localStorage.setItem('my-images', url as string);
         });
       }
     } catch (error: any) {

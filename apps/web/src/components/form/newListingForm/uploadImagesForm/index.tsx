@@ -185,8 +185,19 @@ export const ListingUploadImages = ({ onBack, onNext }: any) => {
     if (url) {
       let base64Parts = url.split(',');
       let fileFormat = base64Parts[0].split(';')[0].split(':')[1];
-      let fileContent = base64Parts[1];
-      let file = new File([fileContent], 'file name here.jpeg', {
+      let base64Data = base64Parts[1];
+
+      // Convert base64 to binary
+      let binaryString = atob(base64Data);
+      let binaryLength = binaryString.length;
+      let bytes = new Uint8Array(binaryLength);
+
+      for (let i = 0; i < binaryLength; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+
+      // Create a new File object
+      let file = new File([bytes], 'file_name_here.jpeg', {
         type: fileFormat,
       });
       fd.append('roomtypeImages', file);

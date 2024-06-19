@@ -45,16 +45,16 @@ model providers {
 }
 
 model tenants {
-  id             String     @id @default(uuid())
-  display_name   String     @unique
+  id             String        @id @default(uuid())
+  display_name   String        @unique
   image_url      String?
   id_card_number String?
   phone          String?
   listings       listings[]
-  user           users      @relation(fields: [usersId], references: [uid])
-  usersId        String     @unique
-  created_at     DateTime   @default(now())
-  updated_at     DateTime   @updatedAt
+  user           users         @relation(fields: [usersId], references: [uid])
+  usersId        String        @unique
+  created_at     DateTime      @default(now())
+  updated_at     DateTime      @updatedAt
   deleted_at     DateTime?
   bank_details   bank_details?
 }
