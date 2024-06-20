@@ -5,9 +5,7 @@ export interface IMyListing {
     city: string;
     country: string;
     listing_images: { image_url: string }[];
-    room_types: {
-        id: any; price: number
-    }[];
+    room_types: any[];
     listing_facilities: { facility: { id: string; facility: string } }[];
 };
 

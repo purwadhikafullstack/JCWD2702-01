@@ -37,13 +37,13 @@ export default function SetSeasonalPrice() {
         </AlertDialogTrigger>
         <AlertDialogContent className="min-h-3/4 min-w-[1000px] flex flex-col items-center justify-center">
           <AlertDialogHeader className="w-full">
-            <AlertDialogTitle className="w-full flex  items-center justify-center">
-              <div className="w-1/2">
+            <AlertDialogTitle className="w-full flex items-center justify-center">
+              <div className="flex-none items-center justify-start">
                 <AlertDialogCancel className="border-none text-zinc-600">
                   x
                 </AlertDialogCancel>
               </div>
-              <div className="w-1/2 mr-28">
+              <div className="flex flex-1 items-center justify-center text-2xl pr-4">
                 {selectedListing
                   ? 'Set Seasonal Price'
                   : 'Select listing to set'}

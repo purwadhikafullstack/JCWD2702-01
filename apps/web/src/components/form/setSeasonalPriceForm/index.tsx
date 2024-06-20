@@ -13,14 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import {
-  addDays,
-  areIntervalsOverlapping,
-  closestTo,
-  isSameDay,
-  isWithinInterval,
-  subDays,
-} from 'date-fns';
+import { addDays } from 'date-fns';
 import {
   Select,
   SelectContent,
@@ -29,20 +22,25 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { setSeasonalPriceFormSchema } from '@/features/listings/schemas/ListingFormSchema';
-import { DateRange, DayContentProps } from 'react-day-picker';
+import { DateRange } from 'react-day-picker';
 import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
 import { SetSeasonalPriceFormProps } from '@/components/profile/tenant/myListing/type';
-import { useSetSeasonalPrice } from '@/features/tenant/listings/hooks/useSetSeasonalPrice';
+import { useSetSeasonalPrice } from '@/features/tenant/property/hooks/useSetSeasonalPrice';
 
 export const SetSeasonalPriceForm = ({
   listing,
 }: SetSeasonalPriceFormProps) => {
   const { mutationSetSeasonalPrice } = useSetSeasonalPrice();
   const [date, setDate] = useState<DateRange | undefined>({
-    from: new Date(),
-    to: addDays(new Date(), 2),
+    from: undefined,
+    to: undefined,
   });
+  const [roomTypeIndex, setRoomTypeIndex] = useState(0);
+
+  const existingSeasonalPrice = [
+    ...listing.room_types[roomTypeIndex].seasonal_prices,
+  ].map((x) => ({ from: new Date(x.start_date), to: new Date(x.end_date) }));
 
   const form = useForm<z.infer<typeof setSeasonalPriceFormSchema>>({
     resolver: zodResolver(setSeasonalPriceFormSchema),
@@ -53,7 +51,6 @@ export const SetSeasonalPriceForm = ({
       end_date: date?.to,
     },
   });
-
   const handleDateChange = (selectedDate: DateRange | undefined) => {
     setDate(selectedDate);
 
@@ -61,11 +58,11 @@ export const SetSeasonalPriceForm = ({
     form.setValue('end_date', selectedDate?.to as Date);
   };
 
+  const room_types = listing.room_types;
+
   const onSubmit = async (
     values: z.infer<typeof setSeasonalPriceFormSchema>,
   ) => {
-    console.log(values);
-    console.log(listing);
     mutationSetSeasonalPrice({
       price: values.price,
       room_types_id: values.room_types
@@ -92,6 +89,7 @@ export const SetSeasonalPriceForm = ({
                 defaultMonth={date?.from}
                 selected={date}
                 onSelect={handleDateChange}
+                disabled={[...existingSeasonalPrice]}
               />
               <div className="flex flex-col gap-3 w-full">
                 {listing?.categoriesId === 10 ? (
@@ -104,20 +102,26 @@ export const SetSeasonalPriceForm = ({
                           <FormLabel>Room types</FormLabel>
                           <FormControl>
                             <Select
-                              onValueChange={(value) => {
+                              onValueChange={(value: any) => {
                                 field.onChange(value);
                                 form.setValue('room_types', Number(value));
+                                const index_room = room_types.findIndex(
+                                  (x) => x.id == Number(value),
+                                );
+                                setRoomTypeIndex(index_room);
                               }}
                             >
                               <SelectTrigger className="w-full rounded-full">
                                 <SelectValue placeholder="Select room type" />
                               </SelectTrigger>
                               <SelectContent className="rounded-xl">
-                                {listing.room_types.map((item: any) => (
-                                  <SelectItem value={`${item.id}`}>
-                                    {item.name}
-                                  </SelectItem>
-                                ))}
+                                {listing.room_types.map(
+                                  (item: any, i: number) => (
+                                    <SelectItem value={`${item.id}`}>
+                                      {item.name}
+                                    </SelectItem>
+                                  ),
+                                )}
                               </SelectContent>
                             </Select>
                           </FormControl>
@@ -149,7 +153,17 @@ export const SetSeasonalPriceForm = ({
                 />
               </div>
             </div>
-            <Button type="submit" className="w-80">
+            <Button
+              type="submit"
+              className="w-80"
+              disabled={
+                form.watch('start_date') &&
+                form.watch('end_date') &&
+                form.watch('price')
+                  ? false
+                  : true
+              }
+            >
               Set Price
             </Button>
           </div>

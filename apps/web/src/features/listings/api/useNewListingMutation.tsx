@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 export const useNewListingMutation = ({ onSuccess, onError }: any) => {
   const { mutate } = useMutation({
     mutationFn: async (fd: any) => {
-      await axiosInstance.post('/tenant/listing', fd);
+      return await axiosInstance.post('/tenant/listing', fd);
     },
     onSuccess,
     onError,

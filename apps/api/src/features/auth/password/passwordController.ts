@@ -5,7 +5,6 @@ import { IReqAccessToken, createToken } from "@/helpers/Token";
 import fs from 'fs'
 import Handlebars from 'handlebars';
 import { HashPassword } from "@/helpers/Hashing";
-import { hash } from "bcrypt";
 
 export const sendResetPasswordLink = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -31,8 +30,7 @@ export const sendResetPasswordLink = async (req: Request, res: Response, next: N
             })
         } else {
             const accesstoken = await createToken({ data: { uid: findAccountByEmailResult.uid, email: findAccountByEmailResult.email, isVerified: findAccountByEmailResult.is_verified }, expiresIn: "1h" })
-
-            const resetPasswordHTML = fs.readFileSync(process.env.RESET_PASSWORD_TEMPLATE_PATH as string, 'utf-8')
+            const resetPasswordHTML = fs.readFileSync(process.env.NODEMAILER_RESET_PASSWORD_TEMPLATE_PATH as string, 'utf-8')
             let ResetPasswordHTMLCompiled: any = await Handlebars.compile(resetPasswordHTML)
             ResetPasswordHTMLCompiled = ResetPasswordHTMLCompiled({ username: email, link: `${process.env.WEB_URL}/reset-password/${accesstoken}` })
 
@@ -55,6 +53,7 @@ export const sendResetPasswordLink = async (req: Request, res: Response, next: N
 export const newPassword = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const reqToken = req as IReqAccessToken
+        console.log(reqToken)
         const { uid } = reqToken.payload.data
         const { password } = req.body
 

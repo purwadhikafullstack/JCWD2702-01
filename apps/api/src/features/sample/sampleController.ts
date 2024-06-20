@@ -159,3 +159,4 @@ export const facilitiesData = async (req: Request, res: Response, next: NextFunc
     data: facilitiesData
   })
 }
+

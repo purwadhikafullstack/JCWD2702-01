@@ -40,7 +40,6 @@ export const ListingFacilitiesDetails = ({ onNext, onBack }: any) => {
   const onSubmit = async (
     values: z.infer<typeof listingFacilitiesDetailsFormSchema>,
   ) => {
-    console.log({ ListingDetailsValues: values });
     localStorage.setItem('listingFacilitiesDetails', JSON.stringify(values));
     onNext();
   };

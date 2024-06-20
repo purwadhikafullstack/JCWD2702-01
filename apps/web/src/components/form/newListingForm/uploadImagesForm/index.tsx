@@ -44,9 +44,6 @@ export const ListingUploadImages = ({ onBack, onNext }: any) => {
       roomType = roomTypeData;
     }
   }
-  console.log({ category: getCategory });
-  console.log({ general: general }), console.log({ facilitites: facilities });
-  console.log({ roomType: roomType });
 
   const form = useForm<z.infer<typeof listingUploadImagesFormSchema>>({
     resolver: zodResolver(listingUploadImagesFormSchema),
@@ -78,7 +75,6 @@ export const ListingUploadImages = ({ onBack, onNext }: any) => {
       });
 
       if (files.length > 5) throw { message: 'Selected Files more than 5' };
-      console.log({ files: files });
 
       setImages(files);
     } catch (error: any) {
@@ -95,8 +91,6 @@ export const ListingUploadImages = ({ onBack, onNext }: any) => {
   const onSubmit = async (
     values: z.infer<typeof listingUploadImagesFormSchema>,
   ) => {
-    console.log({ uploadImages: values });
-
     const fd = new FormData();
 
     const allFacilities: number[] = [];
@@ -104,7 +98,6 @@ export const ListingUploadImages = ({ onBack, onNext }: any) => {
     if (roomType && roomType.length > 0) {
       roomType.forEach((room: any) => {
         if (room.facilities && room.facilities.length > 0) {
-          // allFacilities.push(...room.facilities.map((f: any) => f.facility_id));
           allFacilities.push(...room.facilities);
         }
       });
@@ -152,55 +145,31 @@ export const ListingUploadImages = ({ onBack, onNext }: any) => {
           })),
         ),
       );
-      // const roomTypeImages: any = [];
-      // roomType.forEach((room: any, index: any) => {
-      //   room.room_images_url.forEach((imageUrl: any, imgIndex: any) => {
-      //     roomTypeImages.push(imageUrl);
-      //     fd.append('roomtypeImages', roomTypeImages);
-      //   });
-      // });
-
-      const roomImages = localStorage.getItem('RoomtypeImages');
-      console.log('ROOMM IMAGES', roomImages);
-      const roomtypeImages = JSON.parse(roomImages as string);
-      console.log({ roomtypeImages: roomtypeImages });
-      // if (roomtypeImages.length > 0) {
-      //   for (let image of roomtypeImages) {
-      //     // const byteCharacters = atob(image);
-      //     // const byteNumbers = new Array(byteCharacters.length);
-      //     // for (let i = 0; i < byteCharacters.length; i++) {
-      //     //   byteNumbers[i] = byteCharacters.charCodeAt(i);
-      //     // }
-      //     // const byteArray = new Uint8Array(byteNumbers);
-      //     // const file = new Blob([byteArray], { type: 'image/jpeg' });
-      //     // console.log(file);
-      //     const reader = new FileReader();
-      //     reader.readAsDataURL(image);
-      //     // fd.append('roomtypeImages', file);
-      //   }
-      // }
     }
-    const url = localStorage.getItem('my-images');
+    let roomImages = localStorage.getItem('RoomtypeImages');
 
-    if (url) {
-      let base64Parts = url.split(',');
-      let fileFormat = base64Parts[0].split(';')[0].split(':')[1];
-      let base64Data = base64Parts[1];
+    if (roomImages) {
+      let urls = JSON.parse(roomImages);
+      if (urls.length > 0) {
+        for (let url of urls) {
+          let base64Parts = url.split(',');
+          let fileFormat = base64Parts[0].split(';')[0].split(':')[1];
+          let base64Data = base64Parts[1];
 
-      // Convert base64 to binary
-      let binaryString = atob(base64Data);
-      let binaryLength = binaryString.length;
-      let bytes = new Uint8Array(binaryLength);
+          let binaryString = atob(base64Data);
+          let binaryLength = binaryString.length;
+          let bytes = new Uint8Array(binaryLength);
 
-      for (let i = 0; i < binaryLength; i++) {
-        bytes[i] = binaryString.charCodeAt(i);
+          for (let i = 0; i < binaryLength; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+          }
+
+          let file = new File([bytes], 'file_name_here.jpeg', {
+            type: fileFormat,
+          });
+          fd.append('roomtypeImages', file);
+        }
       }
-
-      // Create a new File object
-      let file = new File([bytes], 'file_name_here.jpeg', {
-        type: fileFormat,
-      });
-      fd.append('roomtypeImages', file);
     }
 
     if (roomType == null) {
@@ -216,10 +185,6 @@ export const ListingUploadImages = ({ onBack, onNext }: any) => {
           },
         ]),
       );
-    }
-    // console.log({room_type_images: room})
-    for (let pair of fd.entries()) {
-      console.log(pair[0] + ': ' + pair[1]);
     }
 
     mutationNewListing(fd, {

@@ -8,6 +8,7 @@ import UserRouter from '../features/user/userRouter';
 import SignouRouter from '../features/auth/signout/signoutRouter';
 import SampleRouter from '../features/sample/sampleRouter';
 import PasswordRouter from '../features/auth/password/passwordRouter'
+import PropertyRouter from '../features/property/propertyRouter'
 
 const router = Router();
 router.use(cors());
@@ -22,4 +23,5 @@ router.use('/tenant', TenantRouter);
 router.use('/user', UserRouter);
 router.use('/listings', SampleRouter);
 router.use('/password', PasswordRouter)
+router.use('/property', PropertyRouter)
 export default router;

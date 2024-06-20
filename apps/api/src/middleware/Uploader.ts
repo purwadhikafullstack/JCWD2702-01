@@ -61,7 +61,6 @@ export const listingUploader = (req: Request, res: Response, next: NextFunction)
             }
 
             if (req.files) {
-                console.log(req.files)
                 const uploadedListingFiles = Array.isArray(req.files) ? req.files : req.files['listingImages'];
                 const uploadedRoomtypeFiles = Array.isArray(req.files) ? req.files : req.files['roomtypeImages'];
 

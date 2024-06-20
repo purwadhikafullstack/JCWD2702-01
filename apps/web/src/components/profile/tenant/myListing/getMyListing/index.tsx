@@ -1,6 +1,5 @@
 import { useGetMyListings } from '@/features/tenant/profile/hooks/useGetMyListings';
 import Image from 'next/image';
-import { useDeletelisting } from '@/features/listings/hooks/useDeleteListing';
 import { useState, useEffect } from 'react';
 import { IMyListing, ISelectedListing } from '../type';
 import { Button } from '@/components/ui/button';

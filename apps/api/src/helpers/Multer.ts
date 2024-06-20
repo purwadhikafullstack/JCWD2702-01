@@ -28,13 +28,11 @@ const fileFilter = (req: any, file: any, cb: any) => {
     const splitOriginalName = file.originalname.split('.')
     const fileExtension = splitOriginalName[splitOriginalName.length - 1]
 
-    console.log(file)
-    // if (fileAccepted.includes(fileExtension)) {
-    //     cb(null, true)
-    // } else {
-    //     // cb(new Error('Format Not Accepted!'))
-    // }
-    cb(null, true)
+    if (fileAccepted.includes(fileExtension)) {
+        cb(null, true)
+    } else {
+        cb(new Error('Format Not Accepted!'))
+    }
 }
 
 export const multerUpload = multer({ storage: storage, fileFilter: fileFilter })

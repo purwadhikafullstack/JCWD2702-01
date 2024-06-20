@@ -298,6 +298,11 @@ export const deleteMyListing = async (listingId: string) => {
                     room_typesId: roomtype.id,
                 },
             });
+            await prisma.seasonal_prices.deleteMany({
+                where: {
+                    room_typesId: roomtype.id
+                }
+            })
         }
 
         await prisma.room_types.deleteMany({

@@ -11,7 +11,6 @@ import { HotelRoomTypeForm } from './hotelRoomtypeForm';
 export const NewListingForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const getCategory = localStorage.getItem('selectedCategory');
-  console.log(getCategory);
   const [formData, setFormData] = useState({
     selectedCategory: null,
     generalDetails: {},

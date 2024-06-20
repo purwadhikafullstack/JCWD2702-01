@@ -6,7 +6,7 @@ export const useGetListingsQuery = () => {
   const { data, isSuccess, isError } = useQuery({
     queryKey: ['AllListings'],
     queryFn: async () => {
-      return await axios.get('http://localhost:8000/listings/');
+      return await axiosInstance.get('/listings/');
     },
   });
 
@@ -21,7 +21,7 @@ export const useGetListingByIdQuery = (id: string) => {
   const { data, isSuccess, isError } = useQuery({
     queryKey: ['Listing'],
     queryFn: async () => {
-      return await axios.get(`http://localhost:8000/listings/id/${id}`);
+      return await axiosInstance.get(`/listings/id/${id}`);
     },
   });
 
