@@ -7,6 +7,7 @@ import {
   confirmBilling,
   getAllBillingsByUser,
 } from '@/features/booking/user/bookingServiceUserSide';
+import { midtransBooking } from './midtrans';
 
 export const newBooking = async (
   req: Request,
@@ -16,7 +17,8 @@ export const newBooking = async (
   try {
     const reqToken = req as IReqAccessToken;
     const { uid } = reqToken.payload.data;
-    const { room_typesId } = req.params;
+    // const { room_typesId } = req.params;
+    let { type, room_typesId } = req.query;
     const data = req.body;
     const { start_date, end_date } = req.body;
     data.usersId = uid;
@@ -26,14 +28,28 @@ export const newBooking = async (
 
     const bill = await createBilling(data);
 
+    if (Number(type) == 2) {
+      const redirectUrl = await midtransBooking(bill);
+      console.log(redirectUrl);
+      if (!redirectUrl) throw new Error('Midtrans error.');
 
-    res.status(200).send({
-      error: false,
-      message: 'Booking data created!',
-      data: {
-        bill,
-      },
-    });
+      res.status(200).send({
+        error: false,
+        message: 'Booking data created!',
+        data: {
+          bill,
+          redirectUrl,
+        },
+      });
+    } else {
+      res.status(200).send({
+        error: false,
+        message: 'Booking data created!',
+        data: {
+          bill,
+        },
+      });
+    }
   } catch (error) {
     next(error);
   }

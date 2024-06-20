@@ -57,6 +57,19 @@ export const getBilling = async (id: string) => {
     include: {
       status: true,
       booking_histories: true,
+      room_type: {
+        include: {
+          listing: {
+            include: {
+              tenant: {
+                include: {
+                  user: true,
+                },
+              },
+            },
+          },
+        },
+      },
     },
   });
   return billing;

@@ -3,10 +3,11 @@ import { NextFunction, Request, Response } from 'express';
 import {
   getBookingsByTenantId,
   confirmBookingByTenant,
+  sendConfirmationEmail,
+  sendReminderEmail,
 } from '@/features/booking/tenant/bookingServiceTenantSide';
-import fs from 'fs';
-import { transporterNodemailer } from '@/helpers/TransporterMailer';
-import Handlebars from 'handlebars';
+import schedule from 'node-schedule';
+import { addMinutes } from 'date-fns';
 
 export const getBookings = async (
   req: Request,
@@ -21,8 +22,8 @@ export const getBookings = async (
 
     res.status(200).send({
       error: false,
-      message: `All bookings for tenant ${allBookings?.id}`,
-      data: allBookings?.listings,
+      message: `All bookings for tenant`,
+      data: allBookings,
     });
   } catch (error) {
     next(error);
@@ -35,7 +36,6 @@ export const confirmBooking = async (
   next: NextFunction,
 ) => {
   try {
-    const reqToken = req as IReqAccessToken;
     let { bookingId, status } = req.query;
     const tenantConfirm = await confirmBookingByTenant(
       bookingId as string,
@@ -43,23 +43,18 @@ export const confirmBooking = async (
     );
 
     if (tenantConfirm && Number(status) === 3) {
-      const verificationHTML = fs.readFileSync(
-        process.env.NODEMAILER_BOOKING_SUCCESS as string,
-        'utf-8',
+      await sendConfirmationEmail({
+        email: tenantConfirm.user.email,
+        bookingId: bookingId as string,
+      });
+
+      const date = addMinutes(new Date(), 5);
+      schedule.scheduleJob(date, () =>
+        sendReminderEmail({
+          email: tenantConfirm.user.email,
+          bookingId: bookingId as string,
+        }),
       );
-
-      let verificationHTMLCompiled: any =
-        await Handlebars.compile(verificationHTML);
-      verificationHTMLCompiled = verificationHTMLCompiled({
-        bookingId,
-      });
-
-      transporterNodemailer.sendMail({
-        from: 'Roomer',
-        to: tenantConfirm.user.email,
-        subject: 'Booking has been confirmed',
-        html: verificationHTMLCompiled,
-      });
 
       res.status(200).send({
         error: false,

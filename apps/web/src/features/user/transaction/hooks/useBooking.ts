@@ -1,9 +1,9 @@
 import {
+  useAutoPaymentMutation,
   useCancelBookingMutation,
   useNewBookingMutation,
   useUploadPaymentProofMutation,
 } from '../api/useBookingMutation';
-import { useDispatch } from 'react-redux';
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
 
@@ -14,7 +14,14 @@ export const useNewBooking = () => {
     onSuccess: (res: any) => {
       toast({ description: 'OK!' });
       console.log(res.data);
-      router.push(`/booking/payment?bookingId=${res?.data?.data?.bill?.id}`);
+
+      if (res?.data?.data?.bill?.payment_typesId == 2) {
+        window.location.assign(`${res.data.data.redirectUrl}`);
+      } else {
+        router.push(
+          `/booking/payment?order_id=${res?.data?.data?.bill?.id}&payment_type=${res?.data?.data?.bill?.payment_typesId}`,
+        );
+      }
     },
     onError: (err: any) => {
       toast({
@@ -68,5 +75,29 @@ export const useCancelBooking = () => {
 
   return {
     mutationCancelBooking,
+  };
+};
+
+export const useAutoPayment = () => {
+  const { toast } = useToast();
+  const router = useRouter();
+  const { mutate: mutationAutoPayment } = useAutoPaymentMutation({
+    onSuccess: (res: any) => {
+      toast({ description: 'Autopayment' });
+      console.log('autopayment', res);
+      window.location.assign(
+        `http://localhost:3000/booking/payment?order_id=${res?.data?.data?.bill?.id}&payment_type=${res?.data?.data?.bill?.payment_typesId}`,
+      );
+    },
+    onError: (err: any) => {
+      toast({
+        variant: 'destructive',
+        description: `${err.response.data.message}`,
+      });
+    },
+  });
+
+  return {
+    mutationAutoPayment,
   };
 };

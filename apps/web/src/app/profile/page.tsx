@@ -34,9 +34,9 @@ export default function Profile() {
   };
 
   return (
-    <div className={`w-full flex justify-center p-14`}>
+    <div className={`w-full flex justify-center`}>
       <div
-        className={`${isFullWidth ? 'flex gap-12 w-full' : 'flex w-3/5 gap-12'}`}
+        className={`${isFullWidth ? 'flex  gap-12 w-full' : 'flex w-3/5 gap-12'}`}
       >
         <ProfileSidebar onSelectMenuItem={setSelectedMenuItem} />
         <div

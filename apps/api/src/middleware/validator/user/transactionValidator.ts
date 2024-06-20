@@ -1,9 +1,11 @@
-import { body, query } from 'express-validator';
+import { body, query, param } from 'express-validator';
 import { getBilling } from '@/features/booking/user/bookingServiceUserSide';
 import { IReqAccessToken } from '@/helpers/Token';
 
 export const BookingDataValidator = [
-  body('start_date').isString().withMessage('date date'),
+  query('room_typesId').exists().withMessage('Room type ID is required.'),
+  query('type').exists().withMessage('Type is required.'),
+  body('start_date').isString(),
   body('end_date').isString(),
   body('num_of_guests').isNumeric(),
   body('total_price').isNumeric(),
@@ -17,11 +19,7 @@ export const UploadPaymentDataValidator = [
     .custom(async (bookingId, { req }) => {
       const reqToken = req as IReqAccessToken;
       const { uid } = reqToken.payload.data;
-
       const billing = await getBilling(bookingId);
-
-      console.log('uid', uid);
-
       if (billing) {
         if (billing.usersId !== uid) {
           return Promise.reject('User does not match with user ID in booking.');
@@ -35,17 +33,13 @@ export const UploadPaymentDataValidator = [
 ];
 
 export const CancelBookingDataValidator = [
-  query('bookingId')
+  param('bookingId')
     .exists()
     .bail()
     .custom(async (bookingId, { req }) => {
       const reqToken = req as IReqAccessToken;
       const { uid } = reqToken.payload.data;
-
       const billing = await getBilling(bookingId);
-
-      console.log('uid', uid);
-
       if (billing) {
         if (billing.usersId !== uid) {
           return Promise.reject('User does not match with user ID in booking.');

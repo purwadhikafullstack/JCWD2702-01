@@ -10,9 +10,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "allowJs": true
   },
   // "include": ["src/**/*"],
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "src/features/midtrans/tokenizer.js"],
   "exclude": ["node_modules"]
 }

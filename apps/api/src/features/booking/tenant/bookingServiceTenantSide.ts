@@ -1,8 +1,11 @@
 import { prisma, mysqlConnection } from '@/connection';
+import { transporterNodemailer } from '@/helpers/TransporterMailer';
 import { addHours } from 'date-fns';
+import fs from 'fs';
+import Handlebars from 'handlebars';
 
 export const getBookingsByTenantId = async (id: string) => {
-  return await prisma.tenants.findUnique({
+  const listingsByTenant = await prisma.tenants.findUnique({
     where: {
       usersId: id,
     },
@@ -23,6 +26,24 @@ export const getBookingsByTenantId = async (id: string) => {
       },
     },
   });
+
+  if (!listingsByTenant) {
+    return 'no listing';
+  }
+
+  const bookings = [];
+  for (let listing of listingsByTenant?.listings) {
+    for (let room of listing.room_types) {
+      for (let book of room.bookings) {
+        bookings.push(book);
+      }
+    }
+  }
+
+  return bookings.sort(
+    (a: any, b: any) =>
+      new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+  );
 };
 
 export const confirmBookingByTenant = async (id: string, status: number) => {
@@ -94,5 +115,57 @@ export const confirmBookingByTenant = async (id: string, status: number) => {
         },
       });
     }
+  });
+};
+
+export const sendConfirmationEmail = async ({
+  email,
+  bookingId,
+}: {
+  email: string;
+  bookingId: string;
+}) => {
+  const verificationHTML = fs.readFileSync(
+    process.env.NODEMAILER_BOOKING_SUCCESS as string,
+    'utf-8',
+  );
+
+  let verificationHTMLCompiled: any =
+    await Handlebars.compile(verificationHTML);
+  verificationHTMLCompiled = verificationHTMLCompiled({
+    bookingId,
+  });
+
+  transporterNodemailer.sendMail({
+    from: 'Roomer',
+    to: email,
+    subject: 'Booking has been confirmed',
+    html: verificationHTMLCompiled,
+  });
+};
+
+export const sendReminderEmail = async ({
+  email,
+  bookingId,
+}: {
+  email: string;
+  bookingId: string;
+}) => {
+  const verificationHTML = fs.readFileSync(
+    process.env.NODEMAILER_BOOKING_SUCCESS as string,
+    'utf-8',
+  );
+
+  let verificationHTMLCompiled: any =
+    await Handlebars.compile(verificationHTML);
+  verificationHTMLCompiled = verificationHTMLCompiled({
+    bookingId,
+  });
+
+  transporterNodemailer.sendMail({
+    from: 'Roomer',
+    to: email,
+    subject: 'Booking Reminder',
+    html: verificationHTMLCompiled,
   });
 };

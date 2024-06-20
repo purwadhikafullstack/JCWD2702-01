@@ -1,7 +1,7 @@
 import { BedSingle, UserRound, SunMedium } from 'lucide-react';
 import Image from 'next/image';
 import { Card } from '../ui/card';
-import { Button } from '../ui/button';
+
 export default function HotelRoomCard({ roomData }: { roomData: any }) {
   return (
     <Card className="flex justify-between p-4 border mb-3">

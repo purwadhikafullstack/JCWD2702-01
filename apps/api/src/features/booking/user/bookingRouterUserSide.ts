@@ -15,12 +15,7 @@ import {
 import { handleErrorValidator } from '@/middleware/validator/handleErrorExpressValidator';
 const router = Router();
 
-router.post(
-  '/:room_typesId',
-  BookingDataValidator,
-  handleErrorValidator,
-  newBooking,
-);
+router.post('/', BookingDataValidator, handleErrorValidator, newBooking);
 router.put(
   '/confirmation',
   UploadPaymentDataValidator,

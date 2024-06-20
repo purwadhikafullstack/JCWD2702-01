@@ -9,17 +9,28 @@ import { useGetBookingById } from '@/features/user/transaction/hooks/useGetBooki
 import Loading from '@/app/loading';
 import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { useAutoPayment } from '@/features/user/transaction/hooks/useBooking';
 export default function Page() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const bookingId = searchParams.get('bookingId');
+  const bookingId = searchParams.get('order_id');
+  const payment_type = searchParams.get('payment_type');
+  const transaction_status = searchParams.get('transaction_status');
+  let { booking } = useGetBookingById(bookingId as string);
+  const { mutationAutoPayment } = useAutoPayment();
 
-  console.log(bookingId);
-  const { booking } = useGetBookingById(bookingId as string);
-  console.log('BOOKING!!', booking);
-  let time = new Date();
-  time.setSeconds(time.getSeconds() + 600);
+  const autopayment = async () => {
+    await mutationAutoPayment(bookingId as string);
+  };
 
+  const handleCopy = () => {};
+  useEffect(() => {
+    if (Number(payment_type) != 1 && transaction_status == 'settlement') {
+      autopayment();
+    }
+  }, []);
+  console.log(booking);
   if (!booking) return <Loading></Loading>;
   return (
     <div className="my-32 md:w-[600px] mx-auto grid gap-5">
@@ -46,7 +57,7 @@ export default function Page() {
               </div>
             </div>
           ) : booking.booking_statusId === 3 ? (
-            <div className="font-medium flex flex-col gap-3 items-center text-stone-600">
+            <div className="font-medium text-center flex flex-col gap-3 items-center text-stone-600">
               <div>
                 Your booking request has been accepted by tenant. You should
                 receive a confirmation email.
@@ -96,7 +107,9 @@ export default function Page() {
                 </div>
                 <div className="font-bold">372 178 50566</div>
               </div>
-              <div>Copy</div>
+              <Button variant={'secondary'} onClick={handleCopy}>
+                Copy
+              </Button>
             </div>
 
             <div>

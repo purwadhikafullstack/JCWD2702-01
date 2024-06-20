@@ -1,48 +1,14 @@
-import Image from 'next/image';
-import { Badge } from '../ui/badge';
-import ImageTiles from './ImageTiles';
-import { Button } from '../ui/button';
-import RenderStars from '../cores/RenderStars';
-import { Baby, Dog, Ellipsis, MapPin, User } from 'lucide-react';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
-import { Calendar } from '../ui/calendar';
+import { Badge } from '../ui/badge';
+import HotelRoomCard from '../cards/HotelRoomCard';
+import RenderStars from '../cores/RenderStars';
+import ImageTiles from './ImageTiles';
 import { FacilityBadge } from '../cores/FacilityBadge';
-import { useState, useCallback } from 'react';
-import {
-  Interval,
-  addDays,
-  areIntervalsOverlapping,
-  closestTo,
-  differenceInDays,
-  eachDayOfInterval,
-  getOverlappingDaysInIntervals,
-  isWithinInterval,
-  subDays,
-} from 'date-fns';
-import { DateRange, DayContentProps } from 'react-day-picker';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { format } from 'date-fns';
-import { CalendarIcon } from 'lucide-react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { cn } from '@/lib/utils';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@/components/ui/form';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { toast } from '@/components/ui/use-toast';
-import { CounterComponent } from '../cores/searchbar/CounterComponent';
-import { useRouter } from 'next/navigation';
 import FilterCard from './filter_card/FilterCard';
-
+import { subDays } from 'date-fns';
+import { useState } from 'react';
+import { MapPin } from 'lucide-react';
+import { Button } from '../ui/button';
 export default function PropertyPage({
   data,
   imageCollection,
@@ -50,43 +16,78 @@ export default function PropertyPage({
   data: any;
   imageCollection: string[];
 }) {
-  const router = useRouter();
+  const [currentRoom, setCurrentRoom] = useState(0);
+
   const listingId = data.id;
-  const room_typesId = data.room_types[0].id;
+  const room_typesId = data.room_types[currentRoom].id;
 
-  const bookings = [...data.room_types[0].bookings].map((x) => ({
-    from: new Date(x.start_date),
-    to: subDays(new Date(x.end_date), 1),
-  }));
-
-  const nonavailabilities = [...data.room_types[0].nonavailability].map(
-    (x) => ({
+  const bookings = [...data.room_types[currentRoom].bookings]
+    .filter((x) => x.booking_statusId < 4)
+    .map((x) => ({
       from: new Date(x.start_date),
-      to: new Date(x.end_date),
-    }),
-  );
+      to: subDays(new Date(x.end_date), 1),
+    }));
+
+  const nonavailabilities = [
+    ...data.room_types[currentRoom].nonavailability,
+  ].map((x) => ({
+    from: new Date(x.start_date),
+    to: new Date(x.end_date),
+  }));
 
   const no_book = [...bookings, ...nonavailabilities];
 
-  const seasonal_prices = [...data.room_types[0].seasonal_prices].map((x) => ({
-    start: new Date(new Date(x.start_date).setHours(0, 0, 0, 0)),
-    end: new Date(x.end_date),
-    price: Number(x.price),
-  }));
-
-  // console.log(priceBasedOnRange);
+  const seasonal_prices = [...data.room_types[currentRoom].seasonal_prices].map(
+    (x) => ({
+      start: new Date(new Date(x.start_date).setHours(0, 0, 0, 0)),
+      end: new Date(x.end_date),
+      price: Number(x.price),
+    }),
+  );
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
     libraries: ['places'],
   });
 
+  const selectRoomId = (index: number) => {
+    setCurrentRoom(index);
+  };
+  
   if (isLoaded)
     return (
-      <div className="py-32 mx-12 lg:w-[70vw] lg:mx-auto">
-        <ImageTiles imageCollection={imageCollection} />
-        <div className=" mt-6 flex w-full items-start gap-8">
-          <div className="h-screen w-full">
-            <div id="Title">
+      <div className="py-32 w-[85vw] xl:w-[70vw] mx-auto">
+        <ImageTiles imageCollection={imageCollection}></ImageTiles>
+        <div className=" mt-6 grid md:flex items-start gap-8">
+          <div className="md:hidden" id="Title">
+            <div className="font-semibold text-lg">
+              {data.tenant.display_name}
+            </div>
+            <div className="text-3xl font-bold">{data.title}</div>
+            <div className="flex items-center gap-2">
+              <RenderStars rating={5}></RenderStars> ({data.avg_rating})
+            </div>
+
+            <div className="flex font-medium text-stone-600">
+              <MapPin className="p-1" /> {data.city}, {data.country}
+            </div>
+            <Badge variant={'secondary'}>{data.category.category}</Badge>
+          </div>
+          <FilterCard
+            className={
+              'block md:order-3 border md:w-[450px] md:sticky md:top-24'
+            }
+            no_book={no_book}
+            seasonal_prices={seasonal_prices}
+            data={data}
+            listingId={listingId}
+            room_typesId={data.room_types[currentRoom].id}
+            room_typesIndex={currentRoom}
+            updateCurrentRoom={selectRoomId}
+            breakfast_option={data.room_types[currentRoom].has_breakfast_option}
+            breakfast_price={data.room_types[currentRoom].breakfast_price}
+          ></FilterCard>
+          <div className="w-full">
+            <div className="hidden md:block" id="Title">
               <div className="font-semibold text-lg">
                 {data.tenant.display_name}
               </div>
@@ -144,17 +145,18 @@ export default function PropertyPage({
                 </GoogleMap>
               </div>
             </div>
-            <div id="Reviews">
-              <div className="text-lg w-full font-bold">Reviews</div>
+            <div>
+              <div className="text-lg font-bold">Rooms</div>
+              {data.categoriesId === 10 &&
+                data.room_types.map((x: any, i: number) => (
+                  <HotelRoomCard roomData={x} />
+                ))}
+            </div>
+            <div>
+              <div className="text-lg font-bold">Reviews</div>
+              <div>Them reviews</div>
             </div>
           </div>
-          {/* <FilterCard
-            no_book={no_book}
-            seasonal_prices={seasonal_prices}
-            data={data}
-            listingId={listingId}
-            room_typesId={room_typesId}
-          /> */}
         </div>
       </div>
     );

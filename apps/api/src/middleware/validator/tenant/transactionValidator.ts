@@ -15,8 +15,10 @@ export const ConfirmBookingDataValidator = [
       console.log('uid', uid);
 
       if (billing) {
-        if (billing.usersId !== uid) {
-          return Promise.reject('User does not match with user ID in booking.');
+        if (billing.room_type?.listing.tenant.user.uid !== uid) {
+          return Promise.reject(
+            'Tenant ID does not match with listing owner ID in the booking.',
+          );
         }
         return Promise.resolve();
       } else {
