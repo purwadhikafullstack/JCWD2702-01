@@ -12,7 +12,6 @@ export const mysqlConnection = async () => {
     password = match[1];
   } else {
     password = '';
-    console.error('Password not found in the connection string.');
   }
 
   const connection = await mysql.createConnection({
