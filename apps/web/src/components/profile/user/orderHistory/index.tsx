@@ -80,8 +80,6 @@ export default function orderHistory() {
       });
 
       if (files.length > 1) throw { message: 'Selected Files more than 1' };
-
-      console.log(bookingId);
       setImages(files);
     } catch (error: any) {
       alert(error.message);

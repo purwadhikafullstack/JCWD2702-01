@@ -30,7 +30,6 @@ export const newBooking = async (
 
     if (Number(type) == 2) {
       const redirectUrl = await midtransBooking(bill);
-      console.log(redirectUrl);
       if (!redirectUrl) throw new Error('Midtrans error.');
 
       res.status(200).send({

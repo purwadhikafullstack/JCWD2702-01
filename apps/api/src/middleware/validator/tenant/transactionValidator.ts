@@ -12,8 +12,6 @@ export const ConfirmBookingDataValidator = [
 
       const billing = await getBilling(bookingId);
 
-      console.log('uid', uid);
-
       if (billing) {
         if (billing.room_type?.listing.tenant.user.uid !== uid) {
           return Promise.reject(

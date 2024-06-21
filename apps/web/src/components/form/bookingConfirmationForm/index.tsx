@@ -35,7 +35,9 @@ export default function BookingConfirmationForm({
   const { mutationNewBooking } = useNewBooking();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    values.details = details;
+    details.phone = values.phone;
+    details.email = values.email;
+    details.fullname = values.fullname;
     mutationNewBooking({
       room_typesId: room_typesId as string,
       data: values,
@@ -56,7 +58,7 @@ export default function BookingConfirmationForm({
               <FormItem>
                 <FormLabel>Fullname</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Input placeholder="Fullname" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -70,7 +72,7 @@ export default function BookingConfirmationForm({
                 <FormItem className={cn('w-full')}>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" {...field} />
+                    <Input placeholder="Email" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -83,7 +85,7 @@ export default function BookingConfirmationForm({
                 <FormItem className={cn('w-full')}>
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" {...field} />
+                    <Input placeholder="Phone" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

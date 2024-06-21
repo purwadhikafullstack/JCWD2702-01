@@ -17,11 +17,8 @@ export default function BookingRequests() {
   const { allBookings } = useGetAllTenantBooking();
   const [status, setStatus] = useState(0);
 
-  // const bookings = allBookings[0];
-  // if (!allBookings || allBookings.length === 0) return <Loading />;
   if (!allBookings) return <Loading />;
-  // console.log(bookings);
-  console.log(allBookings);
+
   return (
     <div className="md:w-96">
       {allBookings.map((x: any) => (

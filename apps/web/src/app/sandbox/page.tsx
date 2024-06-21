@@ -93,7 +93,6 @@ export default function Page() {
       end: new Date(rooms[1].seasonal_price?.end_date as string),
     });
 
-    // Check if the day is disabled
     const isDisabled = no_books.some((range) =>
       isWithinInterval(props.date, { start: range.from, end: range.to }),
     );

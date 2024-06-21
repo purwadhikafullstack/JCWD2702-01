@@ -51,10 +51,6 @@ export const roomAvailabilitityValidator = async ({
   for (let unbookable_date of unbookable) {
     const check = areIntervalsOverlapping(booking_duration, unbookable_date);
     const check2 = isWithinInterval(unbookable_date.start, booking_duration);
-    console.log('unbookable data', unbookable_date);
-    console.log('booking duration', booking_duration);
-    console.log('check', check);
-    console.log('check2', check2);
     if (check || check2) return false;
   }
 

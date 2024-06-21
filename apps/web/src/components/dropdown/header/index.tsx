@@ -17,7 +17,7 @@ import {
   IPersistTenantData,
 } from '@/features/auth/signin/type';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSwitchUserRole } from '@/features/profile/hooks/useSwitchUserRole';
+import { useSwitchUserRole } from '@/features/user/profile/hooks/useSwitchUserRole';
 import { useLogout } from '@/features/auth/signin/hooks/useSignin';
 import { usePathname } from 'next/navigation';
 

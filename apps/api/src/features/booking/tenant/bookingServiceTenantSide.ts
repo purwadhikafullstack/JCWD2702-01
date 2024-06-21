@@ -126,7 +126,7 @@ export const sendConfirmationEmail = async ({
   bookingId: string;
 }) => {
   const verificationHTML = fs.readFileSync(
-    process.env.NODEMAILER_BOOKING_SUCCESS as string,
+    process.env.NODEMAILER_BOOKING_SUCCESS_TEMPLATE_PATH as string,
     'utf-8',
   );
 
@@ -152,7 +152,7 @@ export const sendReminderEmail = async ({
   bookingId: string;
 }) => {
   const verificationHTML = fs.readFileSync(
-    process.env.NODEMAILER_BOOKING_SUCCESS as string,
+    process.env.NODEMAILER_BOOKING_REMINDER_TEMPLATE_PATH as string,
     'utf-8',
   );
 

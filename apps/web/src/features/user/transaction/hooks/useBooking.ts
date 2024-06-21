@@ -12,9 +12,6 @@ export const useNewBooking = () => {
   const router = useRouter();
   const { mutate: mutationNewBooking } = useNewBookingMutation({
     onSuccess: (res: any) => {
-      toast({ description: 'OK!' });
-      console.log(res.data);
-
       if (res?.data?.data?.bill?.payment_typesId == 2) {
         window.location.assign(`${res.data.data.redirectUrl}`);
       } else {
@@ -38,11 +35,12 @@ export const useNewBooking = () => {
 
 export const useUploadPaymentProof = () => {
   const { toast } = useToast();
+  const router = useRouter();
 
   const { mutate: mutationPaymentProof } = useUploadPaymentProofMutation({
     onSuccess: (res: any) => {
       toast({ description: 'Payment proof sent.' });
-      console.log(res.data);
+      router.refresh();
     },
     onError: (err: any) => {
       toast({
@@ -79,21 +77,14 @@ export const useCancelBooking = () => {
 };
 
 export const useAutoPayment = () => {
-  const { toast } = useToast();
-  const router = useRouter();
   const { mutate: mutationAutoPayment } = useAutoPaymentMutation({
     onSuccess: (res: any) => {
-      toast({ description: 'Autopayment' });
-      console.log('autopayment', res);
       window.location.assign(
-        `http://localhost:3000/booking/payment?order_id=${res?.data?.data?.bill?.id}&payment_type=${res?.data?.data?.bill?.payment_typesId}`,
+        `${process.env.NEXT_PUBLIC_CLIENT_URL}/booking/payment?order_id=${res?.data?.data?.bill?.id}&payment_type=${res?.data?.data?.bill?.payment_typesId}`,
       );
     },
     onError: (err: any) => {
-      toast({
-        variant: 'destructive',
-        description: `${err.response.data.message}`,
-      });
+      console.log(err);
     },
   });
 

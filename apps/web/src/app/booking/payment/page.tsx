@@ -30,7 +30,6 @@ export default function Page() {
       autopayment();
     }
   }, []);
-  console.log(booking);
   if (!booking) return <Loading></Loading>;
   return (
     <div className="my-32 md:w-[600px] mx-auto grid gap-5">

@@ -50,53 +50,7 @@ export default function ImageTiles({
             alt={'picture'}
             unoptimized
             className="h-full w-full object-cover rounded-lg"
-            // onError={(e: any) => {
-            //   e.target.src = '/no-picture.png';
-            // }}
           />
-          {/* <div>
-            <Image
-              src={imageCollection[1]}
-              width={100}
-              height={100}
-              alt={'picture'}
-              unoptimized
-              className="h-[70%] md:h-full w-full object-cover rounded-lg"
-            />
-          </div>
-          <div>
-            <Image
-              src={imageCollection[2]}
-              width={100}
-              height={100}
-              alt={'picture'}
-              unoptimized
-              className="h-[70%] md:h-full w-full object-cover rounded-lg"
-            />
-          </div>
-          <div>
-            <Image
-              src={imageCollection[3]}
-              width={100}
-              height={100}
-              alt={'picture'}
-              unoptimized
-              className="h-[70%] md:h-full w-full object-cover rounded-lg"
-            />
-          </div>
-          <div>
-            <Image
-              src={imageCollection[4]}
-              width={100}
-              height={100}
-              alt={'picture'}
-              unoptimized
-              className="h-[70%] md:h-full w-full object-cover rounded-lg"
-              // onError={(e: any) => {
-              //   e.target.src = '/no-picture.png';
-              // }}
-            />
-          </div> */}
         </div>
       </div>
       <Script id="error-handling">

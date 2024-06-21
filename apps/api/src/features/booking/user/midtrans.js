@@ -18,7 +18,6 @@ export const midtransBooking = async (data) => {
 
   try {
     const redirectUrl = await snap.createTransactionRedirectUrl(parameter);
-    console.log(redirectUrl);
     return redirectUrl;
   } catch (error) {
     console.log(error.message);

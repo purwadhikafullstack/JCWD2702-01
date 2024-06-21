@@ -8,7 +8,7 @@ import {
   IPersistTenantData,
 } from '@/features/auth/signin/type';
 import { IProfileSidebarProps } from './type';
-import { useSwitchUserRole } from '@/features/profile/hooks/useSwitchUserRole';
+import { useSwitchUserRole } from '@/features/user/profile/hooks/useSwitchUserRole';
 
 export default function ProfileSidebar({
   onSelectMenuItem,

@@ -80,7 +80,6 @@ export function HotelFormExtension({
                 <Switch
                   checked={field.value}
                   onCheckedChange={(checked) => {
-                    console.log('checked', checked);
                     field.onChange(checked);
                     setValue('breakfast_price', checked ? breakfast_price : 0); // Set the breakfast price
                   }}

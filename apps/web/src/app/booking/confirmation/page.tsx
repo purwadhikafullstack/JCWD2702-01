@@ -146,7 +146,6 @@ export default function Page() {
                     )}
                   </div>
                 </div>
-                {/* disini nanti mapping */}
                 <div>
                   {normal_night ? (
                     <div className="flex justify-between text-xs text-stone-500 font-medium">
