@@ -5,20 +5,11 @@ export const prisma = new PrismaClient();
 import mysql from 'mysql2/promise';
 
 export const mysqlConnection = async () => {
-  const regex = /mysql:\/\/root:([^@]+)@/;
-  const match = (process.env.DATABASE_URL as string).match(regex);
-  let password: string;
-  if (match) {
-    password = match[1];
-  } else {
-    password = '';
-  }
-
   const connection = await mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: password,
-    database: 'finpro',
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
   });
 
   return connection;
