@@ -7,7 +7,9 @@ import OrderHistory from '@/components/profile/user/orderHistory';
 import MyReviews from '@/components/profile/user/myReviews';
 import Settings from '@/components/profile/user/settings';
 import IssueComplaint from '@/components/profile/user/issueComplaint';
+import BookingRequests from '@/components/profile/tenant/bookingRequests';
 import MyListings from '@/components/profile/tenant/myListing';
+
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 
@@ -25,6 +27,8 @@ export default function Profile() {
     SelectedComponent = Settings;
   } else if (selectedMenuItem === 'Issue complaint') {
     SelectedComponent = IssueComplaint;
+  } else if (selectedMenuItem === 'Booking requests') {
+    SelectedComponent = BookingRequests;
   } else if (selectedMenuItem === 'My listings') {
     SelectedComponent = MyListings;
   }
@@ -34,15 +38,15 @@ export default function Profile() {
   };
 
   return (
-    <div className="w-full flex justify-center p-14">
+    <div className={`w-full flex justify-center`}>
       <div
-        className={`${isFullWidth ? 'flex gap-12 w-full' : 'flex w-3/5 gap-12'}`}
+        className={`${isFullWidth ? 'flex  gap-12 w-full' : 'flex w-3/5 gap-12'}`}
       >
         <ProfileSidebar onSelectMenuItem={setSelectedMenuItem} />
         <div
-          className={`flex flex-col gap-7 text-2xl ${isFullWidth ? 'w-3/4' : 'w-full'}`}
+          className={`flex flex-col gap-7 ${isFullWidth ? 'w-3/4' : 'w-full'}`}
         >
-          <div className="font-semibold flex justify-between">
+          <div className="font-semibold text-2xl flex justify-between">
             {selectedMenuItem}
             <div className=" sm:hidden md:flex items-center space-x-2">
               <Switch

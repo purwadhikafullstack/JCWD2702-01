@@ -1,8 +1,8 @@
-import { NextFunction, Response, Request } from "express";
-import { createUser } from "./signupService";
-import { transporterNodemailer } from "@/helpers/TransporterMailer";
-import { IReqAccessToken, createToken } from "@/helpers/Token";
-import fs from 'fs'
+import { NextFunction, Response, Request } from 'express';
+import { createUser } from './signupService';
+import { transporterNodemailer } from '@/helpers/TransporterMailer';
+import { IReqAccessToken, createToken } from '@/helpers/Token';
+import fs from 'fs';
 import Handlebars from 'handlebars';
 
 export const newUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -36,6 +36,13 @@ export const newUser = async (req: Request, res: Response, next: NextFunction) =
     } catch (error) {
         next(error)
     }
-}
 
-
+    res.status(201).send({
+      error: false,
+      message: 'Account Created!',
+      provider: createdUser?.providersId,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

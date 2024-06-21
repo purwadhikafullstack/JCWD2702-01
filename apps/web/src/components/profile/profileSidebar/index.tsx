@@ -35,8 +35,8 @@ export default function ProfileSidebar({
   }, [stateUser, stateTenant]);
 
   return (
-    <div className="border border-zinc-400 rounded-xl h-4/5 w-60 pb-4">
-      <div className=" pt-5 w-full flex flex-col items-center gap-3">
+    <div className="border justify-self-start bg-pink-200 border-zinc-400 rounded-xl w-60 pb-4">
+      <div className="pt-5 w-full flex flex-col items-center gap-3">
         {userData.rolesId == 1 && userData.image_url ? (
           <div className="w-32 h-32 bg-zinc-100 rounded-full text-white text-sm flex justify-center items-center relative text-center pr-2">
             <Image
@@ -90,6 +90,14 @@ export default function ProfileSidebar({
             My listings
           </div>
         )}
+        {userData.rolesId == 2 ? (
+          <div
+            onClick={() => handleMenuItemClick('Booking requests')}
+            className={`cursor-pointer flex items-center pl-2 h-8 ${selectedMenuItem === 'Booking requests' ? 'bg-zinc-100 rounded-lg' : ''}`}
+          >
+            Booking Requests
+          </div>
+        ) : null}
         {userData.rolesId == 1 ? (
           <div
             onClick={() => handleMenuItemClick('My reviews')}

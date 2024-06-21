@@ -53,11 +53,6 @@ export default function ProtectedRoute({ children }: any) {
     }
   }, [loading, path]);
 
-  return loading ? (
-    <div>
-      <Loading />
-    </div>
-  ) : (
-    <>{children}</>
-  );
+  return loading ? <Loading /> : <>{children}</>;
+
 }

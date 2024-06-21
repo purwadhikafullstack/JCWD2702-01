@@ -6,11 +6,15 @@ export const CounterComponent = ({
   setCount,
   text,
   icon,
+  maxCount,
+  disabled,
 }: {
   count: number;
   setCount: Function;
   text: string;
   icon: any;
+  maxCount?: number | undefined;
+  disabled?: boolean | undefined;
 }) => {
   const handleDecrement = (e: any) => {
     e.stopPropagation();
@@ -33,7 +37,12 @@ export const CounterComponent = ({
           <Minus className="h-4 w-4" />
         </Button>
         <div>{count}</div>
-        <Button onClick={handleIncrement} variant="outline" size="icon">
+        <Button
+          disabled={disabled ? true : count == maxCount ? true : false}
+          onClick={handleIncrement}
+          variant="outline"
+          size="icon"
+        >
           <Plus className="h-4 w-4" />
         </Button>
       </div>

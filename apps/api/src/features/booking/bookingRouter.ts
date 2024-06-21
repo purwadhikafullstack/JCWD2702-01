@@ -1,0 +1,10 @@
+import { Router } from 'express';
+import { tokenVerify, roleVerify } from '@/helpers/Token';
+const router = Router();
+import UserSide from './user/bookingRouterUserSide';
+import TenantSide from './tenant/bookingRouterTenantSide';
+import { updateAutoPayment } from './public/autoPaymentController';
+router.use('/user', tokenVerify, UserSide);
+router.use('/tenant', tokenVerify, roleVerify, TenantSide);
+router.put('/midtrans', updateAutoPayment);
+export default router;

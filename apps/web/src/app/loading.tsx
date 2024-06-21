@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="flex mt-[50vh] gap-3 w-screen justify-center">
+    <div className="flex mt-[50vh] gap-3 w-full justify-center">
       <svg
         width="24"
         height="24"

@@ -1,7 +1,7 @@
 import { BedSingle, UserRound, SunMedium } from 'lucide-react';
 import Image from 'next/image';
 import { Card } from '../ui/card';
-import { Button } from '../ui/button';
+
 export default function HotelRoomCard({ roomData }: { roomData: any }) {
   return (
     <Card className="flex justify-between p-4 border mb-3">
@@ -38,48 +38,9 @@ export default function HotelRoomCard({ roomData }: { roomData: any }) {
                 </div>
               </div>
             </div>
-            <div className="">
-              <div className="font-bold">Price per night</div>
-              <div>
-                {roomData.seasonal_prices[0] &&
-                roomData.price < roomData.seasonal_prices[0] ? (
-                  <div className="font-bold">
-                    {roomData.seasonal_prices[0].toLocaleString('id-ID', {
-                      style: 'currency',
-                      currency: 'IDR',
-                    })}
-                  </div>
-                ) : roomData.seasonal_prices[0] &&
-                  roomData.price > roomData.seasonal_prices[0] ? (
-                  <div className="flex gap-2">
-                    <div className="text-sm line-through">
-                      {roomData.price.toLocaleString('id-ID', {
-                        style: 'currency',
-                        currency: 'IDR',
-                      })}
-                    </div>
-                    <div className="font-bold text-rose-600">
-                      {roomData.seasonal_prices[0].toLocaleString('id-ID', {
-                        style: 'currency',
-                        currency: 'IDR',
-                      })}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="font-bold text-2xl">
-                    {roomData.price.toLocaleString('id-ID', {
-                      style: 'currency',
-                      currency: 'IDR',
-                    })}
-                  </div>
-                )}
-              </div>
-              <div className="text-xs italic">Excl. taxes and service fee</div>
-            </div>
           </div>
         </div>
       </div>
-      <Button size={'lg'}>Reserve</Button>
     </Card>
   );
 }
