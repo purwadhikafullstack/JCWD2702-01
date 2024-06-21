@@ -13,7 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import * as z from 'zod';
-import { ProfileFormSchema } from '@/features/profile/schemas/ProfileFormSchema';
+import { ProfileFormSchema } from '@/features/user/profile/schemas/ProfileFormSchema';
 import { Image, User2 } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import {
@@ -21,7 +21,7 @@ import {
   IPersistTenantData,
 } from '@/features/auth/signin/type';
 import { useState, useEffect } from 'react';
-import { useUpdateUserProfile } from '@/features/profile/hooks/useUpdateUser';
+import { useUpdateUserProfile } from '@/features/user/profile/hooks/useUpdateUser';
 import { useUpdateTenantProfile } from '@/features/tenant/profile/hooks/useUpdateTenantProfile';
 
 export default function ProfileForm() {

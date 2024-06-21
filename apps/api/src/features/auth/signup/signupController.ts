@@ -11,7 +11,7 @@ export const newUser = async (req: Request, res: Response, next: NextFunction) =
 
         const createdUser = await createUser({ uid, email, display_name, is_verified, image_url })
 
-        if (createdUser) {
+        if (createdUser?.is_verified === false) {
             const accesstoken = await createToken({ data: { uid: createdUser.uid, email: createdUser.email, isVerified: createdUser.is_verified }, expiresIn: "5s" })
 
             const verificationHTML = fs.readFileSync(process.env.NODEMAILER_TEMPLATE_PATH as string, 'utf-8')

@@ -12,5 +12,8 @@ export const TenantSignupFormSchema = z.object({
 });
 
 export const TenantBankDetailsFormSchema = z.object({
-    bank: z.string()
+    card_holder_name: z.string(),
+    card_number: z.string(),
+    exp_date: z.string(),
+    cvv: z.string()
 })

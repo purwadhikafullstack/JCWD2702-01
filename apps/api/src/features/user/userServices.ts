@@ -85,3 +85,11 @@ export const getTenantByUid = async (uid: string) => {
         }
     })
 }
+
+export const findUserByUid = async (uid: string) => {
+    return await prisma.users.findUnique({
+        where: {
+            uid: uid
+        }
+    })
+}

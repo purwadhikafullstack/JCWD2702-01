@@ -38,7 +38,6 @@ export const tokenVerify = (req: Request, res: Response, next: NextFunction) => 
         if (!accesstoken) throw new Error("Token Must Provided!")
 
         const payload = jwt.verify(accesstoken as string, process.env.JWT_SECRET_KEY as string)
-
         reqToken.payload = payload
 
         next()
