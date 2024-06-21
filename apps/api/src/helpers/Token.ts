@@ -47,24 +47,9 @@ export const tokenVerify = (
 
     if (!accesstoken) throw new Error('Token Must Provided!');
 
-    const payload = jwt.verify(
-      accesstoken as string,
-      process.env.JWT_SECRET_KEY as string,
-    );
+    const payload = jwt.verify(accesstoken as string, process.env.JWT_SECRET_KEY as string)
+    reqToken.payload = payload
 
-    reqToken.payload = payload;
-
-    next();
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const roleVerify = (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const reqToken = req as IReqAccessToken;
-    const { rolesId } = reqToken.payload.data;
-    if (rolesId !== 2) throw new Error('Only accessible to tenants');
 
     next();
   } catch (error) {

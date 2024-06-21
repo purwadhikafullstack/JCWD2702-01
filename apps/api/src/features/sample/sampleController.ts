@@ -1,6 +1,7 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { prisma } from '@/connection';
 import { areIntervalsOverlapping } from 'date-fns';
+import { getCategoryData, getFacilitiesData } from './sampleService';
 
 export const getSampleData = async (req: Request, res: Response) => {
   const sampleData = await prisma.listings.findMany({
@@ -166,3 +167,22 @@ export const getSampleDataByQuery = async (req: Request, res: Response) => {
     toShow,
   });
 };
+
+export const categoryData = async (req: Request, res: Response, next: NextFunction) => {
+  const categoryData = await getCategoryData()
+  res.status(200).send({
+    error: false,
+    message: "Success",
+    data: categoryData
+  })
+}
+
+export const facilitiesData = async (req: Request, res: Response, next: NextFunction) => {
+  const facilitiesData = await getFacilitiesData()
+  res.status(200).send({
+    error: false,
+    message: "Success",
+    data: facilitiesData
+  })
+}
+

@@ -25,7 +25,6 @@ export default function Verified({ params }: { params: { token: string } }) {
       setResult('Success');
     } catch (error) {
       setResult('error');
-      console.log(error);
     }
   };
 

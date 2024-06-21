@@ -177,14 +177,14 @@ export default function Page() {
         selected={date}
         onSelect={handleDateChange}
         components={{
-          DayContent: CustomDayContent, // Replace the DayContent component
+          DayContent: CustomDayContent,
         }}
       />
       {listings.map((x: any) => (
         <Link href={`/sandbox/${x.slug}`}>
           <ListingCard
             key={x.id}
-            imageUrl={`http://localhost:8000/${x.listing_images[0].image_url}`}
+            imageUrl={`${process.env.NEXT_PUBLIC_BASE_API_URL}${x.listing_images[0].image_url}`}
             title={x.title}
             avgRating={x.avg_rating}
             country={x.country}

@@ -97,7 +97,7 @@ export default function TenantSignupForm({ nextStep }: any) {
             name="display_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>username</FormLabel>
+                <FormLabel>Username</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -115,7 +115,7 @@ export default function TenantSignupForm({ nextStep }: any) {
             name="image_url"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>display picture</FormLabel>
+                <FormLabel>Display picture</FormLabel>
                 <FormControl>
                   <Input
                     type="file"
@@ -141,7 +141,7 @@ export default function TenantSignupForm({ nextStep }: any) {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>phone number</FormLabel>
+                <FormLabel>Phone number</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -159,7 +159,7 @@ export default function TenantSignupForm({ nextStep }: any) {
             name="id_card_number"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>id card</FormLabel>
+                <FormLabel>Id card</FormLabel>
                 <FormControl>
                   <Input
                     {...field}

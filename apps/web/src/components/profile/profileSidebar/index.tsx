@@ -83,7 +83,10 @@ export default function ProfileSidebar({
             Order history
           </div>
         ) : (
-          <div className="cursor-pointer flex items-center pl-2 h-8">
+          <div
+            onClick={() => handleMenuItemClick('My listings')}
+            className="cursor-pointer flex items-center pl-2 h-8"
+          >
             My listings
           </div>
         )}

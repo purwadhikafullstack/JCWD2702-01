@@ -8,6 +8,8 @@ import MyReviews from '@/components/profile/user/myReviews';
 import Settings from '@/components/profile/user/settings';
 import IssueComplaint from '@/components/profile/user/issueComplaint';
 import BookingRequests from '@/components/profile/tenant/bookingRequests';
+import MyListings from '@/components/profile/tenant/myListing';
+
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 
@@ -27,6 +29,8 @@ export default function Profile() {
     SelectedComponent = IssueComplaint;
   } else if (selectedMenuItem === 'Booking requests') {
     SelectedComponent = BookingRequests;
+  } else if (selectedMenuItem === 'My listings') {
+    SelectedComponent = MyListings;
   }
 
   const handleSwitchChange = (checked: boolean) => {
@@ -55,7 +59,7 @@ export default function Profile() {
               </Label>
             </div>
           </div>
-          <div className={isFullWidth ? 'w-full' : 'flex-grow'}>
+          <div className={isFullWidth ? 'w-full h-full' : 'flex-grow'}>
             <SelectedComponent />
           </div>
         </div>

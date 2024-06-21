@@ -19,6 +19,7 @@ import { PasswordInput } from '@/components/ui/password-input';
 import { MailIcon } from 'lucide-react';
 import { SigninFormSchema } from '@/features/auth/signin/schemas/SigninFormSchema';
 import { useSignin } from '@/features/auth/signin/hooks/useSignin';
+import Link from 'next/link';
 
 const SigninForm = () => {
   const { mutationSignin } = useSignin();
@@ -91,6 +92,14 @@ const SigninForm = () => {
                 </FormItem>
               )}
             />
+          </div>
+          <div className="text-xs pt-1">
+            <Link
+              href={'/forgot-password'}
+              className="cursor-pointer hover:text-blue-400"
+            >
+              Forgot Password?
+            </Link>
           </div>
           <Button className="w-full mt-5" type="submit">
             Sign In
