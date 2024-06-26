@@ -39,3 +39,22 @@ export const setSeasonalPriceFormSchema = z.object({
     start_date: z.date(),
     end_date: z.date(),
 })
+
+export const setNonavailabilityFormSchema = z.object({
+    room_types: z.number(),
+    start_date: z.date(),
+    end_date: z.date(),
+})
+
+export const updateListingFormSchema = z.object({
+    listing_id: z.string(),
+    title: z.string(),
+    price: z.string(),
+    bedding_details: z.string(),
+    description: z.string(),
+    facilities: z.array(z.number()),
+    listing_images: z.string(),
+    room_types: z.number(),
+    room_types_name: z.string(),
+    room_types_images: z.string()
+})

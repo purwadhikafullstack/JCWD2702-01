@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   AlertDialog,
@@ -43,10 +43,15 @@ export default function SetSeasonalPrice() {
                   x
                 </AlertDialogCancel>
               </div>
-              <div className="flex flex-1 items-center justify-center text-2xl pr-4">
-                {selectedListing
-                  ? 'Set Seasonal Price'
-                  : 'Select listing to set'}
+              <div className="flex flex-1 items-center justify-center text-2xl pr-8">
+                <div className="flex flex-col items-center justify-center">
+                  {selectedListing
+                    ? 'Set Nonavailability'
+                    : 'Select a listing to set'}
+                  <div className="text-sm font-normal flex justify-center items-center">
+                    {selectedListing ? selectedListing.title : ''}
+                  </div>
+                </div>
               </div>
             </AlertDialogTitle>
             <AlertDialogDescription>

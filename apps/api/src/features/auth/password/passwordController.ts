@@ -53,7 +53,6 @@ export const sendResetPasswordLink = async (req: Request, res: Response, next: N
 export const newPassword = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const reqToken = req as IReqAccessToken
-        console.log(reqToken)
         const { uid } = reqToken.payload.data
         const { password } = req.body
 
