@@ -50,7 +50,6 @@ export const tokenVerify = (
     const payload = jwt.verify(accesstoken as string, process.env.JWT_SECRET_KEY as string)
     reqToken.payload = payload
 
-
     next();
   } catch (error) {
     next(error);

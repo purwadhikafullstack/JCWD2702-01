@@ -67,7 +67,7 @@ export default function AutocompleteInput({
       let city = '';
       let country = '';
       results[0].address_components.forEach((component) => {
-        if (component.types.includes('locality')) {
+        if (component.types.includes('administrative_area_level_1')) {
           city = component.long_name;
         }
         if (component.types.includes('country')) {

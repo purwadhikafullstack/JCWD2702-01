@@ -9,7 +9,7 @@ import Settings from '@/components/profile/user/settings';
 import IssueComplaint from '@/components/profile/user/issueComplaint';
 import BookingRequests from '@/components/profile/tenant/bookingRequests';
 import MyListings from '@/components/profile/tenant/myListing';
-
+import GuestReviews from '@/components/profile/tenant/guestReviews';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 
@@ -21,7 +21,7 @@ export default function Profile() {
 
   if (selectedMenuItem === 'Order history') {
     SelectedComponent = OrderHistory;
-  } else if (selectedMenuItem === 'My reviews') {
+  } else if (selectedMenuItem === 'Past stays') {
     SelectedComponent = MyReviews;
   } else if (selectedMenuItem === 'Settings') {
     SelectedComponent = Settings;
@@ -31,6 +31,8 @@ export default function Profile() {
     SelectedComponent = BookingRequests;
   } else if (selectedMenuItem === 'My listings') {
     SelectedComponent = MyListings;
+  } else if (selectedMenuItem === 'Guest reviews') {
+    SelectedComponent = GuestReviews;
   }
 
   const handleSwitchChange = (checked: boolean) => {

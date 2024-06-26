@@ -50,7 +50,7 @@ export const ListingCard = ({
         unoptimized
         className="w-full object-cover rounded-lg h-[150px]"
       />
-      <div className="font-bold mt-2">{title}</div>
+      <div className="font-bold mt-2 truncate">{title}</div>
       <div className="text-sm font-medium">
         <div className="flex ml-[-5px] text-stone-600 items-center">
           <MapPin className="p-1" /> {city}, {country}

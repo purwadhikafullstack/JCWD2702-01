@@ -17,6 +17,7 @@ export default function FilterCalendar({
   room_typesIndex,
 }: any) {
   const { setValue } = form;
+
   const handleDateChange = (selectedDate: DateRange | undefined) => {
     setDate(selectedDate);
     setValue('duration', {

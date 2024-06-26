@@ -1,3 +1,4 @@
+'use client';
 import {
   Form,
   FormControl,
@@ -20,7 +21,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useNewBooking } from '@/features/user/transaction/hooks/useBooking';
 import { z } from 'zod';
-
+import { useState } from 'react';
+import { LoadingCircle } from '@/components/ui/loading';
 const payment_methods = [
   { label: 'Manual Transfer', value: 1 },
   { label: 'Online Payment', value: 2 },
@@ -32,9 +34,10 @@ export default function BookingConfirmationForm({
   room_typesId,
   details,
 }: any) {
-  const { mutationNewBooking } = useNewBooking();
-
+  const { mutationNewBooking, isPending } = useNewBooking();
+  const [isClicked, setIsClicked] = useState(false);
   function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsClicked(true);
     details.phone = values.phone;
     details.email = values.email;
     details.fullname = values.fullname;
@@ -145,7 +148,12 @@ export default function BookingConfirmationForm({
             </div>
           </div>
         </div>
-        <Button type="submit" className="w-[50%]">
+        <Button
+          disabled={isPending ? true : false}
+          type="submit"
+          className="flex gap-3 w-[50%]"
+        >
+          {isPending && <LoadingCircle />}
           Confirm and pay
         </Button>
       </form>
