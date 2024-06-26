@@ -23,6 +23,7 @@ import {
 import { useState, useEffect } from 'react';
 import { useUpdateUserProfile } from '@/features/user/profile/hooks/useUpdateUser';
 import { useUpdateTenantProfile } from '@/features/tenant/profile/hooks/useUpdateTenantProfile';
+import { ProfilePicture } from './ProfilePicture';
 
 export default function ProfileForm() {
   const [userData, setUserData] = useState<IPersistSignin>(
@@ -113,7 +114,10 @@ export default function ProfileForm() {
   }, [stateUser, stateTenant]);
 
   return (
-    <div className="flex flex-col gap-7 md:w-96">
+    <div className="flex flex-col gap-7 w-auto md:w-96">
+      <div className="block md:hidden">
+        <ProfilePicture userData={userData} tenantData={tenantData} />
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
           <FormField

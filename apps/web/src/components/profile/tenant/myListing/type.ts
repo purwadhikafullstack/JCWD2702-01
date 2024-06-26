@@ -16,3 +16,7 @@ export interface ISelectedListing {
 export interface SetSeasonalPriceFormProps {
     listing: IMyListing;
 }
+
+export interface SetNonAvailabilityFormProps {
+    listing: IMyListing;
+}
