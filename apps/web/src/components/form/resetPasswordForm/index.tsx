@@ -17,7 +17,6 @@ import { PasswordInput } from '@/components/ui/password-input';
 import { useNewPassword } from '@/features/auth/password/hooks/useNewPassword';
 
 export default function ResetPasswordForm({ token }: { token: string }) {
-  console.log({ token: token });
   const { mutationNewPassword } = useNewPassword();
   const form = useForm<z.infer<typeof ResetPasswordFormSchema>>({
     resolver: zodResolver(ResetPasswordFormSchema),

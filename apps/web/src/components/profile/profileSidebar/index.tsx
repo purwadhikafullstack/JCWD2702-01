@@ -7,25 +7,23 @@ import {
   IPersistSignin,
   IPersistTenantData,
 } from '@/features/auth/signin/type';
-import { IProfileSidebarProps } from './type';
 import { useSwitchUserRole } from '@/features/user/profile/hooks/useSwitchUserRole';
 
 export default function ProfileSidebar({
+  selectedMenuItem,
   onSelectMenuItem,
-}: IProfileSidebarProps) {
+}: any) {
   const [userData, setUserData] = useState<IPersistSignin>(
     {} as IPersistSignin,
   );
   const [tenantData, setTenantData] = useState<IPersistTenantData>(
     {} as IPersistTenantData,
   );
-  const [selectedMenuItem, setSelectedMenuItem] = useState('Profile');
   const stateUser = useSelector((state: any) => state.user);
   const stateTenant = useSelector((state: any) => state.tenant);
   const { mutationSwitchUserRole } = useSwitchUserRole();
 
   const handleMenuItemClick = (menuItem: string) => {
-    setSelectedMenuItem(menuItem);
     onSelectMenuItem(menuItem);
   };
 
@@ -35,7 +33,7 @@ export default function ProfileSidebar({
   }, [stateUser, stateTenant]);
 
   return (
-    <div className="border justify-self-start bg-pink-200 border-zinc-400 rounded-xl w-60 pb-4">
+    <div className="md:border-2 justify-self-start bg-pink-200 md:border-zinc-400 rounded-xl w-60 pb-4 h-full">
       <div className="pt-5 w-full flex flex-col items-center gap-3">
         {userData.rolesId == 1 && userData.image_url ? (
           <div className="w-32 h-32 bg-zinc-100 rounded-full text-white text-sm flex justify-center items-center relative text-center pr-2">
@@ -85,7 +83,7 @@ export default function ProfileSidebar({
         ) : (
           <div
             onClick={() => handleMenuItemClick('My listings')}
-            className="cursor-pointer flex items-center pl-2 h-8"
+            className={`cursor-pointer flex items-center pl-2 h-8 ${selectedMenuItem === 'My listings' ? 'bg-zinc-100 rounded-lg' : ''}`}
           >
             My listings
           </div>
