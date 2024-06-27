@@ -1,4 +1,4 @@
-import { CounterComponent } from '@/components/cores/searchbar/CounterComponent';
+import { CounterComponent } from '@/components/cards/CounterComponent';
 import { Button } from '@/components/ui/button';
 import {
   FormControl,

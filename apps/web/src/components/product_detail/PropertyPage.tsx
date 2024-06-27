@@ -9,18 +9,27 @@ import { subDays } from 'date-fns';
 import { useState } from 'react';
 import { MapPin } from 'lucide-react';
 import { Button } from '../ui/button';
+import { GuestReviewCard } from '../cards/GuestReviewCard';
 export default function PropertyPage({
   data,
   imageCollection,
+  startDate,
+  endDate,
+  adults,
+  children,
 }: {
   data: any;
   imageCollection: string[];
+  startDate?: string;
+  endDate?: string;
+  adults?: string;
+  children?: string;
 }) {
   const [currentRoom, setCurrentRoom] = useState(0);
 
   const listingId = data.id;
   const room_typesId = data.room_types[currentRoom].id;
-
+  console.log(data);
   const bookings = [...data.room_types[currentRoom].bookings]
     .filter((x) => x.booking_statusId < 4)
     .map((x) => ({
@@ -52,7 +61,7 @@ export default function PropertyPage({
   const selectRoomId = (index: number) => {
     setCurrentRoom(index);
   };
-  
+
   if (isLoaded)
     return (
       <div className="py-32 w-[85vw] xl:w-[70vw] mx-auto">
@@ -85,6 +94,10 @@ export default function PropertyPage({
             updateCurrentRoom={selectRoomId}
             breakfast_option={data.room_types[currentRoom].has_breakfast_option}
             breakfast_price={data.room_types[currentRoom].breakfast_price}
+            startDate={startDate}
+            endDate={endDate}
+            adults={adults}
+            children={children}
           ></FilterCard>
           <div className="w-full">
             <div className="hidden md:block" id="Title">
@@ -154,7 +167,9 @@ export default function PropertyPage({
             </div>
             <div>
               <div className="text-lg font-bold">Reviews</div>
-              <div>Them reviews</div>
+              {data.reviews.map((x: any, i: number) => (
+                <GuestReviewCard review={x} id={x.id} />
+              ))}
             </div>
           </div>
         </div>

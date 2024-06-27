@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 export const useNewBooking = () => {
   const { toast } = useToast();
   const router = useRouter();
-  const { mutate: mutationNewBooking } = useNewBookingMutation({
+  const { mutate: mutationNewBooking, isPending } = useNewBookingMutation({
     onSuccess: (res: any) => {
       if (res?.data?.data?.bill?.payment_typesId == 2) {
         window.location.assign(`${res.data.data.redirectUrl}`);
@@ -30,6 +30,7 @@ export const useNewBooking = () => {
 
   return {
     mutationNewBooking,
+    isPending,
   };
 };
 

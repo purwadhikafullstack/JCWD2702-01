@@ -32,6 +32,21 @@ export const useGetListingByIdQuery = (id: string) => {
   };
 };
 
+export const useGetListingsBySearchQuery = (params: string) => {
+  const { data, isSuccess, isError, refetch } = useQuery({
+    queryKey: ['SearchListing', params],
+    queryFn: async () => {
+      return await axiosInstance.get(`/listings/search?${params}`);
+    },
+  });
+
+  return {
+    data,
+    isSuccess,
+    isError,
+  };
+};
+
 export const useGetListingsCategoryQuery = () => {
   const { data, isSuccess, isError } = useQuery({
     queryKey: ['Categories'],

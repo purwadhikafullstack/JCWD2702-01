@@ -24,7 +24,9 @@ import { DateRange } from 'react-day-picker';
 import { Calendar } from '@/components/ui/calendar';
 import { addDays, format } from 'date-fns';
 import PlacesAutocomplete from './PlacesSuggestion';
-import { CounterComponent } from './CounterComponent';
+import { CounterComponent } from '../../cards/CounterComponent';
+import { useRouter, usePathname } from 'next/navigation';
+import { QueryClient, useQueryClient } from '@tanstack/react-query';
 
 export default function SearchBar() {
   const [date, setDate] = useState<DateRange | undefined>({
@@ -34,7 +36,9 @@ export default function SearchBar() {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const pageResized = () => {
+  const router = useRouter();
+
+  const pageResized: any = () => {
     setWindowWidth(window.innerWidth);
   };
 
@@ -53,7 +57,7 @@ export default function SearchBar() {
       to: z.date(),
     }),
     guests: z.object({
-      adults: z.number().min(1),
+      adults: z.number().min(0),
       children: z.number().min(0),
       pets: z.number().min(0),
     }),
@@ -77,12 +81,34 @@ export default function SearchBar() {
       setValue('duration', selectedDate as { from: Date; to: Date });
     }
   };
+  const queryClient = useQueryClient();
+  const pathname = usePathname();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    function convertNonAlphaToAscii(inputString: string) {
+      let result = '';
+
+      for (let i = 0; i < inputString.length; i++) {
+        let char = inputString[i];
+        if (char === ' ') {
+          result += '%20';
+        } else if (!/[a-zA-Z]/.test(char)) {
+          result += char.charCodeAt(0);
+        } else {
+          result += char;
+        }
+      }
+
+      return result;
+    }
+    const location = values.location.split(',');
+    const paramsString = `/search?lat=${location[0]}&lng=${location[1]}&country=${location[3]}&start_date=${format(values.duration.from, 'yyyy-MM-dd')}&end_date=${format(values.duration.to, 'yyyy-MM-dd')}&adults=${values.guests.adults}&children=${values.guests.children}&loc_term=${location[4]}`;
+    router.push(paramsString);
+
+    queryClient.refetchQueries({ queryKey: ['SearchListing', paramsString] });
   }
 
-  const { setValue, watch } = form;
+  const { setValue } = form;
 
   const guests = form.watch('guests');
 

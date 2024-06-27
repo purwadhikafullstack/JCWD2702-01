@@ -3,6 +3,7 @@ import {
   useGetListingByIdQuery,
   useGetListingsCategoryQuery,
   useGetListingsFacilitiesQuery,
+  useGetListingsBySearchQuery,
 } from '../api/useGetListingsQuery';
 
 export const useGetListings = () => {
@@ -16,6 +17,17 @@ export const useGetListingById = ({ id }: { id: string }) => {
   const { data: listingById, isSuccess, isError } = useGetListingByIdQuery(id);
   return {
     listingById: listingById?.data,
+  };
+};
+
+export const useGetListingsBySearch = (params: string) => {
+  const {
+    data: searchResult,
+    isSuccess,
+    isError,
+  } = useGetListingsBySearchQuery(params);
+  return {
+    searchResult: searchResult?.data.data,
   };
 };
 

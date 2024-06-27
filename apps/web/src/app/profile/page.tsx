@@ -9,6 +9,7 @@ import Settings from '@/components/profile/user/settings';
 import IssueComplaint from '@/components/profile/user/issueComplaint';
 import BookingRequests from '@/components/profile/tenant/bookingRequests';
 import MyListings from '@/components/profile/tenant/myListing';
+import GuestReviews from '@/components/profile/tenant/guestReviews';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
@@ -20,27 +21,21 @@ export default function Profile() {
 
   let SelectedComponent = ProfileForm;
 
-  switch (selectedMenuItem) {
-    case 'Order history':
-      SelectedComponent = OrderHistory;
-      break;
-    case 'My reviews':
-      SelectedComponent = MyReviews;
-      break;
-    case 'Settings':
-      SelectedComponent = Settings;
-      break;
-    case 'Issue complaint':
-      SelectedComponent = IssueComplaint;
-      break;
-    case 'Booking requests':
-      SelectedComponent = BookingRequests;
-      break;
-    case 'My listings':
-      SelectedComponent = MyListings;
-      break;
-    default:
-      SelectedComponent = ProfileForm;
+  if (selectedMenuItem === 'Order history') {
+    SelectedComponent = OrderHistory;
+  } else if (selectedMenuItem === 'Past stays') {
+    SelectedComponent = MyReviews;
+  } else if (selectedMenuItem === 'Settings') {
+    SelectedComponent = Settings;
+  } else if (selectedMenuItem === 'Issue complaint') {
+    SelectedComponent = IssueComplaint;
+  } else if (selectedMenuItem === 'Booking requests') {
+    SelectedComponent = BookingRequests;
+  } else if (selectedMenuItem === 'My listings') {
+    SelectedComponent = MyListings;
+  } else if (selectedMenuItem === 'Guest reviews') {
+    SelectedComponent = GuestReviews;
+
   }
 
   const handleSwitchChange = (checked: boolean) => {

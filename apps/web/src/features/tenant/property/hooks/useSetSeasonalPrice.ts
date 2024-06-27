@@ -5,7 +5,6 @@ export const useSetSeasonalPrice = () => {
     const { toast } = useToast()
     const { mutate: mutationSetSeasonalPrice } = useSetSeasonalPriceMutation({
         onSuccess: (res: any) => {
-            console.log(res)
             toast({
                 description: `${res.data.message}`
             })

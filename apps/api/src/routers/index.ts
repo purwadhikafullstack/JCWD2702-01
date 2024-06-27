@@ -8,9 +8,9 @@ import UserRouter from '../features/user/userRouter';
 import SignouRouter from '../features/auth/signout/signoutRouter';
 import SampleRouter from '../features/sample/sampleRouter';
 import BookingRouter from '@/features/booking/bookingRouter';
-import PasswordRouter from '../features/auth/password/passwordRouter'
-import PropertyRouter from '../features/property/propertyRouter'
-
+import PasswordRouter from '../features/auth/password/passwordRouter';
+import PropertyRouter from '../features/property/propertyRouter';
+import ReviewRouter from '@/features/review/reviewRouter';
 
 const router = Router();
 router.use(cors());
@@ -25,7 +25,8 @@ router.use('/tenant', TenantRouter);
 router.use('/user', UserRouter);
 router.use('/listings', SampleRouter);
 router.use('/booking', BookingRouter);
-router.use('/password', PasswordRouter)
-router.use('/property', PropertyRouter)
+router.use('/password', PasswordRouter);
+router.use('/property', PropertyRouter);
+router.use('/review', ReviewRouter);
 
 export default router;

@@ -8,90 +8,13 @@ import { WhyRoomer } from './sections/WhySection';
 import { Newsletter } from './sections/NewsletterSection';
 import { BestDeals } from './sections/PromoSection';
 import Loading from '@/app/loading';
+import { useGetListings } from '@/features/listings/hooks/useGetListings';
+
 export default function LandingPage() {
   const { heroImage } = useGetHeroImage();
-
-  const listing_images = [
-    { image_url: '/1b8ba868-7501-4649-87d3-15db8b5348f2.webp' },
-  ];
-  const seasonal_price = [
-    { id: 1, price: 620000 },
-    { id: 1, price: 300000 },
-  ];
-
-  const rooms = [
-    { id: 0, price: 560000, seasonal_price: seasonal_price[0].price },
-    { id: 1, price: 560000, seasonal_price: seasonal_price[1].price },
-    { id: 2, price: 560000 },
-  ];
-
-  const listings = [
-    {
-      id: "uifsjw241",
-      title: 'Accommodation Name',
-      city: 'Jakarta',
-      country: 'Indonesia',
-      avg_rating: 4.8,
-      roomId: 2,
-      listing_images: listing_images[0].image_url,
-    },
-    {
-      id: "73vcasfui84",
-      title: 'Accommodation Name',
-      city: 'Sydney',
-      country: 'Australia',
-      avg_rating: 4.8,
-      roomId: 1,
-      listing_images: listing_images[0].image_url,
-    },
-    {
-      id: "2dgasgd43",
-      title: 'Accommodation Name',
-      city: 'Makassar',
-      country: 'Indonesia',
-      avg_rating: 4.8,
-      roomId: 1,
-      listing_images: listing_images[0].image_url,
-    },
-    {
-      id:  "x42gnim653",
-      title: 'Accommodation Name',
-      city: 'Bandung',
-      country: 'Indonesia',
-      avg_rating: 4.8,
-      roomId: 0,
-      listing_images: listing_images[0].image_url,
-    },
-    {
-      id:  "503mkdfm3",
-      title: 'Accommodation Name',
-      city: 'Phuket',
-      country: 'Thailand',
-      avg_rating: 4.5,
-      roomId: 0,
-      listing_images: listing_images[0].image_url,
-    },
-    {
-      id:  "xfsopgod352",
-      title: 'Accommodation Name',
-      city: 'Bali',
-      country: 'Indonesia',
-      avg_rating: 4.7,
-      roomId: 1,
-      listing_images: listing_images[0].image_url,
-    },
-    {
-      id:  "eoi2dsfk303",
-      title: 'Accommodation Name',
-      city: 'Tokyo',
-      country: 'Japan',
-      avg_rating: 4.6,
-      roomId: 0,
-      listing_images: listing_images[0].image_url,
-    },
-  ];
-
-  if (!heroImage) return <Loading />;
+  const { listings } = useGetListings();
+  
+  if (!heroImage && !listings) return <Loading />;
   return (
     <div>
       <div className="w-full overflow-hidden">
@@ -117,7 +40,7 @@ export default function LandingPage() {
       >
         <div className="w-[80vw] mx-auto ">
           <ExploreCity></ExploreCity>
-          <FeaturedRooms listings={listings} rooms={rooms}></FeaturedRooms>
+          <FeaturedRooms listings={listings}></FeaturedRooms>
           <BestDeals></BestDeals>
           <WhyRoomer></WhyRoomer>
         </div>

@@ -33,11 +33,17 @@ export const CounterComponent = ({
         <span>{text}</span>
       </div>
       <div className="grid grid-cols-3 gap-4 justify-items-center items-center w-[100px]">
-        <Button onClick={handleDecrement} variant="outline" size="icon">
+        <Button
+          type="button"
+          onClick={handleDecrement}
+          variant="outline"
+          size="icon"
+        >
           <Minus className="h-4 w-4" />
         </Button>
         <div>{count}</div>
         <Button
+          type="button"
           disabled={disabled ? true : count == maxCount ? true : false}
           onClick={handleIncrement}
           variant="outline"

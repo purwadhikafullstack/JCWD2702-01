@@ -6,8 +6,8 @@
   - The primary key for the `listings` table will be changed. If it partially fails, the table could be left without primary key constraint.
   - You are about to drop the column `listingsId` on the `nonavailability` table. All the data in the column will be lost.
   - You are about to drop the column `roomsId` on the `room_images` table. All the data in the column will be lost.
-  - You are about to drop the `_facilitiesTolistings` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `_roomsToseasonal_prices` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `_facilitiestolistings` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `_roomstoseasonal_prices` table. If the table is not empty, all the data it contains will be lost.
   - You are about to drop the `rooms` table. If the table is not empty, all the data it contains will be lost.
   - Added the required column `room_typesId` to the `nonavailability` table without a default value. This is not possible if the table is not empty.
   - Added the required column `room_typesId` to the `room_images` table without a default value. This is not possible if the table is not empty.
@@ -15,16 +15,16 @@
 
 */
 -- DropForeignKey
-ALTER TABLE `_facilitiesTolistings` DROP FOREIGN KEY `_facilitiesTolistings_A_fkey`;
+ALTER TABLE `_facilitiestolistings` DROP FOREIGN KEY `_facilitiesTolistings_A_fkey`;
 
 -- DropForeignKey
-ALTER TABLE `_facilitiesTolistings` DROP FOREIGN KEY `_facilitiesTolistings_B_fkey`;
+ALTER TABLE `_facilitiestolistings` DROP FOREIGN KEY `_facilitiesTolistings_B_fkey`;
 
 -- DropForeignKey
-ALTER TABLE `_roomsToseasonal_prices` DROP FOREIGN KEY `_roomsToseasonal_prices_A_fkey`;
+ALTER TABLE `_roomstoseasonal_prices` DROP FOREIGN KEY `_roomsToseasonal_prices_A_fkey`;
 
 -- DropForeignKey
-ALTER TABLE `_roomsToseasonal_prices` DROP FOREIGN KEY `_roomsToseasonal_prices_B_fkey`;
+ALTER TABLE `_roomstoseasonal_prices` DROP FOREIGN KEY `_roomsToseasonal_prices_B_fkey`;
 
 -- DropForeignKey
 ALTER TABLE `bookings` DROP FOREIGN KEY `bookings_promotionsId_fkey`;
@@ -82,10 +82,10 @@ ALTER TABLE `room_images` DROP COLUMN `roomsId`,
 ALTER TABLE `seasonal_prices` ADD COLUMN `room_typesId` INTEGER NOT NULL;
 
 -- DropTable
-DROP TABLE `_facilitiesTolistings`;
+DROP TABLE `_facilitiestolistings`;
 
 -- DropTable
-DROP TABLE `_roomsToseasonal_prices`;
+DROP TABLE `_roomstoseasonal_prices`;
 
 -- DropTable
 DROP TABLE `rooms`;

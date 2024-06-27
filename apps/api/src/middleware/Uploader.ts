@@ -3,6 +3,7 @@ import { multerUpload } from '@/helpers/Multer';
 import { DeletedUploadedFiles } from '@/helpers/DeletedUploadedFiles';
 
 export const uploader = (req: Request, res: Response, next: NextFunction) => {
+
     const upload = multerUpload.fields([{ name: 'images', maxCount: 1 }]);
 
     upload(req, res, function (err) {
@@ -22,6 +23,7 @@ export const uploader = (req: Request, res: Response, next: NextFunction) => {
                     ? req.files
                     : req.files['images'];
 
+
                 if (Array.isArray(uploadedFiles)) {
                     if (uploadedFiles.length > 5) {
                         throw {
@@ -37,7 +39,12 @@ export const uploader = (req: Request, res: Response, next: NextFunction) => {
                         }
                     });
                 }
+
             }
+          });
+        }
+      }
+
 
             next();
         } catch (error: any) {
@@ -61,17 +68,17 @@ export const listingUploader = (
         { name: 'roomtypeImages', maxCount: 5 },
     ]);
 
-    upload(req, res, function (err) {
-        try {
-            if (err) {
-                if (err.code === 'LIMIT_UNEXPECTED_FILE') {
-                    return next({
-                        status: 400,
-                        message: 'Too many files to upload. Maximum allowed is 5.',
-                    });
-                }
-                throw err;
-            }
+  upload(req, res, function (err) {
+    try {
+      if (err) {
+        if (err.code === 'LIMIT_UNEXPECTED_FILE') {
+          return next({
+            status: 400,
+            message: 'Too many files to upload. Maximum allowed is 5.',
+          });
+        }
+        throw err;
+      }
 
             if (req.files) {
                 const uploadedListingFiles = Array.isArray(req.files)

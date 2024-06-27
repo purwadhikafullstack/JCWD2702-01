@@ -175,6 +175,12 @@ export const getAllBillingsByUser = async (uid: string) => {
             include: {
               room_images: true,
               seasonal_prices: true,
+              listing: {
+                include: {
+                  listing_images: true,
+                  tenant: true,
+                },
+              },
             },
           },
           status: true,

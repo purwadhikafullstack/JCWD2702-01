@@ -2,7 +2,7 @@ import { axiosInstance } from '@/utils/AxiosInstance';
 import { useMutation } from '@tanstack/react-query';
 
 export const useNewBookingMutation = ({ onSuccess, onError }: any) => {
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async ({
       room_typesId,
       payment_type,
@@ -32,6 +32,7 @@ export const useNewBookingMutation = ({ onSuccess, onError }: any) => {
 
   return {
     mutate,
+    isPending,
   };
 };
 

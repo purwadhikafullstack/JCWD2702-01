@@ -13,14 +13,15 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { Input } from '@/components/ui/input';
-
+import { usePathname } from 'next/navigation';
 export default function PlacesAutocomplete({
   width,
   setValue,
+  initialValue,
   className,
 }: any) {
   const libraries: Libraries = ['places'];
-
+  const pathname = usePathname();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
     libraries,
@@ -56,13 +57,13 @@ export default function PlacesAutocomplete({
   };
 
   const handleSelect =
-    ({ description }: any) =>
+    ({ description, structured_formatting }: any) =>
     () => {
       setAutocompleteValue(description, false);
       clearSuggestions();
       getGeocode({ address: description }).then((results) => {
         const { lat, lng } = getLatLng(results[0]);
-
+        const { main_text, secondary_text } = structured_formatting;
         let city = '';
         let country = '';
         results[0].address_components.forEach((component) => {
@@ -73,8 +74,29 @@ export default function PlacesAutocomplete({
             country = component.long_name;
           }
         });
+        console.log(structured_formatting, '>>>');
 
-        setValue('location', `${lat},${lng}`);
+        function convertNonAlphaToAscii(inputString: string) {
+          let result = '';
+
+          for (let i = 0; i < inputString.length; i++) {
+            let char = inputString[i];
+            if (char === ' ') {
+              result += '%20';
+            } else if (!/[a-zA-Z]/.test(char)) {
+              result += char.charCodeAt(0);
+            } else {
+              result += char;
+            }
+          }
+
+          return result;
+        }
+
+        setValue(
+          'location',
+          `${lat},${lng},${city},${country},${convertNonAlphaToAscii(`${main_text}, ${secondary_text ? secondary_text : ''}`)}`,
+        );
       });
     };
 
@@ -97,7 +119,10 @@ export default function PlacesAutocomplete({
                   onSelect={handleSelect(suggestion)}
                   key={place_id}
                 >
-                  {main_text} {secondary_text}
+                  <div className="text-stone-600 hover:text-stone-900">
+                    <span className="font-semibold">{main_text}</span>{' '}
+                    {secondary_text}
+                  </div>
                 </CommandItem>
               );
             })}
@@ -114,10 +139,10 @@ export default function PlacesAutocomplete({
           value={value}
           onChange={handleInput}
           disabled={!isLoaded || !ready}
-          placeholder="Where are you going?"
+          placeholder={initialValue ? initialValue : 'Where are you going?'}
           className={
             className +
-            'truncate text-black focus:outline-none rounded-full lg:rounded-none lg:rounded-l-full w-80 p-8'
+            `truncate text-black focus:outline-none ${pathname === '/' ? 'rounded-full lg:rounded-none lg:rounded-l-full w-80 p-8' : 'rounded-none rounded-l-full p-3 lg:w-80'}`
           }
         />
         {status === 'OK' && value && <ul>{renderSuggestions()}</ul>}

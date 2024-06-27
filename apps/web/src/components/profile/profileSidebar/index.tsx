@@ -96,12 +96,20 @@ export default function ProfileSidebar({
             Booking Requests
           </div>
         ) : null}
+        {userData.rolesId == 1 ? null : (
+          <div
+            onClick={() => handleMenuItemClick('Guest reviews')}
+            className={`cursor-pointer flex items-center pl-2 h-8 ${selectedMenuItem === 'Guest reviews' ? 'bg-zinc-100 rounded-lg' : ''}`}
+          >
+            Guest reviews
+          </div>
+        )}
         {userData.rolesId == 1 ? (
           <div
-            onClick={() => handleMenuItemClick('My reviews')}
+            onClick={() => handleMenuItemClick('Past stays')}
             className={`cursor-pointer flex items-center pl-2 h-8 ${selectedMenuItem === 'My reviews' ? 'bg-zinc-100 rounded-lg' : ''}`}
           >
-            My reviews
+            Past stays
           </div>
         ) : (
           <div className="cursor-pointer flex items-center pl-2 h-8">

@@ -2,7 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 import { prisma } from '@/connection';
 import { areIntervalsOverlapping } from 'date-fns';
 import { getCategoryData, getFacilitiesData } from './sampleService';
-
+import { nearToFar } from './logics/haversine';
+import { listingsToShow, listingsFilterAndSort } from './logics/listingsToShow';
 export const getSampleData = async (req: Request, res: Response) => {
   const sampleData = await prisma.listings.findMany({
     include: {
@@ -40,6 +41,18 @@ export const getSampleDataById = async (req: Request, res: Response) => {
         },
       },
       listing_images: true,
+      reviews: {
+        include: {
+          listing: {
+            include: {
+              listing_images: true,
+              tenant: true,
+            },
+          },
+          user: true,
+          review_replies: true,
+        },
+      },
       room_types: {
         include: {
           room_facilities: true,
@@ -99,22 +112,60 @@ export const getRoomTypeById = async (req: Request, res: Response) => {
 };
 
 export const getSampleDataByQuery = async (req: Request, res: Response) => {
-  const { start, end } = req.query;
+  const {
+    lat,
+    lng,
+    country,
+    city,
+    start_date,
+    end_date,
+    children,
+    adults,
+    pets,
+    min_price,
+    max_price,
+    category,
+    sortBy,
+    sort,
+  } = req.query;
 
   const date = {
-    start: new Date(start as string),
-    end: new Date(end as string),
+    start: new Date(start_date as string),
+    end: new Date(end_date as string),
   };
 
-  const sample = await prisma.room_types.findMany({
+  const point = {
+    lat: Number(lat),
+    lng: Number(lng),
+  };
+
+  const sample = await prisma.listings.findMany({
+    where: {
+      country: country as string,
+    },
     include: {
-      bookings: {
+      room_types: {
+        where: {
+          capacity: {
+            gte: Number(children) + Number(adults),
+          },
+        },
         include: {
-          status: true,
+          bookings: {
+            include: {
+              status: true,
+            },
+          },
+          nonavailability: true,
+          seasonal_prices: true,
         },
       },
-      nonavailability: true,
-      seasonal_prices: true,
+      listing_images: true,
+      listing_facilities: {
+        include: {
+          facility: true,
+        },
+      },
     },
   });
 
@@ -122,67 +173,38 @@ export const getSampleDataByQuery = async (req: Request, res: Response) => {
     return res.send(404);
   }
 
-  const toShow = [];
+  const toShow = listingsToShow(sample, date);
 
-  for (let x of sample) {
-    let isBookOverlap;
-    let isNonavOverlap;
-    const bookCheck = [];
-    if (!x.nonavailability.length) {
-      isNonavOverlap = false;
-    } else {
-      for (let nonav of x.nonavailability) {
-        const nonavRange = {
-          start: new Date(nonav.start_date),
-          end: new Date(nonav.end_date),
-        };
-        isNonavOverlap = areIntervalsOverlapping(date, nonavRange);
-      }
-    }
-
-    if (!x.bookings.length) {
-      isBookOverlap = false;
-    } else {
-      for (let book of x.bookings) {
-        const bookRange = {
-          start: new Date(book.start_date),
-          end: new Date(book.end_date),
-        };
-
-        if (book.status.id < 4) {
-          const bookOverlap = areIntervalsOverlapping(date, bookRange);
-          if (bookOverlap) {
-            bookCheck.push(bookOverlap);
-          }
-        }
-      }
-      isBookOverlap = x.stock - bookCheck.length > 0 ? false : true;
-    }
-
-    if (!isNonavOverlap && !isBookOverlap) toShow.push(x);
-  }
+  const data = listingsFilterAndSort(sortBy as string, sort as string, category as string, point, toShow);
 
   return res.status(200).send({
-    sample,
-    toShow,
+    data: data,
+    toShowLength: toShow.length,
   });
 };
 
-export const categoryData = async (req: Request, res: Response, next: NextFunction) => {
-  const categoryData = await getCategoryData()
+export const categoryData = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const categoryData = await getCategoryData();
   res.status(200).send({
     error: false,
-    message: "Success",
-    data: categoryData
-  })
-}
+    message: 'Success',
+    data: categoryData,
+  });
+};
 
-export const facilitiesData = async (req: Request, res: Response, next: NextFunction) => {
-  const facilitiesData = await getFacilitiesData()
+export const facilitiesData = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const facilitiesData = await getFacilitiesData();
   res.status(200).send({
     error: false,
-    message: "Success",
-    data: facilitiesData
-  })
-}
-
+    message: 'Success',
+    data: facilitiesData,
+  });
+};

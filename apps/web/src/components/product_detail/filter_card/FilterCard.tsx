@@ -10,7 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { toast } from '@/components/ui/use-toast';
+import { LoadingCircle } from '@/components/ui/loading';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
@@ -30,7 +30,6 @@ import {
   GuestsFormExtension,
 } from './sections/FormExtension';
 import { formSchema } from './sections/FilterFormSchema';
-import { getCookie } from '@/utils/Cookies';
 import { useSelector } from 'react-redux';
 
 export default function FilterCard({
@@ -44,6 +43,10 @@ export default function FilterCard({
   updateCurrentRoom,
   breakfast_price,
   className,
+  startDate,
+  endDate,
+  adults,
+  children,
 }: {
   no_book: any[];
   seasonal_prices: any[];
@@ -55,15 +58,19 @@ export default function FilterCard({
   updateCurrentRoom?: (roomIndex: number) => void;
   breakfast_price?: number;
   className?: string;
+  startDate?: string;
+  endDate?: string;
+  adults?: string;
+  children?: string;
 }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       duration: {
-        from: undefined,
-        to: undefined,
+        from: startDate ? new Date(startDate) : undefined,
+        to: endDate ? new Date(endDate) : undefined,
       },
-      guests: { adults: 0, children: 0, pets: 0 },
+      guests: { adults: Number(adults), children: Number(children), pets: 0 },
       seasonal_price: 0,
       seasonal_night: 0,
       normal_price: 0,
@@ -74,14 +81,16 @@ export default function FilterCard({
     },
   });
 
+  const [isClicked, setIsClicked] = useState(false);
   const [date, setDate] = useState<DateRange | undefined>({
-    from: undefined,
-    to: undefined,
+    from: startDate ? new Date(startDate) : undefined,
+    to: endDate ? new Date(endDate) : undefined,
   });
 
   const router = useRouter();
   const userState = useSelector((state: any) => state.user.uid);
   async function onSubmit(data: z.infer<typeof formSchema>) {
+    setIsClicked(true);
     if (!userState) {
       router.push('/signin');
     } else {
@@ -200,10 +209,13 @@ export default function FilterCard({
                 form.watch('guests.adults')
               )
                 ? true
-                : false
+                : isClicked
+                  ? true
+                  : false
             }
-            className="w-full"
+            className="w-full flex gap-3"
           >
+            {isClicked && <LoadingCircle />}
             Make reservation
           </Button>
         </form>
