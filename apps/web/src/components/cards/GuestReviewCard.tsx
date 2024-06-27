@@ -1,4 +1,3 @@
-// import { ReplySchema } from '@/features/tenant/review/schemas/ReplySchema';
 import {
   Accordion,
   AccordionContent,
