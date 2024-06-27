@@ -5,7 +5,7 @@ export const useGetGuestReviewsQuery = () => {
   const { data, isSuccess, isError } = useQuery({
     queryKey: ['guestReviews'],
     queryFn: async () => {
-      return await axiosInstance.get(`/review/tenant/all`);
+      return await axiosInstance.get(`/review/tenant/`);
     },
   });
 

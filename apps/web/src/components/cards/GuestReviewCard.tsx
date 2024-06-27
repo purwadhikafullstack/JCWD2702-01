@@ -1,4 +1,3 @@
-// import { ReplySchema } from '@/features/tenant/review/schemas/ReplySchema';
 import {
   Accordion,
   AccordionContent,
@@ -87,8 +86,7 @@ export function GuestReviewCard({ review, id, isTenant }: any) {
                         try {
                           await mutationPostReply(values);
                           form.reset();
-                        } catch (error) {
-                        }
+                        } catch (error) {}
                       },
                     )}
                     className="w-full flex flex-col items-end gap-3"
