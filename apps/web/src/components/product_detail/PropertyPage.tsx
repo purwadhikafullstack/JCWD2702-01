@@ -5,7 +5,6 @@ import RenderStars from '../cores/RenderStars';
 import ImageTiles from './ImageTiles';
 import { FacilityBadge } from '../cores/FacilityBadge';
 import FilterCard from './filter_card/FilterCard';
-import { subDays } from 'date-fns';
 import { useState } from 'react';
 import { MapPin } from 'lucide-react';
 import { Button } from '../ui/button';
@@ -29,14 +28,17 @@ export default function PropertyPage({
 
   const listingId = data.id;
   const room_typesId = data.room_types[currentRoom].id;
-  console.log(data);
-  const bookings = [...data.room_types[currentRoom].bookings]
-    .filter((x) => x.booking_statusId < 4)
-    .map((x) => ({
-      from: new Date(x.start_date),
-      to: subDays(new Date(x.end_date), 1),
-    }));
+  // console.log(data);
+  // const bookings = [...data.room_types[currentRoom].bookings]
+  //   .filter((x) => x.booking_statusId < 4)
+  //   .map((x) => ({
+  //     from: new Date(x.start_date),
+  //     to: subDays(new Date(x.end_date), 1),
+  //   }));
 
+  const bookings = [...data.room_types[currentRoom].bookings].filter(
+    (x) => x.booking_statusId < 4,
+  );
   const nonavailabilities = [
     ...data.room_types[currentRoom].nonavailability,
   ].map((x) => ({
@@ -85,7 +87,7 @@ export default function PropertyPage({
             className={
               'block md:order-3 border md:w-[450px] md:sticky md:top-24'
             }
-            no_book={no_book}
+            no_book={nonavailabilities}
             seasonal_prices={seasonal_prices}
             data={data}
             listingId={listingId}

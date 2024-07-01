@@ -53,30 +53,30 @@ export function GuestReviewCard({ review, id, isTenant }: any) {
       </div>
       {isTenant ? (
         <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="item-1" className="border-none">
+          <AccordionItem value="item-1" className=" border-none">
+            <Separator className="my-2" />
             <AccordionTrigger className="m-0 p-0 hover:no-underline font-medium text-stone-600">
-              <Separator className="my-2" />
-              <div className="flex justify-between w-full">
-                <div className="flex items-center gap-2">
-                  <Image
-                    src={`${review?.listing?.listing_images[0].image_url}`}
-                    width={30}
-                    height={30}
-                    alt="Listing Image"
-                    className="rounded"
-                  />
-                  <div className="text-xs">{review.listing.title}</div>
+              <div className="w-full">
+                <div className="flex justify-between w-full">
+                  <div className="flex items-center gap-2">
+                    <Image
+                      src={`${review?.listing?.listing_images[0].image_url}`}
+                      width={30}
+                      height={30}
+                      alt="Listing Image"
+                      className="rounded"
+                    />
+                    <div className="text-xs">{review.listing.title}</div>
+                  </div>
+                  <div className="px-2 text-sm font-semibold">Reply</div>
                 </div>
-                <div className="px-2 text-sm font-semibold">Reply</div>
               </div>
             </AccordionTrigger>
             <AccordionContent className="mt-2 p-0 ">
               {reviewed ? (
                 <p className="text-xs font-medium text-foreground-muted">
                   <span className="font-semibold">Your reply:</span>{' '}
-                  <span className="italic">
-                    {review?.review_replies[0].reply}
-                  </span>
+                  {review?.review_replies[0].reply}
                 </p>
               ) : (
                 <Form {...form}>

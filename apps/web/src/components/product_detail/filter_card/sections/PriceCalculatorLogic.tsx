@@ -27,7 +27,10 @@ export const ShowPrice = ({
   let seasonalPrice = 0;
   const overlap = (val: any) => {
     return areIntervalsOverlapping(
-      { start: new Date(val.start), end: new Date(val.end) },
+      {
+        start: new Date(val.start),
+        end: new Date(new Date(val.end).setHours(23, 59, 59)),
+      },
       { start: date?.from as Date, end: date?.to as Date },
     );
   };
@@ -39,7 +42,7 @@ export const ShowPrice = ({
       seasonalNight = getOverlappingDaysInIntervals(
         {
           start: new Date(seasonal_entity.start),
-          end: new Date(seasonal_entity.end),
+          end: new Date(new Date(seasonal_entity.end).setHours(23, 59, 59)),
         },
         { start: date.from, end: date.to },
       );

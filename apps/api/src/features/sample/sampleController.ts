@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { prisma } from '@/connection';
-import { areIntervalsOverlapping } from 'date-fns';
 import { getCategoryData, getFacilitiesData } from './sampleService';
-import { nearToFar } from './logics/haversine';
 import { listingsToShow, listingsFilterAndSort } from './logics/listingsToShow';
 export const getSampleData = async (req: Request, res: Response) => {
   const sampleData = await prisma.listings.findMany({
@@ -33,7 +31,6 @@ export const getSampleDataById = async (req: Request, res: Response) => {
     where: { id },
     include: {
       tenant: true,
-
       category: true,
       listing_facilities: {
         include: {

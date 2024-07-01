@@ -157,13 +157,19 @@ export const confirmBilling = async ({
   });
 };
 
-export const getAllBillingsByUser = async (uid: string) => {
+export const getAllBillingsByUser = async (uid: string, page: number) => {
+  const numPerPage = 6;
   const allBillings = await prisma.users.findUnique({
     where: {
       uid,
     },
     include: {
       bookings: {
+        skip: (page - 1) * numPerPage,
+        take: numPerPage,
+        orderBy: {
+          created_at: 'desc',
+        },
         include: {
           booking_histories: {
             include: {

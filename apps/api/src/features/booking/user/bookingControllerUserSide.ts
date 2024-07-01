@@ -17,7 +17,6 @@ export const newBooking = async (
   try {
     const reqToken = req as IReqAccessToken;
     const { uid } = reqToken.payload.data;
-    // const { room_typesId } = req.params;
     let { type, room_typesId } = req.query;
     const data = req.body;
     const { start_date, end_date } = req.body;
@@ -162,7 +161,9 @@ export const allBookingsByUser = async (
   try {
     const reqToken = req as IReqAccessToken;
     const { uid } = reqToken.payload.data;
-    const allBookings = await getAllBillingsByUser(uid);
+    const { page } = req.query;
+    console.log(page)
+    const allBookings = await getAllBillingsByUser(uid, Number(page) || 1);
 
     res.status(200).send({
       error: false,
