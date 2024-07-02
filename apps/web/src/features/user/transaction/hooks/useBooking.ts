@@ -6,8 +6,9 @@ import {
 } from '../api/useBookingMutation';
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
-
+import { useQueryClient } from '@tanstack/react-query';
 export const useNewBooking = () => {
+  const queryClient = useQueryClient();
   const { toast } = useToast();
   const router = useRouter();
   const { mutate: mutationNewBooking, isPending } = useNewBookingMutation({
@@ -19,6 +20,7 @@ export const useNewBooking = () => {
           `/booking/payment?order_id=${res?.data?.data?.bill?.id}&payment_type=${res?.data?.data?.bill?.payment_typesId}`,
         );
       }
+      queryClient.invalidateQueries({ queryKey: ['allBookingData'] });
     },
     onError: (err: any) => {
       toast({

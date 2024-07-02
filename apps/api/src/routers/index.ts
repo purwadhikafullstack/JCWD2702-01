@@ -11,6 +11,9 @@ import BookingRouter from '@/features/booking/bookingRouter';
 import PasswordRouter from '../features/auth/password/passwordRouter';
 import PropertyRouter from '../features/property/propertyRouter';
 import ReviewRouter from '@/features/review/reviewRouter';
+import ReportRouter from '@/features/report/reportRouter';
+import { isTenantVerify } from '@/middleware/RoleVerify';
+import { tokenVerify } from '@/helpers/Token';
 
 const router = Router();
 router.use(cors());
@@ -28,5 +31,6 @@ router.use('/booking', BookingRouter);
 router.use('/password', PasswordRouter);
 router.use('/property', PropertyRouter);
 router.use('/review', ReviewRouter);
+router.use('/report', tokenVerify, isTenantVerify, ReportRouter);
 
 export default router;

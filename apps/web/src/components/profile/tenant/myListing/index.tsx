@@ -7,8 +7,20 @@ import { IMyListing } from './type';
 import SetSeasonalPrice from './setSeasonalPrice';
 import SetNonavailability from './setNonavailability';
 import { MyListingCard } from '@/components/cards/MyListingCard';
-
+import FilterListing from './filterListing';
+import { DateRange } from 'react-day-picker';
+import { useSearchParams } from 'next/navigation';
+import { listingsToShow } from './logics/filterListings';
+import { format } from 'date-fns';
 export default function MyListings() {
+  // const filterParams = useSearchParams();
+  const [date, setDate] = useState<DateRange | undefined>({
+    from: undefined,
+    to: undefined,
+  });
+  // const [params, setParams] = useState(
+  //   new URLSearchParams(Object.fromEntries(filterParams.entries())),
+  // );
   const { mutationDeleteListing } = useDeletelisting();
   const [currentPage, setCurrentPage] = useState(1);
   const { myListings } = useGetMyListings(currentPage);
@@ -22,6 +34,13 @@ export default function MyListings() {
     if (myListings) {
       setListings(myListings);
     }
+    // if (date?.from && date.to) {
+    //   const filteredListings = listingsToShow(listings, {
+    //     start: date.from,
+    //     end: date.to,
+    //   });
+    //   setListings(filteredListings);
+    // }
   }, [myListings]);
 
   const handleDeleteListing = async (listingId: string) => {
@@ -36,6 +55,7 @@ export default function MyListings() {
   return (
     <div className="w-full h-full flex flex-col gap-4">
       <div className=" hidden w-full md:flex justify-end items-center gap-3">
+        <FilterListing date={date} setDate={setDate} />
         <div className={`${myListings.length === 0 ? 'hidden' : 'flex gap-3'}`}>
           <SetNonavailability />
           <SetSeasonalPrice />

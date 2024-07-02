@@ -4,7 +4,9 @@ import { addHours } from 'date-fns';
 import fs from 'fs';
 import Handlebars from 'handlebars';
 
-export const getBookingsByTenantId = async (id: string) => {
+export const getBookingsByTenantId = async (id: string, page: number) => {
+  console.log(page);
+  const numPerPage = 6;
   const listingsByTenant = await prisma.tenants.findUnique({
     where: {
       usersId: id,
@@ -18,6 +20,17 @@ export const getBookingsByTenantId = async (id: string) => {
                 include: {
                   payment_type: true,
                   status: true,
+                  room_type: {
+                    include: {
+                      listing: {
+                        include: {
+                          listing_images: true,
+                          tenant: true,
+                        },
+                      },
+                      room_images: true,
+                    },
+                  },
                 },
               },
             },
@@ -40,10 +53,13 @@ export const getBookingsByTenantId = async (id: string) => {
     }
   }
 
-  return bookings.sort(
-    (a: any, b: any) =>
-      new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-  );
+  // console.log(bookings);
+  return bookings
+    .sort(
+      (a: any, b: any) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+    )
+    .slice((page - 1) * numPerPage, numPerPage * page);
 };
 
 export const confirmBookingByTenant = async (id: string, status: number) => {

@@ -22,8 +22,10 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { SearchListingCard } from '@/components/cards/SearchLisingCard';
 import SearchBarVariant from '@/components/cores/searchbar/searchBarVariant';
 import { SortSearch } from './sections/sortSelect';
+import { Button } from '@/components/ui/button';
 export default function Page() {
   const searchParams = useSearchParams();
+  const [page, setPage] = useState(Number(searchParams.get('page')));
   const { categories } = useGetListingsCategory();
   const { facilities } = useGetListingsFacilities();
   const [priceRange, setPriceRange] = useState([0, 2500000]);
@@ -46,15 +48,23 @@ export default function Page() {
 
   const { searchResult } = useGetListingsBySearch(queryParams.toString());
 
+  console.log('>>', searchResult);
   const regex =
     /(&start_date=\d{4}-\d{2}-\d{2}&end_date=\d{4}-\d{2}-\d{2}&adults=\d+&children=\d+)/;
   const pagematcher = queryParams.toString().match(regex);
 
   const handleCategoryChange = (id: number | string) => {
-    const params = new URLSearchParams(queryParams);
-    params.set('category', String(id));
-    window.history.replaceState(null, '', '?' + params.toString());
-    setQueryParams(params);
+    if (id !== 'clear') {
+      const params = new URLSearchParams(queryParams);
+      params.set('category', String(id));
+      window.history.replaceState(null, '', '?' + params.toString());
+      setQueryParams(params);
+    } else {
+      const params = new URLSearchParams(queryParams);
+      params.delete('category');
+      window.history.replaceState(null, '', '?' + params.toString());
+      setQueryParams(params);
+    }
   };
 
   const handleSortChange = (value: string) => {
@@ -69,7 +79,28 @@ export default function Page() {
     } else {
       params.delete('sort');
     }
+    window.history.replaceState(null, '', '?' + params.toString());
+    setQueryParams(params);
+  };
 
+  const handleNextPage = () => {
+    setPage(page + 1);
+    const params = new URLSearchParams(queryParams);
+    params.set('page', (page + 1).toString());
+    window.history.replaceState(null, '', '?' + params.toString());
+    setQueryParams(params);
+  };
+  const handlePrevPage = () => {
+    setPage(page - 1);
+    const params = new URLSearchParams(queryParams);
+    params.set('page', (page - 1).toString());
+    window.history.replaceState(null, '', '?' + params.toString());
+    setQueryParams(params);
+  };
+  const handleTargetPage = (targetPage: number) => {
+    setPage(targetPage);
+    const params = new URLSearchParams(queryParams);
+    params.set('page', targetPage.toString());
     window.history.replaceState(null, '', '?' + params.toString());
     setQueryParams(params);
   };
@@ -79,7 +110,12 @@ export default function Page() {
     <div className="my-32">
       <div className="flex flex-col w-[90vw] mx-auto lg:w-[60vw] flex-col items-center justify-center gap-8">
         <SearchBarVariant
-          onSubmitCallback={(val: any) => setQueryParams(val)}
+          onSubmitCallback={(val: any) => {
+            const params = new URLSearchParams(val);
+            params.set('page', '1');
+            window.history.replaceState(null, '', '?' + params.toString());
+            setQueryParams(params);
+          }}
           dateParam={{
             from: searchParams.get('start_date'),
             to: searchParams.get('end_date'),
@@ -90,8 +126,8 @@ export default function Page() {
           }}
           locationParam={searchParams.get('loc_term')}
         />
-        <div className="grid md:flex gap-8">
-          <div className="md:top-20 md:sticky h-[500px] rounded-lg w-[300px]">
+        <div className="grid md:flex gap-10">
+          <div className="md:top-24 md:sticky h-[500px] rounded-lg w-[300px]">
             <div id="head" className="flex items-center justify-between">
               <div className="font-bold text-lg">Filter</div>
               <div className="text-sm">Reset</div>
@@ -145,6 +181,7 @@ export default function Page() {
                     {categories?.map((x: any, i: number) => (
                       <SelectItem value={`${x.id}`}>{x.category}</SelectItem>
                     ))}
+                    <SelectItem value="clear">Clear category filter</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -169,16 +206,19 @@ export default function Page() {
               </div>
             </div>
           </div>
-          {searchResult?.length < 1 ? (
-            <div className="w-full bg-pink-200 mx-auto">No listings found</div>
+          {searchResult?.data.length < 1 ? (
+            <div className="text-center font-medium text-stone-400 w-[50vw]">
+              <div className="font-semibold text-lg">No listings found</div>
+              <div className="text-sm">No listing under that search tag.</div>
+            </div>
           ) : (
-            <div className="flex flex-col gap-3 w-full items-end">
+            <div className="flex flex-col gap-3 w-[50vw] items-end">
               <SortSearch sortChangeHandler={handleSortChange} sort={sort} />
-              <div className="w-full grid gap-3">
-                {searchResult?.map((x: any, i: number) => (
+              <div className="w-full grid gap-4">
+                {searchResult?.data.map((x: any, i: number) => (
                   <Link
                     key={i}
-                    href={`/sandbox/${x.slug}${pagematcher ? `?${pagematcher[0]}` : ''}`}
+                    href={`/listings/${x.slug}${pagematcher ? `?${pagematcher[0]}` : ''}`}
                   >
                     <SearchListingCard
                       key={x.id}
@@ -197,6 +237,37 @@ export default function Page() {
                   </Link>
                 ))}
               </div>
+              {searchResult?.toShowLength > 8 && (
+                <div className="flex gap-5">
+                  <Button
+                    variant={'outline'}
+                    disabled={page == 1}
+                    onClick={handlePrevPage}
+                  >
+                    Prev
+                  </Button>
+                  {Array(Math.ceil(searchResult?.toShowLength / 8))
+                    .fill(null)
+                    .map((x, i: number) => (
+                      <button
+                        className={
+                          page == i + 1
+                            ? 'font-bold'
+                            : 'font-medium text-stone-500'
+                        }
+                        onClick={() => handleTargetPage(i + 1)}
+                      >
+                        {i + 1}
+                      </button>
+                    ))}
+                  <Button
+                    disabled={page == Math.ceil(searchResult?.toShowLength / 8)}
+                    onClick={handleNextPage}
+                  >
+                    Next
+                  </Button>
+                </div>
+              )}
             </div>
           )}
         </div>

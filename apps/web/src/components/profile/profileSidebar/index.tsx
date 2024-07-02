@@ -114,7 +114,10 @@ export default function ProfileSidebar({
             Past stays
           </div>
         ) : (
-          <div className="cursor-pointer flex items-center pl-2 h-8">
+          <div
+            onClick={() => handleMenuItemClick('Sales report')}
+            className="cursor-pointer flex items-center pl-2 h-8"
+          >
             Sales report
           </div>
         )}

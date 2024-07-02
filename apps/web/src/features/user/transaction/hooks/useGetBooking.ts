@@ -11,8 +11,8 @@ export const useGetBookingById = (id: string) => {
   };
 };
 
-export const useGetBookingByUser = () => {
-  const { data: allBookings, isSuccess, isError } = useGetBookingByUserQuery();
+export const useGetBookingByUser = (page: number) => {
+  const { data: allBookings, isSuccess, isError } = useGetBookingByUserQuery(page);
 
   return {
     allBookings: allBookings?.data?.data?.allBookings?.bookings,

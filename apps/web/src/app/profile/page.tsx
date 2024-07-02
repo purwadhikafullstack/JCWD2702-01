@@ -10,11 +10,11 @@ import IssueComplaint from '@/components/profile/user/issueComplaint';
 import BookingRequests from '@/components/profile/tenant/bookingRequests';
 import MyListings from '@/components/profile/tenant/myListing';
 import GuestReviews from '@/components/profile/tenant/guestReviews';
+import SalesReport from '@/components/profile/tenant/salesReport';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Menu } from 'lucide-react';
-
 export default function Profile() {
   const [selectedMenuItem, setSelectedMenuItem] = useState('Profile');
   const [isFullWidth, setIsFullWidth] = useState(false);
@@ -35,7 +35,8 @@ export default function Profile() {
     SelectedComponent = MyListings;
   } else if (selectedMenuItem === 'Guest reviews') {
     SelectedComponent = GuestReviews;
-
+  } else if (selectedMenuItem === 'Sales report') {
+    SelectedComponent = SalesReport;
   }
 
   const handleSwitchChange = (checked: boolean) => {

@@ -16,11 +16,13 @@ export const useGetBookingByIdQuery = (bookingId: string) => {
   };
 };
 
-export const useGetBookingByUserQuery = () => {
+export const useGetBookingByUserQuery = (page: number) => {
   const { data, isSuccess, isError } = useQuery({
-    queryKey: ['allBookingData'],
+    queryKey: ['allBookingData', page],
     queryFn: async () => {
-      return await axiosInstance.get(`/booking/user/`);
+      return await axiosInstance.get(
+        `/booking/user${page ? `?page=${page}` : '/'}`,
+      );
     },
   });
 

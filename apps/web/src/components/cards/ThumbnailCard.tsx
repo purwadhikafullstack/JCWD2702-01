@@ -17,7 +17,7 @@ export const ThumbnailCard = ({
   return (
     <Link href={redirectUrl}>
       <div className="group relative border h-[120px] sm:h-[150px] xl:h-[200px] rounded-lg overflow-hidden">
-        <div className="relative h-full w-full overflow-hidden rounded-lg">
+        <div className="relative brightness-80 h-full w-full overflow-hidden rounded-lg">
           <Image
             src={imageUrl}
             width={100}
@@ -32,8 +32,8 @@ export const ThumbnailCard = ({
           />
         </div>
         {text && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="flex items-center justify-center w-full h-full text-white text-2xl font-semibold">
+          <div className="shadow-md absolute inset-0 flex items-center justify-center">
+            <div className="flex items-center justify-center w-full h-full text-white text-3xl font-semibold">
               {text}
             </div>
           </div>

@@ -31,7 +31,6 @@ export function CalendarCard({ date, form, dateChangeHandler }: any) {
                   variant={'outline'}
                   className={cn(
                     'rounded-none p-3 justify-start lg:w-80 align-center text-left font-medium',
-                    !date && 'text-muted-foreground',
                   )}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
@@ -45,7 +44,7 @@ export function CalendarCard({ date, form, dateChangeHandler }: any) {
                       format(date.from, 'LLL dd, y')
                     )
                   ) : (
-                    <span>Pick a date</span>
+                    <span className="text-stone-500">Pick a date</span>
                   )}
                 </Button>
               </FormControl>

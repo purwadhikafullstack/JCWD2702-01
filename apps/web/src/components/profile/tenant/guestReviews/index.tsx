@@ -12,7 +12,7 @@ export default function GuestReviews() {
     <div>
       {guestReviews &&
         guestReviews.map((x: any, i: number) => (
-          <GuestReviewCard review={x} id={x.id} key={i} />
+          <GuestReviewCard isTenant={true} review={x} id={x.id} key={i} />
         ))}
     </div>
   );

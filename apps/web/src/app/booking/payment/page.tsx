@@ -77,7 +77,7 @@ export default function Page() {
           )}
         </div>
       ) : (
-        <div>
+        <div className="flex flex-col gap-5">
           <div className="text-center grid gap-5">
             <div className="text-xl font-bold">Your booking is on hold</div>
             <Timer expiryTimestamp={new Date(booking.expired_at)} />
@@ -129,12 +129,11 @@ export default function Page() {
                   Important: please transfer the exact amount
                 </div>
               </div>
-              <div>See details</div>
             </div>
           </div>
           <div className="text-center grid gap-3">
             <div className="font-bold">How to pay</div>
-            <div className="text-sm">
+            <div className="text-xs font-medium text-stone-400">
               Make sure the payment is successfully made and upload the payment
               proof to verify
             </div>

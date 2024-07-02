@@ -29,9 +29,10 @@ export default function SearchBarVariant({
   locationParam,
 }: any) {
   const [date, setDate] = useState<DateRange | undefined>({
-    from: new Date(dateParam.from),
-    to: new Date(dateParam.to),
+    from: dateParam.from ? new Date(dateParam.from) : undefined,
+    to: dateParam.to ? new Date(dateParam.to) : undefined,
   });
+  console.log('ini date', date, dateParam.from);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const searchParams = useSearchParams();
@@ -93,7 +94,7 @@ export default function SearchBarVariant({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      location: `${searchParams.get('lat')},${searchParams.get('lng')},${searchParams.get('country')},,${decodeAsciiAndSpaces(locationParam)}`,
+      location: `${searchParams.get('lat')},${searchParams.get('lng')},,${searchParams.get('country')},${decodeAsciiAndSpaces(locationParam)}`,
       duration: {
         from: new Date(),
         to: addDays(new Date(), 2),

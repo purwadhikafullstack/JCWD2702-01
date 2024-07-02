@@ -11,6 +11,24 @@ import {
 } from '../../ui/carousel';
 
 export const BestDeals = () => {
+  const promos = [
+    {
+      redirectUrl: '/',
+      image: '/promo.webp',
+    },
+    {
+      redirectUrl: '/',
+      image: '/promo2.webp',
+    },
+    {
+      redirectUrl: '/',
+      image: '/promo3.webp',
+    },
+    {
+      redirectUrl: '/',
+      image: '/promo4.webp',
+    },
+  ];
   return (
     <div className="my-16 flex flex-col gap-6">
       <div className="text-3xl font-bold">Best deals for you</div>
@@ -28,16 +46,14 @@ export const BestDeals = () => {
           className="mx-auto"
         >
           <CarouselContent className="mx-auto -ml-4">
-            {Array(6)
-              .fill('/')
-              .map((x, i) => (
-                <CarouselItem className="xl:basis-1/2 2xl:basis-1/3">
-                  <ThumbnailCard
-                    redirectUrl={x}
-                    imageUrl={'/promo.webp'}
-                  ></ThumbnailCard>
-                </CarouselItem>
-              ))}
+            {promos.map((x, i) => (
+              <CarouselItem className="xl:basis-1/2 2xl:basis-1/3">
+                <ThumbnailCard
+                  redirectUrl={x.redirectUrl}
+                  imageUrl={`${x.image}`}
+                ></ThumbnailCard>
+              </CarouselItem>
+            ))}
           </CarouselContent>
           <CarouselPrevious />
           <CarouselNext />

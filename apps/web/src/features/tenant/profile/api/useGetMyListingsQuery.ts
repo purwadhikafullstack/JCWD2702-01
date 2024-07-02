@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { axiosInstance } from '@/utils/AxiosInstance';
 
+
 export const useGetMyListingsQuery = (page: number) => {
     const { data, isSuccess, isError } = useQuery({
         queryKey: ['my-listings', page],
@@ -9,9 +10,9 @@ export const useGetMyListingsQuery = (page: number) => {
         }
     })
 
-    return {
-        data,
-        isSuccess,
-        isError,
-    };
-}
+  return {
+    data,
+    isSuccess,
+    isError,
+  };
+};
