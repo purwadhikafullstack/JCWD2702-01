@@ -15,7 +15,7 @@ export default function PhoneAuth() {
         'recaptcha-container',
         {
           size: 'normal',
-          callback: (response) => {
+          callback: (response: any) => {
             // reCAPTCHA solved, allow signInWithPhoneNumber.
           },
           'expired-callback': () => {

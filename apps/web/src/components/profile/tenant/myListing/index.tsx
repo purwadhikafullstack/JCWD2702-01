@@ -10,18 +10,19 @@ import { MyListingCard } from '@/components/cards/MyListingCard';
 
 export default function MyListings() {
   const { mutationDeleteListing } = useDeletelisting();
-  const { myListings } = useGetMyListings();
+  const [currentPage, setCurrentPage] = useState(1);
+  const { myListings } = useGetMyListings(currentPage);
   const router = useRouter();
   const [listings, setListings] = useState<IMyListing[]>([]);
+  console.log('myListing', myListings);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const totalPages = Math.ceil(myListings.totalData / 4);
 
   useEffect(() => {
     if (myListings) {
       setListings(myListings);
     }
   }, [myListings]);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 2;
 
   const handleDeleteListing = async (listingId: string) => {
     try {
@@ -31,13 +32,6 @@ export default function MyListings() {
       console.error('Error deleting listing:', error);
     }
   };
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentListings = listings.slice(indexOfFirstItem, indexOfLastItem);
-
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-  const totalPages = Math.ceil(listings.length / itemsPerPage);
 
   return (
     <div className="w-full h-full flex flex-col gap-4">
@@ -54,20 +48,18 @@ export default function MyListings() {
         </Button>
       </div>
       <div>
-        {myListings.length > 0 ? (
+        {myListings?.myListing?.length > 0 ? (
           <div>
-            {currentListings.map((item: any) => (
+            {myListings?.myListing?.map((item: any) => (
               <MyListingCard
                 item={item}
                 handleDeleteListing={handleDeleteListing}
               />
             ))}
-            <div
-              className={`${listings.length >= 2 ? 'flex justify-center items-end gap-4 mt-4' : 'hidden'}`}
-            >
+            <div className="flex justify-center items-end gap-4 mt-4">
               <Button
                 disabled={currentPage === 1}
-                onClick={() => paginate(currentPage - 1)}
+                onClick={() => setCurrentPage(currentPage - 1)}
                 variant={'ghost'}
               >
                 Previous
@@ -84,7 +76,7 @@ export default function MyListings() {
               ))}
               <Button
                 disabled={currentPage === totalPages}
-                onClick={() => paginate(currentPage + 1)}
+                onClick={() => setCurrentPage(currentPage + 1)}
                 variant={'ghost'}
               >
                 Next
