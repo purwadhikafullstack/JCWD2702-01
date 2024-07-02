@@ -6,9 +6,10 @@ import { useRouter } from 'next/navigation';
 import { setCookie, deleteCookie } from '@/utils/Cookies';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@/stores/redux/slice/userSlice';
-import { useToast } from '@/components/ui/use-toast';
 import { setTenant } from '@/stores/redux/slice/tenantSlice';
+import { useToast } from '@/components/ui/use-toast';
 import { useSignoutMutation } from '../api/useSignoutMutation';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const useSignin = () => {
   const dispatch = useDispatch();
@@ -75,10 +76,12 @@ export const usePersistSignin = () => {
 export const useLogout = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const queryClient = useQueryClient()
 
   const { mutate: mutationSignout } = useSignoutMutation({
     onSuccess: () => {
       deleteCookie();
+      queryClient.cancelQueries({ queryKey: ['profile'] })
       dispatch(
         setUser({
           uid: '',

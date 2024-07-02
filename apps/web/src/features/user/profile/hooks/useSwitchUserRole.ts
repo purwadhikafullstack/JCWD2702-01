@@ -4,14 +4,17 @@ import { setUser } from "@/stores/redux/slice/userSlice";
 import { setTenant } from "@/stores/redux/slice/tenantSlice";
 import { setCookie } from "@/utils/Cookies";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const useSwitchUserRole = () => {
     const dispatch = useDispatch()
     const router = useRouter()
+    const queryClient = useQueryClient()
 
     const { mutate: mutationSwitchUserRole } = useSwitchUserRoleMutation({
         onSuccess: (res: any) => {
             setCookie(res.data.data.accesstoken)
+            queryClient.invalidateQueries({ queryKey: ['profile'] })
             dispatch(
                 setUser({
                     uid: res.data.data.user.uid,

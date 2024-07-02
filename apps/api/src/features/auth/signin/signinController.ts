@@ -32,7 +32,8 @@ export const signin = async (req: Request, res: Response, next: NextFunction) =>
                 uid: findLoginUserByEmailResult.uid,
                 display_name: findLoginUserByEmailResult.display_name,
                 rolesId: findLoginUserByEmailResult.rolesId,
-                image_url: findLoginUserByEmailResult.image_url
+                image_url: findLoginUserByEmailResult.image_url,
+                tenants: findLoginUserByEmailResult.tenants?.display_name
             }
         })
 

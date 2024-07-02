@@ -26,8 +26,25 @@ export const updateProfile = async (uid: string, profileData: any, images: any) 
             throw new Error('Username already registered!')
         }
 
+        if (profileData.email) {
+            const checkDuplicateEmail = await prisma.users.findMany({
+                where: {
+                    NOT: {
+                        uid: uid,
+                    },
+                    AND: {
+                        email: profileData.email
+                    }
+                }
+            })
+            if (checkDuplicateEmail.length) {
+                throw new Error('Email already registered!')
+            }
+        }
+
         const updatedData = {
             display_name: profileData.display_name || existingProfile.display_name,
+            email: profileData.email || existingProfile.email,
             image_url: existingProfile.image_url
         };
 
@@ -90,6 +107,20 @@ export const findUserByUid = async (uid: string) => {
     return await prisma.users.findUnique({
         where: {
             uid: uid
+        },
+        include: {
+            tenants: true
+        }
+    })
+}
+
+export const unverifiedUserStatus = async (uid: string) => {
+    return await prisma.users.update({
+        where: {
+            uid: uid
+        },
+        data: {
+            is_verified: false
         }
     })
 }

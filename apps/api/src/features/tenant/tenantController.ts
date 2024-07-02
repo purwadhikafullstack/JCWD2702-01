@@ -1,6 +1,6 @@
 import { IReqAccessToken } from "@/helpers/Token";
 import { NextFunction, Response, Request } from "express";
-import { registerTenant, getUserByUid, updateProfile, createListing, findMyListing } from "./tenantService";
+import { registerTenant, getUserByUid, updateProfile, createListing, findMyListing, totalMyListing } from "./tenantService";
 import { createToken } from "@/helpers/Token";
 import { getTenantByUid } from "../user/userServices";
 import { deleteMyListing } from "./tenantService";
@@ -93,14 +93,17 @@ export const myListing = async (req: Request, res: Response, next: NextFunction)
     try {
         const reqToken = req as IReqAccessToken
         const { uid } = reqToken.payload.data
+        const { page } = req.query
 
         const getTenantByUidResult = await getTenantByUid(uid)
         if (getTenantByUidResult) {
-            const myListing = await findMyListing(getTenantByUidResult?.id)
+            const totalData = (await totalMyListing(getTenantByUidResult?.id)).length
+            const myListing = await findMyListing(getTenantByUidResult?.id, Number(page))
             res.status(200).send({
                 error: false,
                 message: "Success",
-                myListing
+                myListing,
+                totalData
             })
         }
 

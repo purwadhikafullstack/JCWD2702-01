@@ -3,7 +3,7 @@ import { transporterNodemailer } from "@/helpers/TransporterMailer";
 import { IReqAccessToken, createToken } from "@/helpers/Token";
 import fs from 'fs'
 import Handlebars from 'handlebars';
-import { VerifiedAccount, searchUserByEmail } from "./verifiedServices";
+import { VerifiedAccount, searchUserByEmail, verifyNewUserEmail } from "./verifiedServices";
 
 export const VerifiedUserAccount = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -71,6 +71,22 @@ export const newVerificationLink = async (req: Request, res: Response, next: Nex
         res.status(201).send({
             error: false,
         })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const verifiedNewUserEmail = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const reqToken = req as IReqAccessToken
+        const { uid } = reqToken.payload.data
+
+        await verifyNewUserEmail(uid)
+        res.status(200).send({
+            error: false,
+            message: "You're verified"
+        })
+
     } catch (error) {
         next(error)
     }

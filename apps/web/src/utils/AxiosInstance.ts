@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getCookie } from './Cookies';
+import { getCookie, getUpdateEmailCookie } from './Cookies';
 
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_API_URL,
@@ -8,6 +8,7 @@ export const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   async (request) => {
     const cookie = await getCookie();
+    const updCookie = await getUpdateEmailCookie()
     if (cookie) {
       request.headers['accesstoken'] = cookie.value;
     }

@@ -92,6 +92,62 @@ const users = [
     rolesId: 2,
     providersId: 1,
   },
+  {
+    email: 'dhira@test.com',
+    display_name: 'dhira',
+    is_verified: true,
+    password: 'dhira123',
+    rolesId: 2,
+    providersId: 1,
+  },
+  {
+    email: 'christiana@test.com',
+    display_name: 'christiana',
+    is_verified: true,
+    password: 'christiana123',
+    rolesId: 2,
+    providersId: 1,
+  },
+  {
+    email: 'esther@test.com',
+    display_name: 'esther',
+    is_verified: true,
+    password: 'esther123',
+    rolesId: 2,
+    providersId: 1,
+  },
+  {
+    email: 'zanna@test.com',
+    display_name: 'zanna',
+    is_verified: true,
+    password: 'zanna123',
+    rolesId: 2,
+    providersId: 1,
+  },
+  {
+    email: 'compass@test.com',
+    display_name: 'compass',
+    is_verified: true,
+    password: 'compass123',
+    rolesId: 2,
+    providersId: 1,
+  },
+  {
+    email: 'eika@test.com',
+    display_name: 'eika',
+    is_verified: true,
+    password: 'eika123',
+    rolesId: 2,
+    providersId: 1,
+  },
+  {
+    email: 'harumi@test.com',
+    display_name: 'harumi',
+    is_verified: true,
+    password: 'harumi123',
+    rolesId: 2,
+    providersId: 1,
+  },
 ];
 
 let tenant_profile = [
@@ -100,6 +156,13 @@ let tenant_profile = [
   { display_name: 'Kampoeng Saya' },
   { display_name: 'Mahendra Stays' },
   { display_name: 'Kozystay' },
+  { display_name: 'Adhiraa' },
+  { display_name: 'Jakarta Stays' },
+  { display_name: 'EstherLiving' },
+  { display_name: 'RentWithZanna' },
+  { display_name: 'Compass Stay' },
+  { display_name: 'HomeByEika' },
+  { display_name: 'HomeRumi' },
 ];
 
 let listing = [
@@ -222,6 +285,313 @@ let listing = [
     categoriesId: 2,
     tenant_name: 'Kozystay',
   },
+  {
+    title: 'Luxury 4-Bedroom West Jakarta House', // Adhiraa - 1
+    description:
+      'Bersantai bersama seluruh keluarga di tempat menginap yang damai ini. Vila Rumah 4 Kamar Tidur Mewah dan Modern yang terinspirasi 330 meter persegi (3552 kaki persegi) yang terletak di Jakarta Barat. Ruang tamu rencana terbuka, ruang makan, dapur lengkap, dan kolam renang yang menyediakan ruang yang cukup untuk keluarga berkumpul. Semua kamar tidur memiliki kamar mandi dalam. Kamar tidur utama lengkap dengan bathtub. Mesin cuci disediakan di dalam rumah. Kami menyewakan rumah bebas asap rokok/vaping, dan dilarang berpesta',
+    address: 'Kecamatan Kembangan, Daerah Khusus Ibukota Jakarta, Indonesia',
+    country: 'Indonesia',
+    city: 'Jakarta Barat',
+    location_coordinate: { lat: -6.192333581766335, lng: 106.73804237706267 },
+    contact_person: '039284829',
+    categoriesId: 3,
+    tenant_name: 'Adhiraa',
+  },
+  {
+    title: 'The WritersRoom, Capitol Suites - Menteng -1km Gambir', // Adhiraa - 2
+    description:
+      'You can borrow and use everything you want inside this room and you can enjoy any facility of the apartment.',
+    address: 'Kecamatan Senen, Daerah Khusus Ibukota Jakarta, Indonesia',
+    country: 'Indonesia',
+    city: 'Jakarta Pusat',
+    location_coordinate: { lat: -6.187103207370401, lng: 106.84526747427762 },
+    contact_person: '039284829',
+    categoriesId: 1,
+    tenant_name: 'Adhiraa',
+  },
+  {
+    title: 'Sea View Gold Coast #21.2', // Adhiraa - 3
+    description:
+      'Apartemen Gold Coast Atlantic Tower berlokasi di Pantai Indah Kapuk (PIK), Jakarta Utara. Apartemen Studio Mewah Baru dengan dekorasi modern, nyaman, nyaman dengan pemandangan laut yang indah. Terletak di lokasi yang strategis, 5 menit dari PIK Avenue Mall, Restoran/ Kafe, pasar lokal. Anda dapat menemukan banyak pilihan makanan dan hiburan menarik di sekitar area ini. Hanya 15 menit dari bandara.',
+    address: 'Kecamatan Penjaringan, Daerah Khusus Ibukota Jakarta, Indonesia',
+    country: 'Indonesia',
+    city: 'Jakarta Utara',
+    location_coordinate: { lat: -6.101697374436291, lng: 106.73815849510163 },
+    contact_person: '039284829',
+    categoriesId: 1,
+    tenant_name: 'Adhiraa',
+  },
+  {
+    title: 'Rumah Miring by CGartspace - Pondok Indah Jakarta', // Jakarta Stays - 1
+    description:
+      'The place is close to Shopping malls, public transport with easy access to food and entertainment. great ambiance and outdoors space, its a contemporary home with lots of arts, designed by famous architect of Budi Pradono. Its a dream home, feel like a resort. Next to this space is my art gallery - CGartspace. My place is good for couples, solo adventurers, group of friends, family with teen kids. and business traveler, people who love sunlight, nature, arts, architectural and photography.',
+    address: 'Kebayoran Lama, Daerah Khusus Ibukota Jakarta, Indonesia',
+    country: 'Indonesia',
+    city: 'Jakarta Selatan',
+    location_coordinate: { lat: -6.253676589899027, lng: 106.77883299603627 },
+    contact_person: '039284829',
+    categoriesId: 3,
+    tenant_name: 'Jakarta Stays',
+  },
+  {
+    title: 'Casa De Victoria by Jakarta Stays', // Jakarta Stays - 2
+    description:
+      'Bring the whole family to this great place with lots of room for fun. Casa De Victoria by Jakarta Stays',
+    address: 'Pasar Minggu, Daerah Khusus Ibukota Jakarta, Indonesia',
+    country: 'Indonesia',
+    city: 'Jakarta Selatan',
+    location_coordinate: { lat: -6.290040903426821, lng: 106.83916624755155 },
+    contact_person: '039284829',
+    categoriesId: 3,
+    tenant_name: 'Jakarta Stays',
+  },
+  {
+    title: 'Gluck Star, Sleeping with sky view', // EstherLiving - 1
+    description:
+      'Welcome to Gluck Star! Apart of Glucstaycation and it is located in the same area as GLuck Room and Gluck Roof, GluckLoft. Photo/videoshoot using professional photographer / equipment for prewedding, commercial product and maternity/family will be extra charged.',
+    address: 'Bandung, Jawa Barat, Indonesia',
+    country: 'Indonesia',
+    city: 'Bandung',
+    location_coordinate: { lat: -6.862237098172499, lng: 107.62321722438236 },
+    contact_person: '039284829',
+    categoriesId: 3,
+    tenant_name: 'EstherLiving',
+  },
+  {
+    title: 'Casa Lembang', // EstherLiving - 2
+    description:
+      'Casa lembang 1 comforts you with our attic and rooftop where families can enjoy star gazing at nights, scenic mountain view during the day and cool weather (down to 17c) in the mornings. The perfect place for a quiet getaway with your friends, spouse and family. We welcome you with WiFi, Netflix and smart TV to chill and unwind.',
+    address: 'Lembang, Bandung Barat, Jawa Barat, Indonesia',
+    country: 'Indonesia',
+    city: 'Bandung',
+    location_coordinate: { lat: -6.8199352817937795, lng: 107.63313130265526 },
+    contact_person: '039284829',
+    categoriesId: 3,
+    tenant_name: 'EstherLiving',
+  },
+  {
+    title: 'Vila Serena', // EstherLiving - 3
+    description:
+      'Kick back and relax in this new cabin with spacious yard, walking distance to Kampung Daun. Pet free, absolutely no smoking inside the cabin',
+    address: 'Kecamatan Parongpong, Bandung Barat, Jawa Barat, Indonesia',
+    country: 'Indonesia',
+    city: 'Bandung',
+    location_coordinate: { lat: -6.817369294103219, lng: 107.58942124693057 },
+    contact_person: '039284829',
+    categoriesId: 1,
+    tenant_name: 'EstherLiving',
+  },
+  {
+    title: 'Twelve Stones', // EstherLiving - 4
+    description:
+      'Have fun with the whole family at this stylish place. Near Ikea and Wahoo Kota Baru Parahyangan Surrounding beautiful mountain and lake view Many kind of culinary all day You can lay back inside the warm water pool, have bbq times with Friend and Family , Watching Wifi or just sleep for whole day.',
+    address: 'West Bandung Regency, Jawa Barat, Indonesia',
+    country: 'Indonesia',
+    city: 'Bandung',
+    location_coordinate: { lat: -6.867998375991984, lng: 107.4580311070145 },
+    contact_person: '039284829',
+    categoriesId: 1,
+    tenant_name: 'EstherLiving',
+  },
+  {
+    title: 'Winds Cabin', // RentWithZanna - 1
+    description:
+      'The place is surrounded by many plants with a small garden in front of it with fresh air and calm surroundings.',
+    address:
+      'Kp Situhiang, RT.3/RW.16, Alamendah, Kec. Rancabali, Kabupaten Bandung, Jawa Barat 40973',
+    country: 'Indonesia',
+    city: 'Bandung',
+    location_coordinate: { lat: -7.12584343579809, lng: 107.42663404108663 },
+    contact_person: '039284829',
+    categoriesId: 6,
+    tenant_name: 'RentWithZanna',
+  },
+  {
+    title: 'Yanaka Sow Concept Twin', // Compass Stay - 1
+    description:
+      'YANAKA SOW is a perfect place to enjoy walking Yanasen, for the sightseeing, and for a workation. 7-min walk from Nippori Station on the JR Line, 7-min walk from Sendagi Station on the Tokyo Metro Chiyoda Line, and 5-min walk to Yanaka Shopping Street. This hotel is a space that you can use like your second home. The town guidance staff called YANAKA DIGGER, who connects the town and guests, will help even first-time visitors can naturally blend into the city and have a wonderful time here.',
+    address: '5 Chome-2-14 Yanaka, Taito City, Tokyo 110-0001, Japan',
+    country: 'Japan',
+    city: 'Tokyo',
+    location_coordinate: { lat: 35.72499422236392, lng: 139.76793756582543 },
+    contact_person: '039284829',
+    categoriesId: 3,
+    tenant_name: 'Compass Stay',
+  },
+  {
+    title: 'Charming Home Near Asakusa/SkyTree, Free Bicycles', // HomeByEika - 1
+    description:
+      'My house is close to Asakusa area. It locates in a residential neighborhood. 8-10min walk to the nearest station, Hikifune & Keisei Hikifune. Then 2 min to Tokyo Sky Tree by train, 5 min to Asakusa, and directly to Otemachi, Shibuya... It is easy to access from Haneda & Narita Airports as well. There is a traditional shopping street out of the door. It is famous for its ninety-year-history. You can find Japanese food and bakery stores and lovely cats there. Free Hi-speed Wi-Fi, Free Netflix.',
+    address: '3-chōme-42 Kyōjima, Sumida City, Tokyo 131-0046, Japan',
+    country: 'Japan',
+    city: 'Tokyo',
+    location_coordinate: { lat: 35.71342283686191, lng: 139.8229214699541 },
+    contact_person: '039284829',
+    categoriesId: 3,
+    tenant_name: 'HomeByEika',
+  },
+  {
+    title: 'haneda airport directly Skytree 3min walk suitroom', // HomeByEika - 2
+    description:
+      '3 minutes away from Oshiage station and 2 minutes away from the sky tree. The night view is beautiful and shopping is convenient. You can directly reach Narita Airport or Haneda Airport.',
+    address:
+      'Japan, 〒130-0002 Tokyo, Sumida City, Narihira, 1 Chome-19, G2-01.東京ソラマチ',
+    country: 'Japan',
+    city: 'Tokyo',
+    location_coordinate: { lat: 35.70971943491281, lng: 139.81018766778328 },
+    contact_person: '039284829',
+    categoriesId: 1,
+    tenant_name: 'HomeByEika',
+  },
+  {
+    title: 'Peaceful Riverside View, Asakusa', // HomeRumi - 1
+    description:
+      'Ideally located along the Sumida River, we offer you a little oasis amid the hustle and bustle of Tokyo. I also fully respect your privacy, and your room will be perfect for relaxing, giving you time to slow down. My place has the perfect location for your holiday, near many attractions and fun spots, including the Asakusa area, Akihabara area and the Ueno area. You can easily go to Ginza area by subway, or the Tokyo area by bus. I mean, it is centrally located, a great launching point to explore Tokyo. It is also a 10-second walk distance to the police station, creating a safe and secure environment. The views are also awesome - you can enjoy the Sumida Riverside view, beautiful Tokyo Skytree view with the wide sky in the middle of Tokyo. Especially the end of July Great Fireworks is fantastic! If you have a chance, please come and enjoy! There are also many restaurants around, providing you many choices to eat out, or you can cook with the Japanese stuff, using your own kitchen!',
+    address: '2-chōme-18-11 Kuramae, Taito City, Tokyo 111-0051, Japan',
+    country: 'Japan',
+    city: 'Tokyo',
+    location_coordinate: { lat: 35.70470109774278, lng: 139.79400362735956 },
+    contact_person: '039284829',
+    categoriesId: 3,
+    tenant_name: 'HomeRumi',
+  },
+  {
+    title: '201 Asakadai, JR KitaAsaka; Small Lodging', // HomeRumi - 2
+    description:
+      'A studio apartment for 1 week or longer stay with furniture and daily goods. 2 people can stay together though originally one-person household. The 2 nearest stations are Asakadai of Tobu-tojo Line and JR Kita-asaka. Located in the suburbs within commuting distance to central Tokyo, you have to research a complex train network and walk extra, expected an extra 20-30 min of travel time per day compared to a city hotel. You can save on accommodation costs in return.',
+    address: '4-chōme-2 Asashigaoka, Asaka, Saitama 351-0035, Japan',
+    country: 'Japan',
+    city: 'Saitama',
+    location_coordinate: { lat: 35.82284414774133, lng: 139.58559383397312 },
+    contact_person: '039284829',
+    categoriesId: 3,
+    tenant_name: 'HomeRumi',
+  },
+  {
+    title: 'The BirdsEye View facing KLCC with Gorgeous pools', // EstherLiving - 5
+    description:
+      'New construction, newly decorated, perfect KL city views, and gorgeous pools and all located in central KL. The Birdeye View has one bedroom, a living room, a full bath, and a full kitchen with an oven. There is 1-queen bed in the bedroom and a sofa sleeper and a comfortable deluxe air mattress in the living room. You will not be disappointed with this place. :-) Recommended for 4 people, max can sleep 5.',
+    address:
+      'Jln Pudu, Bukit Bintang, 55100 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur, Malaysia',
+    country: 'Malaysia',
+    city: 'Kuala Lumpur',
+    location_coordinate: { lat: 3.139396458258491, lng: 101.7086921086215 },
+    contact_person: '039284829',
+    categoriesId: 1,
+    tenant_name: 'EstherLiving',
+  },
+  {
+    title: 'Alla Moda #33A Ceylonz Suites KL', // EstherLiving - 6
+    description:
+      'Enjoy a stylish experience at this centrally-located place. Walking distance to Masjid Jamek LRT interconnecting stations, Bukit Bintang, Petaling Street, Central Market, Alor Street Food, and many many more attractions. Greenery at this peaceful and wonderful view of KL City. Superb 5-star facilities at rooftop with best view of KL skyscrapers',
+    address:
+      'Jln Pudu, Bukit Bintang, 55100 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur, Malaysia',
+    country: 'Malaysia',
+    city: 'Kuala Lumpur',
+    location_coordinate: { lat: 3.148421849725002, lng: 101.70345249624167 },
+    contact_person: '039284829',
+    categoriesId: 1,
+    tenant_name: 'EstherLiving',
+  },
+  {
+    title: 'New! NIDOZ 5star Suite! GalaxyPool!4BR', // EstherLiving - 7
+    description:
+      'he Luxury condo is beautiful, wonderful city view, located in central of whole Kuala Lumpur. This is brand new building, is your best choice - 4 bedroom with 3 double bed, 1 single & 1 sofa bed. We will also provide you with one-off items. Includes - Toothbrush - Toothpaste - Soap - Shampoo - Shower gel - Towel, equipped with - Free WiFi - TV - Kitchen - Shower - Hairdryer - Iron and ironing board - Toilet - Bathroom - Kitchenette Freezer - Electric Kettle - Oven - Secure Accessible Parking - BBQ Area - Sky Deck - Outdoor Swimming Pool - Gym Check-in time 15:00, Check-out time 11:00 Why choose us? There will be professional cleaning and disinfection before your stay, and bedding including sheets, pillows and quilts will be provided. Will be replaced before checking in. We will also provide you with disposable supplies. Including toothbrush, toothpaste, soap, shampoo, shower gel and towel。 Our listing will also prepare kitchenware, tableware, refrigerator, oven, electric kettle, hair dryer, TV for you. #New high-speed wireless internet is completely free',
+    address:
+      'Persiaran Ikhlas, Bandar Tun Razak, Cheras, 56000 Kuala Lumpur, Wilayah Persekutuan, Malaysia',
+    country: 'Malaysia',
+    city: 'Kuala Lumpur',
+    location_coordinate: { lat: 3.0885744081289257, lng: 101.71345612763648 },
+    contact_person: '039284829',
+    categoriesId: 1,
+    tenant_name: 'EstherLiving',
+  },
+  {
+    title: 'FamilyFunSuiteKLCCview@TrionKL', // EstherLiving - 8
+    description:
+      'This is a place where your kids can enjoy themselves and not forgetting the payor --> Parents!! 🥳. We have a climbing board for kids and a balcony for the lovely parents to chill at. You can also enjoy watching movie (projector) while staring at the spectacular scenery as we have All the iconic buildings: KLCC, KL tower, TRX, Merdeka 118. Having a small drink with your love one at the balcony and chatting all night long ❤️ Not to forget the Master room as we got you a 58" smart TV 😍😍😍',
+    address: 'Kuala Lumpur, Wilayah Persekutuan, Malaysia',
+    country: 'Malaysia',
+    city: 'Kuala Lumpur',
+    location_coordinate: { lat: 3.1216812571370345, lng: 101.71523306831017 },
+    contact_person: '039284829',
+    categoriesId: 1,
+    tenant_name: 'EstherLiving',
+  },
+  {
+    title: 'Kids Dinosaur Bukit Bintang Linked Lalaport Mall', // HomeRumi - 3
+    description:
+      'Our place is located at Jalan Hang Tuah, Pudu, Kuala Lumpur in Bukit Bintang City Centre. This condominium is linked to LALAPORT Mall, there will be a walkway which can walk to the mall. This is a Kids friendly fully furnished studio unit . A perfect weekend getaways for couple, friends and small family .Our unit can accommodate 4 pax. This unit with air-con and we provide basic cooking utensils for light cooking. We provide basic amenities such as towels, bath robes for 2 adults 2 kids, shampoo, body wash, washing machine, Smart TV with youtube&netflix apps , hair dryer and etc.',
+    address:
+      'Pudu, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur, Malaysia',
+    country: 'Malaysia',
+    city: 'Kuala Lumpur',
+    location_coordinate: { lat: 3.138167637534603, lng: 101.7076768660777 },
+    contact_person: '039284829',
+    categoriesId: 1,
+    tenant_name: 'HomeRumi',
+  },
+  {
+    title: '1BR- BTS Ekamai 300m-Sky infinity Pool&Gym-2 pools', // RentWithZanna - 2
+    description:
+      'DBF Riverside is a private accomodation situated on the bank of Chao Phraya river. This cozy property has 4 storeys with only 1 bedroom and a private bathroom on each floor. 5 mins walk to Krungton Bridge Pier where you are able to take an express boat along Chao Phraya river and 15 mins walk to MRT Sirindhron station (blue line). This building is surrounded by street vendors and local markets.',
+    address: 'Phra Khanong, Khlong Toei, Bangkok 10110, Thailand',
+    country: 'Thailand',
+    city: 'Bangkok',
+    location_coordinate: { lat: 13.717148387002318, lng: 100.58254188908705 },
+    contact_person: '039284829',
+    categoriesId: 1,
+    tenant_name: 'RentWithZanna',
+  },
+  {
+    title: 'Private Studio Apartment By the River (4th Floor)', // RentWithZanna - 3
+    description:
+      'This is not a shared apartment. It includes 1 bedroom, 1 livingroom, 1 bathroom and balcony (completely privite)',
+    address: 'Bang Yi Khan, Bang Phlat, Bangkok 10700, Thailand',
+    country: 'Thailand',
+    city: 'Bangkok',
+    location_coordinate: { lat: 13.780706631126854, lng: 100.49811603080663 },
+    contact_person: '039284829',
+    categoriesId: 1,
+    tenant_name: 'RentWithZanna',
+  },
+  {
+    title: 'Double volume family suite at Hua Mak Station', // RentWithZanna - 4
+    description:
+      'เที่ยวได้ทั้งครอบครัวเมื่อเข้าพักในที่พักใจกลางเมือง ชั้น 18ติดรถไฟฟ้า 2 สาย ที่สถานีหัวหมาก และสถานีพัฒนาการ เข้าเมืองเพียง 10นาที และไปสนามบินสุวรรณภูมิเพียง 15 นาที พื้นที่กว้างขวาง 2 ห้องนอน พร้อมครัว และกิจกรรมมากมายภายในอาคาร. The room is in 18th floor of the building. There are many facilities at the 9th floor such as a swimming pool, games room, gym, lobby and watching machines area. Including 7-11 store at ground floor in the back.',
+    address: 'Suan Luang, Bangkok 10250, Thailand',
+    country: 'Thailand',
+    city: 'Bangkok',
+    location_coordinate: { lat: 13.738037289247261, lng: 100.64287704385515 },
+    contact_person: '039284829',
+    categoriesId: 1,
+    tenant_name: 'RentWithZanna',
+  },
+  {
+    title: 'Villa Room with Lake View', // RentWithZanna - 5
+    description:
+      'We are a small hotel located near Suvarnabhumi Airport. We offer you a homey vibes while your stay which surrounded by greeness and the best lake view. You can also enjoy our authentic Thai restaurant ( Ploen Ploen Restaurant ) which located just a few step from your room and you still get the lake view while having dinner. Come and experience these by yourself.',
+    address:
+      '22/3 ซอย ร่มเกล้า 1 Khwaeng Khlong Song Ton Nun, Khet Lat Krabang, Krung Thep Maha Nakhon 10520, Thailand',
+    country: 'Thailand',
+    city: 'Bangkok',
+    location_coordinate: { lat: 13.733904113094141, lng: 100.73822622864843 },
+    contact_person: '039284829',
+    categoriesId: 2,
+    tenant_name: 'RentWithZanna',
+  },
+  {
+    title: 'BTS ThongLor/素坤逸精品一居室/全新泳池/健身房/超棒采光', // RentWithZanna - 6
+    description:
+      ' 曼谷富人区, 素坤逸核心区全新168公寓。步行8分钟可到BTS Thonglo站。坐地铁可方便直达曼谷各大商圈和景区 Emquartier/Emporium, Terminal 21, Siam等。免费奢享超长泳池+健身房，体验独一无二的热带度假风情小区。 公寓楼下商业丰富, 包括711、泰日韩餐厅、酒吧, 距大型超市Big C仅800米。 由【新出海民宿品牌】统一管理，严选专业保洁团队，每客一扫一换一消毒, 保证清洁品质. 1对1管家式服, 入住/退房全程无忧, 同时给您最Local的旅游/美食推荐.',
+    address: 'Khlong Tan, Khlong Toei, Bangkok 10110, Thailand',
+    country: 'Thailand',
+    city: 'Bangkok',
+    location_coordinate: { lat: 13.722586726462374, lng: 100.57529526521041 },
+    contact_person: '039284829',
+    categoriesId: 1,
+    tenant_name: 'RentWithZanna',
+  },
 ];
 
 let room_types = [
@@ -312,6 +682,206 @@ let room_types = [
       stock: 1,
     },
   ],
+  [
+    {
+      capacity: 10, // Adhiraa - 1
+      bed_details: '5 Queen Beds',
+      price: 5217493,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 2, // Adhiraa - 2
+      bed_details: '1 Queen Bed',
+      price: 424000,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 2, // Adhiraa - 3
+      bed_details: '1 Queen Bed',
+      price: 665000,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 4, // Jakarta Stays - 1
+      bed_details: '1 Queen Bed 1 Twin Bed',
+      price: 665000,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 16, // Jakarta Stays - 2
+      bed_details: '5 Queen Beds 3 Twin Beds',
+      price: 2800000,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 5, // EstherLiving - 1
+      bed_details: '2 Queen Beds 1 Twin Bed',
+      price: 747399,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 8, // EstherLiving - 2
+      bed_details: '2 Queen Beds 2 Twin Beds',
+      price: 812000,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 4, // EstherLiving - 3
+      bed_details: '1 Queen Bed 1 Twin Bed',
+      price: 900000,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 8, // EstherLiving - 4
+      bed_details: '2 King Beds 2 Twin Beds',
+      price: 2900000,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 6, // RentWithZanna - 1
+      bed_details: '6 Single Beds',
+      price: 850000,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 4, // Compass Stay - 1
+      bed_details: '2 Queen Beds',
+      price: 1807679,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 5, // HomeByEika - 1
+      bed_details: '4 Single Beds',
+      price: 3049426,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 4, // HomeByEika - 2
+      bed_details: '2 Queen Beds',
+      price: 2541188,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 4, // HomeRumi - 1
+      bed_details: '2 Single Beds',
+      price: 3659311,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 2, // HomeRumi - 2
+      bed_details: '1 Single Bed 1 Double Bed',
+      price: 508238,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 5, // EstherLiving - 5
+      bed_details: '3 Single Beds 1 Queen Bed',
+      price: 721320,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 4, // EstherLiving - 6
+      bed_details: '3 Single Beds',
+      price: 521763,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 10, // EstherLiving - 7
+      bed_details: '1 King Bed 2 Queen Beds  2 Single Beds',
+      price: 692206,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 7, // EstherLiving - 8
+      bed_details: '2 Queen Beds  2 Single Beds',
+      price: 1043526,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 4, // HomeRumi - 3
+      bed_details: '2 Single Beds',
+      price: 1307886,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 1, // RentWithZanna - 2
+      bed_details: '1 Queen Bed',
+      price: 1165559,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 2, // RentWithZanna - 3
+      bed_details: '1 Queen Bed',
+      price: 535175,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 4, // RentWithZanna - 4
+      bed_details: '1 Queen Bed 2 Single Bed',
+      price: 1235475,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 2, // RentWithZanna - 5
+      bed_details: '1 Queen Bed',
+      price: 1056970,
+      stock: 1,
+    },
+  ],
+  [
+    {
+      capacity: 2, // RentWithZanna - 6
+      bed_details: '1 Queen Bed',
+      price: 464977,
+      stock: 1,
+    },
+  ],
 ];
 
 const listing_facilities = [
@@ -341,6 +911,84 @@ const listing_facilities = [
   },
   {
     facilitiesId_list: [1, 2, 7, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16],
+  },
+  {
+    facilitiesId_list: [1, 2, 7, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16],
+  },
+  {
+    facilitiesId_list: [1, 2, 7, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // Adhiraa - 1
+  },
+  {
+    facilitiesId_list: [1, 2, 7, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // Adhiraa - 2
+  },
+  {
+    facilitiesId_list: [1, 2, 7, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // Adhiraa - 3
+  },
+  {
+    facilitiesId_list: [1, 2, 7, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // Jakarta Stays - 1
+  },
+  {
+    facilitiesId_list: [1, 2, 7, 8, 18, 17, 9, 4, 5, 3, 10, 19, 15, 11, 13, 16], // Jakarta Stays - 2
+  },
+  {
+    facilitiesId_list: [1, 2, 7, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // EstherLiving - 1
+  },
+  {
+    facilitiesId_list: [1, 2, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // EstherLiving - 2
+  },
+  {
+    facilitiesId_list: [1, 2, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // EstherLiving - 3
+  },
+  {
+    facilitiesId_list: [1, 2, 7, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // EstherLiving - 4
+  },
+  {
+    facilitiesId_list: [1, 2, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // RentWithZanna - 1
+  },
+  {
+    facilitiesId_list: [1, 2, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // Compass Stay - 1
+  },
+  {
+    facilitiesId_list: [1, 2, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // HomeByEika - 1
+  },
+  {
+    facilitiesId_list: [1, 2, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // HomeByEika - 2
+  },
+  {
+    facilitiesId_list: [1, 2, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // HomeRumi - 1
+  },
+  {
+    facilitiesId_list: [1, 2, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // HomeRumi - 2
+  },
+  {
+    facilitiesId_list: [1, 2, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // EstherLiving - 5
+  },
+  {
+    facilitiesId_list: [1, 2, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // EstherLiving - 6
+  },
+  {
+    facilitiesId_list: [1, 2, 7, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // EstherLiving - 7
+  },
+  {
+    facilitiesId_list: [1, 2, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // EstherLiving - 8
+  },
+  {
+    facilitiesId_list: [1, 2, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // HomeRumi - 3
+  },
+  {
+    facilitiesId_list: [1, 2, 7, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // RentWithZanna - 2
+  },
+  {
+    facilitiesId_list: [1, 2, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // RentWithZanna - 3
+  },
+  {
+    facilitiesId_list: [1, 2, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // RentWithZanna - 4
+  },
+  {
+    facilitiesId_list: [1, 2, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // RentWithZanna - 5
+  },
+  {
+    facilitiesId_list: [1, 2, 8, 18, 17, 9, 3, 10, 19, 15, 11, 13, 16], // RentWithZanna - 6
   },
 ];
 
@@ -421,6 +1069,201 @@ const listing_images = [
     { image_url: process.env.SERVER_URL + '/src/image/dasha_5.webp' },
     { image_url: process.env.SERVER_URL + '/src/image/dasha_6.webp' },
     { image_url: process.env.SERVER_URL + '/src/image/dasha_7.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/rumah_jakbar_1.webp' }, // Adhiraa - 1
+    { image_url: process.env.SERVER_URL + '/src/image/rumah_jakbar_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/rumah_jakbar_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/rumah_jakbar_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/rumah_jakbar_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/the_writersroom_1.webp' }, // Adhiraa - 2
+    { image_url: process.env.SERVER_URL + '/src/image/the_writersroom_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/the_writersroom_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/the_writersroom_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/the_writersroom_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/gold_coast_1.webp' }, // Adhiraa - 3
+    { image_url: process.env.SERVER_URL + '/src/image/gold_coast_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/gold_coast_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/gold_coast_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/gold_coast_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/rumah_miring_1.webp' }, // Jakarta Stays - 1
+    { image_url: process.env.SERVER_URL + '/src/image/rumah_miring_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/rumah_miring_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/rumah_miring_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/rumah_miring_5.webp' },
+  ],
+  [
+    {
+      image_url: process.env.SERVER_URL + '/src/image/casa_de_victoria_1.webp', // Jakarta Stays - 2
+    },
+    {
+      image_url: process.env.SERVER_URL + '/src/image/casa_de_victoria_2.webp',
+    },
+    {
+      image_url: process.env.SERVER_URL + '/src/image/casa_de_victoria_3.webp',
+    },
+    {
+      image_url: process.env.SERVER_URL + '/src/image/casa_de_victoria_4.webp',
+    },
+    {
+      image_url: process.env.SERVER_URL + '/src/image/casa_de_victoria_5.webp',
+    },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/gluck_star_1.webp' }, // EstherLiving - 1
+    { image_url: process.env.SERVER_URL + '/src/image/gluck_star_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/gluck_star_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/gluck_star_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/gluck_star_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/casa_lembang_1.webp' }, // EstherLiving - 2
+    { image_url: process.env.SERVER_URL + '/src/image/casa_lembang_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/casa_lembang_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/casa_lembang_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/casa_lembang_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/vila_serena_1.webp' }, // EstherLiving - 3
+    { image_url: process.env.SERVER_URL + '/src/image/vila_serena_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/vila_serena_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/vila_serena_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/vila_serena_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/twelve_stones_1.webp' }, // EstherLiving - 4
+    { image_url: process.env.SERVER_URL + '/src/image/twelve_stones_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/twelve_stones_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/twelve_stones_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/twelve_stones_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/winds_cabin_1.webp' }, // RentWithZanna - 1
+    { image_url: process.env.SERVER_URL + '/src/image/winds_cabin_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/winds_cabin_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/winds_cabin_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/winds_cabin_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/yanaka_snow_1.webp' }, // Compass Stay - 1
+    { image_url: process.env.SERVER_URL + '/src/image/yanaka_snow_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/yanaka_snow_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/yanaka_snow_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/yanaka_snow_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/rm_asakusa_1.webp' }, // HomeByEika - 1
+    { image_url: process.env.SERVER_URL + '/src/image/rm_asakusa_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/rm_asakusa_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/rm_asakusa_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/rm_asakusa_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/bandara_haneda_1.webp' }, // HomeByEika - 2
+    { image_url: process.env.SERVER_URL + '/src/image/bandara_haneda_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/bandara_haneda_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/bandara_haneda_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/bandara_haneda_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/asakusa_1.webp' }, // HomeRumi - 1
+    { image_url: process.env.SERVER_URL + '/src/image/asakusa_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/asakusa_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/asakusa_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/asakusa_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/201_asakadai_1.webp' }, // HomeRumi - 2
+    { image_url: process.env.SERVER_URL + '/src/image/201_asakadai_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/201_asakadai_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/201_asakadai_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/201_asakadai_5.webp' },
+  ],
+  [
+    {
+      image_url: process.env.SERVER_URL + '/src/image/the_birdseye_view_1.webp', // EstherLiving - 5
+    },
+    {
+      image_url: process.env.SERVER_URL + '/src/image/the_birdseye_view_2.webp',
+    },
+    {
+      image_url: process.env.SERVER_URL + '/src/image/the_birdseye_view_3.webp',
+    },
+    {
+      image_url: process.env.SERVER_URL + '/src/image/the_birdseye_view_4.webp',
+    },
+    {
+      image_url: process.env.SERVER_URL + '/src/image/the_birdseye_view_5.webp',
+    },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/alla_moda_1.webp' }, // EstherLiving - 6
+    { image_url: process.env.SERVER_URL + '/src/image/alla_moda_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/alla_moda_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/alla_moda_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/alla_moda_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/nidoz_1.webp' }, // EstherLiving - 7
+    { image_url: process.env.SERVER_URL + '/src/image/nidoz_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/nidoz_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/nidoz_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/nidoz_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/fun_suite_1.webp' }, // EstherLiving - 8
+    { image_url: process.env.SERVER_URL + '/src/image/fun_suite_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/fun_suite_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/fun_suite_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/fun_suite_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/dinosaur_1.webp' }, // HomeRumi - 3
+    { image_url: process.env.SERVER_URL + '/src/image/dinosaur_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/dinosaur_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/dinosaur_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/dinosaur_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/ekamai_1.webp' }, // RentWithZanna - 2
+    { image_url: process.env.SERVER_URL + '/src/image/ekamai_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/ekamai_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/ekamai_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/ekamai_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/riverside_1.webp' }, // RentWithZanna - 3
+    { image_url: process.env.SERVER_URL + '/src/image/riverside_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/riverside_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/riverside_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/riverside_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/hua_mak_1.webp' }, // RentWithZanna - 4
+    { image_url: process.env.SERVER_URL + '/src/image/hua_mak_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/hua_mak_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/hua_mak_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/hua_mak_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/lake_view_1.webp' }, // RentWithZanna - 5
+    { image_url: process.env.SERVER_URL + '/src/image/lake_view_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/lake_view_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/lake_view_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/lake_view_5.webp' },
+  ],
+  [
+    { image_url: process.env.SERVER_URL + '/src/image/thonglor_1.webp' }, // RentWithZanna - 6
+    { image_url: process.env.SERVER_URL + '/src/image/thonglor_2.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/thonglor_3.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/thonglor_4.webp' },
+    { image_url: process.env.SERVER_URL + '/src/image/thonglor_5.webp' },
   ],
 ];
 
