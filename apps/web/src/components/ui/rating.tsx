@@ -25,7 +25,7 @@ interface RatingsProps extends React.HTMLAttributes<HTMLDivElement> {
   Icon?: React.ReactElement;
   variant?: keyof typeof ratingVariants;
   onRatingChange?: (rating: number) => void;
-  disabled?: boolean; // Add disabled prop
+  disabled?: boolean;
   showCurrentRating?: boolean;
 }
 
@@ -38,7 +38,7 @@ export const CommentRatings = ({
   Icon = <Star />,
   variant = 'default',
   onRatingChange,
-  disabled = false, // Default to false if disabled prop is not provided
+  disabled = false,
   ...props
 }: RatingsProps) => {
   const [hoverRating, setHoverRating] = useState<number | null>(null);
@@ -150,7 +150,7 @@ const PartialStar = ({
     <div style={{ position: 'relative', display: 'inline-block' }}>
       {React.cloneElement(Icon, {
         size,
-        className: cn('fill-transparent', className),
+        className: cn('fill-stone-200 stroke-0', className),
       })}
       <div
         style={{

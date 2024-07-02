@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { prisma } from '@/connection';
 import { getCategoryData, getFacilitiesData } from './sampleService';
 import { listingsToShow, listingsFilterAndSort } from './logics/listingsToShow';
+import { nearToFar } from './logics/haversine';
 export const getSampleData = async (req: Request, res: Response) => {
   const sampleData = await prisma.listings.findMany({
     include: {
@@ -124,6 +125,7 @@ export const getSampleDataByQuery = async (req: Request, res: Response) => {
     category,
     sortBy,
     sort,
+    page,
   } = req.query;
 
   const date = {
@@ -135,6 +137,7 @@ export const getSampleDataByQuery = async (req: Request, res: Response) => {
     lat: Number(lat),
     lng: Number(lng),
   };
+  const numPerPage = 8;
 
   const sample = await prisma.listings.findMany({
     where: {
@@ -144,7 +147,7 @@ export const getSampleDataByQuery = async (req: Request, res: Response) => {
       room_types: {
         where: {
           capacity: {
-            gte: Number(children) + Number(adults),
+            gte: Number(children) + Number(adults) || 2,
           },
         },
         include: {
@@ -170,6 +173,22 @@ export const getSampleDataByQuery = async (req: Request, res: Response) => {
     return res.send(404);
   }
 
+  if (!start_date && !end_date) {
+    const sortedDistance = listingsFilterAndSort(
+      sortBy as string,
+      sort as string,
+      category as string,
+      point,
+      sample,
+    );
+    return res.status(200).send({
+      data: sortedDistance.slice(
+        (Number(page) - 1) * numPerPage,
+        Number(page) * numPerPage,
+      ),
+      toShowLength: sortedDistance.length,
+    });
+  }
   const toShow = listingsToShow(sample, date);
 
   const data = listingsFilterAndSort(
@@ -179,10 +198,12 @@ export const getSampleDataByQuery = async (req: Request, res: Response) => {
     point,
     toShow,
   );
-
   return res.status(200).send({
-    data: data,
-    toShowLength: toShow.length,
+    data: data.slice(
+      (Number(page) - 1) * numPerPage,
+      Number(page) * numPerPage,
+    ),
+    toShowLength: data.length,
   });
 };
 

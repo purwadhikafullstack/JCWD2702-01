@@ -20,6 +20,7 @@ import { isDirty, z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { usePostReply } from '@/features/tenant/review/hooks/useReview';
+import { format } from 'date-fns';
 
 export function GuestReviewCard({ review, id, isTenant }: any) {
   const { mutationPostReply } = usePostReply();
@@ -40,8 +41,11 @@ export function GuestReviewCard({ review, id, isTenant }: any) {
   return (
     <div className="p-3 border rounded-lg mb-3">
       <div className="grid gap-3">
-        <div className="text-sm font-semibold text-foreground-muted">
-          {review?.user?.display_name} {review?.created_at}
+        <div className="flex justify-between text-sm font-semibold text-foreground-muted">
+          <div>{review?.user?.display_name}</div>
+          <div className="text-stone-500">
+            {format(new Date(review?.created_at), 'yyyy-MM-dd HH:mm')}
+          </div>
         </div>
         <CommentRatings
           size={15}
@@ -116,10 +120,10 @@ export function GuestReviewCard({ review, id, isTenant }: any) {
         review.review_replies[0] && (
           <div>
             <Separator className="my-2" />
-            <p className="text-xs text-foreground-muted">
+            <p className="flex gap-2 text-xs text-foreground-muted">
               <span className="font-semibold">
                 {review.listing?.tenant?.display_name}
-              </span>{' '}
+              </span>
               <span>{review.review_replies[0]?.reply}</span>
             </p>
           </div>

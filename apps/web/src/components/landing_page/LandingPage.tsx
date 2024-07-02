@@ -13,7 +13,7 @@ import { useGetListings } from '@/features/listings/hooks/useGetListings';
 export default function LandingPage() {
   const { heroImage } = useGetHeroImage();
   const { listings } = useGetListings();
-  
+
   if (!heroImage && !listings) return <Loading />;
   return (
     <div>
@@ -31,7 +31,7 @@ export default function LandingPage() {
           alt="Hero Image"
           unoptimized
           priority
-          className="w-screen h-[85vh] md:h-[70vh] z-0 object-cover brightness-90 lg:object-center"
+          className="w-screen transition bg-black h-[85vh] md:h-[70vh] z-0 object-cover brightness-90 lg:object-center"
         />
       </div>
       <div

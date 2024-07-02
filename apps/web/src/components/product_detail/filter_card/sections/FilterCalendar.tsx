@@ -62,8 +62,31 @@ export default function FilterCalendar({
           ),
         );
 
+        const isBooked = bookings.filter((x) =>
+          areIntervalsOverlapping(
+            { start: selectedDate.from as Date, end: selectedDate.to as Date },
+            {
+              start: subDays(x.start_date, 1),
+              end: subDays(x.end_date, 1),
+            },
+          ),
+        );
+
         if (result.length > 0) {
           const froms = result.map((x: any) => x.from);
+          const closestDate = closestTo(selectedDate.from as Date, froms);
+          setDate({
+            from: selectedDate.from,
+            to: subDays(closestDate as Date, 1),
+          });
+          setValue('duration', {
+            from: selectedDate.from,
+            to: subDays(closestDate as Date, 1),
+          });
+        }
+
+        if (isBooked.length > 0) {
+          const froms = isBooked.map((x: any) => x.start_date);
           const closestDate = closestTo(selectedDate.from as Date, froms);
           setDate({
             from: selectedDate.from,
@@ -87,7 +110,7 @@ export default function FilterCalendar({
     const isBooked = bookings.filter((x) =>
       isWithinInterval(props.date, {
         start: subDays(x.start_date, 1),
-        end: x.end_date,
+        end: subDays(x.end_date, 1),
       }),
     );
     console.log('******', isBooked);
