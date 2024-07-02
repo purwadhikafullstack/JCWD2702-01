@@ -5,6 +5,10 @@ export const findUserByEmail = async ({ email }: { email: string }) => {
     const findUser = await prisma.users.findUnique({
         where: {
             email: email,
+            is_verified: true
+        },
+        include: {
+            tenants: true
         }
     })
 

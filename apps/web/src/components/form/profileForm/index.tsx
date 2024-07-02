@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import * as z from 'zod';
 import { ProfileFormSchema } from '@/features/user/profile/schemas/ProfileFormSchema';
-import { Image, User2 } from 'lucide-react';
+import { Image, User2, Mail } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import {
   IPersistSignin,
@@ -24,6 +24,8 @@ import { useState, useEffect } from 'react';
 import { useUpdateUserProfile } from '@/features/user/profile/hooks/useUpdateUser';
 import { useUpdateTenantProfile } from '@/features/tenant/profile/hooks/useUpdateTenantProfile';
 import { ProfilePicture } from './ProfilePicture';
+import { useGetProfile } from '@/features/user/profile/hooks/useGetProfile';
+import { useLogout } from '@/features/auth/signin/hooks/useSignin';
 
 export default function ProfileForm() {
   const [userData, setUserData] = useState<IPersistSignin>(
@@ -32,11 +34,18 @@ export default function ProfileForm() {
   const [tenantData, setTenantData] = useState<IPersistTenantData>(
     {} as IPersistTenantData,
   );
+  const { profile } = useGetProfile();
+  const providersId: number = profile?.providersId;
   const stateUser = useSelector((state: any) => state.user);
   const stateTenant = useSelector((state: any) => state.tenant);
   const { mutationUpdateUserProfile } = useUpdateUserProfile();
   const { mutationUpdateTenantProfile } = useUpdateTenantProfile();
+  const { mutationSignout } = useLogout();
   const [images, setImages] = useState([]);
+
+  const handleLogout = () => {
+    mutationSignout();
+  };
 
   const onSetFiles = (event: any) => {
     try {
@@ -70,6 +79,7 @@ export default function ProfileForm() {
     resolver: zodResolver(ProfileFormSchema),
     defaultValues: {
       username: '',
+      email: '',
       image_url: '',
     },
   });
@@ -84,6 +94,7 @@ export default function ProfileForm() {
       'data',
       JSON.stringify({
         display_name: values.username,
+        email: values.email,
       }),
     );
     if (images) {
@@ -95,14 +106,12 @@ export default function ProfileForm() {
       mutationUpdateUserProfile(fd, {
         onSuccess: () => {
           reset();
-          window.location.reload();
         },
       });
     } else {
       mutationUpdateTenantProfile(fd, {
         onSuccess: () => {
           reset();
-          window.location.reload();
         },
       });
     }
@@ -116,7 +125,11 @@ export default function ProfileForm() {
   return (
     <div className="flex flex-col gap-7 w-auto md:w-96">
       <div className="block md:hidden">
-        <ProfilePicture userData={userData} tenantData={tenantData} />
+        <ProfilePicture
+          userData={userData}
+          tenantData={tenantData}
+          profile={profile}
+        />
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
@@ -130,13 +143,35 @@ export default function ProfileForm() {
                   <Input
                     type="text"
                     placeholder={
-                      userData.rolesId == 1
-                        ? userData.display_name
-                        : tenantData?.display_name
+                      profile?.rolesId == 1
+                        ? profile?.display_name
+                        : profile?.tenants?.display_name
                     }
                     {...field}
                     suffix={<User2 />}
                     className=" rounded-full bg-zinc-100"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem
+                className={`${profile?.rolesId === 1 ? 'block' : 'hidden'}`}
+              >
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder={profile?.email}
+                    {...field}
+                    suffix={<Mail />}
+                    className=" rounded-full bg-zinc-100"
+                    disabled={providersId === 2 ? true : false}
                   />
                 </FormControl>
                 <FormMessage />

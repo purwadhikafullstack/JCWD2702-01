@@ -22,14 +22,13 @@ export default function MyListings() {
   //   new URLSearchParams(Object.fromEntries(filterParams.entries())),
   // );
   const { mutationDeleteListing } = useDeletelisting();
-  const { myListings } =
-    useGetMyListings();
-    // date?.from && date.to
-    //   ? `start_date=${format(date.from, 'yyyy-MM-dd')}&end_date=${format(date.to, 'yyyy-MM-dd')}`
-    //   : undefined,
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const { myListings } = useGetMyListings(currentPage);
   const router = useRouter();
   const [listings, setListings] = useState<IMyListing[]>([]);
+  console.log('myListing', myListings);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const totalPages = Math.ceil(myListings.totalData / 4);
 
   useEffect(() => {
     if (myListings) {
@@ -44,9 +43,6 @@ export default function MyListings() {
     // }
   }, [myListings]);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
-
   const handleDeleteListing = async (listingId: string) => {
     try {
       await mutationDeleteListing(listingId);
@@ -56,24 +52,6 @@ export default function MyListings() {
     }
   };
 
-  // const handleDateAvailabilityFilter = (date: DateRange | undefined) => {
-  //   if (date?.from && date.to) {
-  //     const currentParams = new URLSearchParams(params);
-  //     currentParams.set('start_date', format(date.from, 'yyyy-MM-dd'));
-  //     currentParams.set('end_date', format(date.to, 'yyyy-MM-dd'));
-  //     window.history.replaceState(null, '', '?' + params.toString());
-  //     setParams(currentParams);
-  //   }
-  // };
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentListings = listings.slice(indexOfFirstItem, indexOfLastItem);
-
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-  const totalPages = Math.ceil(listings.length / itemsPerPage);
-
-  if (!myListings) return <div>Loading...</div>;
   return (
     <div className="w-full h-full flex flex-col gap-4">
       <div className=" hidden w-full md:flex justify-end items-center gap-3">
@@ -90,20 +68,18 @@ export default function MyListings() {
         </Button>
       </div>
       <div>
-        {myListings.length > 0 ? (
+        {myListings?.myListing?.length > 0 ? (
           <div>
-            {currentListings.map((item: any) => (
+            {myListings?.myListing?.map((item: any) => (
               <MyListingCard
                 item={item}
                 handleDeleteListing={handleDeleteListing}
               />
             ))}
-            <div
-              className={`${listings.length >= 2 ? 'flex justify-center items-end gap-4 mt-4' : 'hidden'}`}
-            >
+            <div className="flex justify-center items-end gap-4 mt-4">
               <Button
                 disabled={currentPage === 1}
-                onClick={() => paginate(currentPage - 1)}
+                onClick={() => setCurrentPage(currentPage - 1)}
                 variant={'ghost'}
               >
                 Previous
@@ -120,7 +96,7 @@ export default function MyListings() {
               ))}
               <Button
                 disabled={currentPage === totalPages}
-                onClick={() => paginate(currentPage + 1)}
+                onClick={() => setCurrentPage(currentPage + 1)}
                 variant={'ghost'}
               >
                 Next

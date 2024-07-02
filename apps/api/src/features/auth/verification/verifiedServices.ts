@@ -53,3 +53,14 @@ export const searchUserByEmail = async ({ email }: { email: any }) => {
         }
     })
 }
+
+export const verifyNewUserEmail = async (uid: any) => {
+    return await prisma.users.update({
+        where: {
+            uid: uid
+        },
+        data: {
+            is_verified: true
+        }
+    })
+}
