@@ -9,18 +9,12 @@ import SetNonavailability from './setNonavailability';
 import { MyListingCard } from '@/components/cards/MyListingCard';
 import FilterListing from './filterListing';
 import { DateRange } from 'react-day-picker';
-import { useSearchParams } from 'next/navigation';
-import { listingsToShow } from './logics/filterListings';
-import { format } from 'date-fns';
+
 export default function MyListings() {
-  // const filterParams = useSearchParams();
   const [date, setDate] = useState<DateRange | undefined>({
     from: undefined,
     to: undefined,
   });
-  // const [params, setParams] = useState(
-  //   new URLSearchParams(Object.fromEntries(filterParams.entries())),
-  // );
   const { mutationDeleteListing } = useDeletelisting();
   const [currentPage, setCurrentPage] = useState(1);
   const { myListings } = useGetMyListings(currentPage);
@@ -34,13 +28,6 @@ export default function MyListings() {
     if (myListings) {
       setListings(myListings);
     }
-    // if (date?.from && date.to) {
-    //   const filteredListings = listingsToShow(listings, {
-    //     start: date.from,
-    //     end: date.to,
-    //   });
-    //   setListings(filteredListings);
-    // }
   }, [myListings]);
 
   const handleDeleteListing = async (listingId: string) => {
@@ -54,14 +41,13 @@ export default function MyListings() {
 
   return (
     <div className="w-full h-full flex flex-col gap-4">
-      <div className=" hidden w-full md:flex justify-end items-center gap-3">
-        <FilterListing date={date} setDate={setDate} />
+      <div className="flex w-full md:justify-end items-center gap-3">
         <div className={`${myListings.length === 0 ? 'hidden' : 'flex gap-3'}`}>
           <SetNonavailability />
           <SetSeasonalPrice />
         </div>
         <Button
-          className="h-7"
+          className="text-xs md:text-sm h-7"
           onClick={() => router.push('/tenant/new-listing')}
         >
           + New Listing
@@ -108,12 +94,6 @@ export default function MyListings() {
             <span className="text-xl font-bold">No listing found</span>
             <span className="text-base">
               You have yet to make a property listing
-            </span>
-            <span
-              className="text-sm border-2 rounded-full px-3 py-1 cursor-pointer"
-              onClick={() => router.push('/tenant/new-listing')}
-            >
-              Create a new listing
             </span>
           </div>
         )}

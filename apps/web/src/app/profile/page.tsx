@@ -14,7 +14,8 @@ import SalesReport from '@/components/profile/tenant/salesReport';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Menu } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 export default function Profile() {
   const [selectedMenuItem, setSelectedMenuItem] = useState('Profile');
   const [isFullWidth, setIsFullWidth] = useState(false);
@@ -46,16 +47,19 @@ export default function Profile() {
   return (
     <div className="w-full flex justify-center">
       <div
-        className={`w-full flex flex-col md:flex-row md:gap-12 ${isFullWidth ? 'lg:w-full' : 'lg:w-3/5'}`}
+        className={`w-full flex flex-col md:flex-row md:gap-12 ${isFullWidth ? 'lg:w-full' : 'lg:w-[50vw]'}`}
       >
         <div className="block md:hidden">
           <Sheet>
             <SheetTrigger>
-              <Menu />
+              <Button variant="outline" className="mb-5">
+                <ChevronLeft className="p-1 -ml-2" />
+                Menu
+              </Button>
             </SheetTrigger>
             <SheetContent
               side={'left'}
-              className="w-64 flex items-center justify-center"
+              className="w-60 flex items-center justify-center"
             >
               <ProfileSidebar
                 selectedMenuItem={selectedMenuItem}
@@ -70,9 +74,7 @@ export default function Profile() {
             onSelectMenuItem={setSelectedMenuItem}
           />
         </div>
-        <div
-          className={`flex flex-col gap-7 ${isFullWidth ? 'w-3/4' : 'w-full'}`}
-        >
+        <div className={`flex flex-col gap-8 w-full`}>
           <div className="font-semibold text-2xl flex justify-between">
             {selectedMenuItem}
             <div className="hidden lg:flex items-center space-x-2">
@@ -81,14 +83,12 @@ export default function Profile() {
                 checked={isFullWidth}
                 onCheckedChange={handleSwitchChange}
               />
-              <Label htmlFor="full-width" className="font-light">
+              <Label htmlFor="full-width" className="text-stone-500">
                 Full-width
               </Label>
             </div>
           </div>
-          <div className={isFullWidth ? 'w-full h-full' : 'flex-grow'}>
-            <SelectedComponent />
-          </div>
+          <SelectedComponent />
         </div>
       </div>
     </div>

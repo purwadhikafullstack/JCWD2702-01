@@ -31,7 +31,7 @@ export default function SetNonavailability() {
     <div className="flex items-center justify-center">
       <AlertDialog>
         <AlertDialogTrigger>
-          <Button className="h-7 bg-zinc-200 text-black flex items-center justify-center">
+          <Button className="h-7 text-xs md:text-sm hover:bg-stone-300 bg-stone-200 text-black flex items-center justify-center">
             Set Nonavailability
           </Button>
         </AlertDialogTrigger>
