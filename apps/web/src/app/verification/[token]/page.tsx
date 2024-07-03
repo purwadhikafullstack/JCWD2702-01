@@ -41,7 +41,7 @@ export default function Verified({ params }: { params: { token: string } }) {
 
   useEffect(() => {
     handleCheckVerifiedStatus();
-  }, [result, verifiedStatus]);
+  }, [result, verifiedStatus, handleCheckVerifiedStatus]);
   return (
     <div>
       {profile?.display_name && profile.is_verified === false ? (
@@ -58,7 +58,7 @@ export default function Verified({ params }: { params: { token: string } }) {
             <h1>
               <Link href="/signin">
                 <Button className="rounded-lg h-20" variant={'outline'}>
-                  <div className="text-2xl font-semibold">You're Verified!</div>
+                  <div className="text-2xl font-semibold">You&apos;re Verified!</div>
                 </Button>
               </Link>
             </h1>

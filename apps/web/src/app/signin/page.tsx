@@ -7,7 +7,7 @@ export default function Signin() {
       <div className="text-center text-2xl font-bold flex flex-col">
         Sign In
         <span className="font-light text-sm mt-2">
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <Link href={'/signup'} className="hover:text-blue-400">
             SignUp!
           </Link>

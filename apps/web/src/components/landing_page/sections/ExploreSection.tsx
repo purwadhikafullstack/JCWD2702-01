@@ -20,12 +20,14 @@ export const ExploreCity = () => {
       text: 'Tokyo',
     },
     {
-      redirectUrl: '/search?lat=-6.1944491&lng=106.8229198&country=Indonesia&page=1',
+      redirectUrl:
+        '/search?lat=-6.1944491&lng=106.8229198&country=Indonesia&page=1',
       image: '/jakarta.jpg',
       text: 'Jakarta',
     },
     {
-      redirectUrl: '/search?lat=3.1319197&lng=101.6840589&country=Malaysia&page=1',
+      redirectUrl:
+        '/search?lat=3.1319197&lng=101.6840589&country=Malaysia&page=1',
       image: '/kuala-lumpur.jpg',
       text: 'Kuala Lumpur',
     },
@@ -39,8 +41,9 @@ export const ExploreCity = () => {
     <div>
       <div className="text-3xl font-bold pb-8">Explore a new city</div>
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4 ">
-        {cities.map((x, i) => (
+        {cities.map((x, i: number) => (
           <ThumbnailCard
+            key={i}
             redirectUrl={x.redirectUrl}
             imageUrl={x.image}
             hoverAnim={true}

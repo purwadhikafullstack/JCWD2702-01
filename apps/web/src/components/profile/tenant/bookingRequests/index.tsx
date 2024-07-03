@@ -26,8 +26,8 @@ export default function BookingRequests() {
     <>
       {allBookings.length > 0 ? (
         <div className="flex flex-col gap-3">
-          {allBookings.map((x: any) => (
-            <div className="p-3 rounded-lg border w-full">
+          {allBookings.map((x: any, i: number) => (
+            <div key={i} className="p-3 rounded-lg border w-full">
               <BookingCard data={x} />
               {x.status.id === 2 ? (
                 <div className="w-full flex flex-col items-end">

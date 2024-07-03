@@ -29,7 +29,7 @@ export default function Page() {
     if (Number(payment_type) != 1 && transaction_status == 'settlement') {
       autopayment();
     }
-  }, []);
+  });
   if (!booking) return <Loading></Loading>;
   return (
     <div className="my-32 md:w-[600px] mx-auto grid gap-5">

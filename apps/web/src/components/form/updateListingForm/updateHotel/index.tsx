@@ -15,7 +15,7 @@ import { ListingForm } from './ListingForm';
 import { RoomTypeForm } from './RoomTypeForm';
 import { useUpdateListing } from '@/features/listings/hooks/useUpdateListing';
 
-export const UpdateHotelListingForm = forwardRef(({ item }: any, ref) => {
+const UpdateHotelListingForm = forwardRef(({ item }: any, ref) => {
   const [images, setImages] = useState([]);
   const [roomtypeImages, setRoomtypeImages] = useState([]);
   const { mutationUpdateListing } = useUpdateListing();
@@ -186,3 +186,7 @@ export const UpdateHotelListingForm = forwardRef(({ item }: any, ref) => {
     </div>
   );
 });
+
+UpdateHotelListingForm.displayName = 'UpdateHotelListingForm';
+
+export { UpdateHotelListingForm };

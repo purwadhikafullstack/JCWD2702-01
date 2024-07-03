@@ -113,7 +113,7 @@ export const SetNonavailabilityForm = ({
                               <SelectContent className="rounded-xl">
                                 {listing.room_types.map(
                                   (item: any, i: number) => (
-                                    <SelectItem value={`${item.id}`}>
+                                    <SelectItem key={i} value={`${item.id}`}>
                                       {item.name}
                                     </SelectItem>
                                   ),

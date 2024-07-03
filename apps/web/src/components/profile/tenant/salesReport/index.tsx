@@ -8,13 +8,16 @@ import { useGetMyListings } from '@/features/tenant/profile/hooks/useGetMyListin
 export default function SalesReport() {
   const { allSales } = useGetSalesList();
   const { myListings } = useGetMyListings();
-  console.log(allSales);
 
-  if (!allSales) return <Loading />;
+  if (!allSales && !myListings) return <Loading />;
   return (
     <div>
       <Suspense fallback={<Loading />}>
-        <DataTable listings={myListings} columns={columns2} data={allSales} />
+        <DataTable
+          listings={myListings.myListing}
+          columns={columns2}
+          data={allSales}
+        />
       </Suspense>
     </div>
   );

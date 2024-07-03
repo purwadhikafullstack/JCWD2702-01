@@ -183,6 +183,7 @@ export const HotelRoomTypePopup = () => {
         {roomTypeData?.map((item: any, index: any) => {
           return (
             <CreatedRoomTypeCard
+              key={index}
               item={item}
               index={index}
               handleDelete={handleDelete}

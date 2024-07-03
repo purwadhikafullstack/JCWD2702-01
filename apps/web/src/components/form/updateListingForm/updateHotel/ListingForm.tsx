@@ -102,7 +102,9 @@ export const ListingForm = ({
                 </SelectTrigger>
                 <SelectContent className="rounded-lg">
                   {item.room_types.map((item: any, i: number) => (
-                    <SelectItem value={`${item.id}`}>{item.name}</SelectItem>
+                    <SelectItem key={i} value={`${item.id}`}>
+                      {item.name}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>

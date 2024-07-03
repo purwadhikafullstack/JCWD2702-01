@@ -56,8 +56,9 @@ export default function MyListings() {
       <div>
         {myListings?.myListing?.length > 0 ? (
           <div>
-            {myListings?.myListing?.map((item: any) => (
+            {myListings?.myListing?.map((item: any, i: number) => (
               <MyListingCard
+                key={i}
                 item={item}
                 handleDeleteListing={handleDeleteListing}
               />

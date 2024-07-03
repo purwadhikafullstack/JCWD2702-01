@@ -14,7 +14,7 @@ export const UploadProofSchema = z.object({
   image_url: z.string(),
 });
 
-export default function orderHistory() {
+export default function OrderHistory() {
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const [bookingId, setBookingId] = useState('');
@@ -27,7 +27,6 @@ export default function orderHistory() {
     },
   });
 
-  console.log('>>>', page);
   const { isDirty } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof UploadProofSchema>) => {
@@ -75,8 +74,8 @@ export default function orderHistory() {
     <>
       {allBookings.length > 0 ? (
         <div className="flex flex-col gap-3">
-          {allBookings.map((x: any) => (
-            <div className="p-3 rounded-lg border w-full">
+          {allBookings.map((x: any, i: number) => (
+            <div key={i} className="p-3 rounded-lg border w-full">
               <BookingCard data={x} />
               {x.booking_statusId === 1 && (
                 <BookingOptions

@@ -1,6 +1,7 @@
 'use client';
 
 import { Trash } from 'lucide-react';
+import Image from 'next/image';
 
 export const CreatedRoomTypeCard = ({ item, index, handleDelete }: any) => {
   return (
@@ -8,10 +9,11 @@ export const CreatedRoomTypeCard = ({ item, index, handleDelete }: any) => {
       <div className="h-auto w-full bg-transparent shadow-lg rounded-xl">
         <div className="w-full h-44 flex justify-around gap-4 p-3">
           <div className="flex-1 rounded-xl relative">
-            <img
+            <Image
               src={item.room_images_url[0]}
               alt={`Room Type ${index + 1}`}
               className="rounded-xl object-cover"
+              fill
               style={{
                 width: '100%',
                 height: '100%',

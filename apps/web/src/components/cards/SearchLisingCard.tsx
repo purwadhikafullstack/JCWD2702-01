@@ -62,7 +62,11 @@ export const SearchListingCard = ({
             {facilities
               ?.slice(0, 4)
               .map((x: any, i: number) => (
-                <FacilityBadge text={x.facility.facility} icon={false} />
+                <FacilityBadge
+                  key={i}
+                  text={x.facility.facility}
+                  icon={false}
+                />
               ))}
           </div>
         </div>

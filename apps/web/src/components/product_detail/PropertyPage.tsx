@@ -23,26 +23,19 @@ export default function PropertyPage({
   startDate,
   endDate,
   adults,
-  children,
+  kids,
 }: {
   data: any;
   imageCollection: string[];
   startDate?: string;
   endDate?: string;
   adults?: string;
-  children?: string;
+  kids?: string;
 }) {
   const [currentRoom, setCurrentRoom] = useState(0);
   console.log(data);
   const listingId = data.id;
   const room_typesId = data.room_types[currentRoom].id;
-  // console.log(data);
-  // const bookings = [...data.room_types[currentRoom].bookings]
-  //   .filter((x) => x.booking_statusId < 4)
-  //   .map((x) => ({
-  //     from: new Date(x.start_date),
-  //     to: subDays(new Date(x.end_date), 1),
-  //   }));
 
   const bookings = [...data.room_types[currentRoom].bookings].filter(
     (x) => x.booking_statusId < 4,
@@ -121,7 +114,7 @@ export default function PropertyPage({
             startDate={startDate}
             endDate={endDate}
             adults={adults}
-            children={children}
+            kids={kids}
           ></FilterCard>
           <div className="w-full">
             <div className="hidden md:block" id="Title">
@@ -162,14 +155,16 @@ export default function PropertyPage({
               <div id="Amenities" className="grid gap-2">
                 <div className="text-xl w-80 font-bold">Amenities</div>
                 <div className="grid grid-cols-2 gap-2 lg:w-[40%]">
-                  {data.listing_facilities.slice(0, 9).map((x: any) => (
-                    <div className="">
-                      <FacilityBadge
-                        icon={true}
-                        text={x.facility.facility}
-                      ></FacilityBadge>
-                    </div>
-                  ))}
+                  {data.listing_facilities
+                    .slice(0, 9)
+                    .map((x: any, i: number) => (
+                      <div key={i}>
+                        <FacilityBadge
+                          icon={true}
+                          text={x.facility.facility}
+                        ></FacilityBadge>
+                      </div>
+                    ))}
                   {data.listing_facilities.length > 9 && (
                     <TooltipProvider>
                       <Tooltip>
@@ -177,8 +172,8 @@ export default function PropertyPage({
                           Show more
                         </TooltipTrigger>
                         <TooltipContent className="grid gap-3">
-                          {data.listing_facilities.slice(9).map((x: any) => (
-                            <div className="">
+                          {data.listing_facilities.slice(9).map((x: any, i: number) => (
+                            <div key={i}>
                               <FacilityBadge
                                 icon={true}
                                 text={x.facility.facility}
@@ -214,7 +209,7 @@ export default function PropertyPage({
                 <div id="Rooms" className="grid gap-2">
                   <div className="text-xl w-80 font-bold">Rooms</div>
                   {data.room_types.map((x: any, i: number) => (
-                    <HotelRoomCard roomData={x} />
+                    <HotelRoomCard key={i} roomData={x} />
                   ))}
                 </div>
               )}
@@ -222,7 +217,7 @@ export default function PropertyPage({
                 <div id="Reviews" className="grid gap-2">
                   <div className="text-xl w-80 font-bold">Reviews</div>
                   {data.reviews.map((x: any, i: number) => (
-                    <GuestReviewCard review={x} id={x.id} />
+                    <GuestReviewCard key={i} review={x} id={x.id} />
                   ))}
                 </div>
               )}
