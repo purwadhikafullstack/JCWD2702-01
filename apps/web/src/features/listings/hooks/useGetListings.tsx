@@ -26,8 +26,9 @@ export const useGetListingsBySearch = (params: string) => {
     isSuccess,
     isError,
   } = useGetListingsBySearchQuery(params);
+  console.log('nih ape', searchResult?.data);
   return {
-    searchResult: searchResult?.data.data,
+    searchResult: searchResult?.data,
   };
 };
 

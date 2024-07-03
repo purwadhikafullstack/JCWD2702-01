@@ -1,11 +1,11 @@
 import { useGetAllTenantBookingQuery } from '../api/useBookingQuery';
 
-export const useGetAllTenantBooking = () => {
+export const useGetAllTenantBooking = (page: number) => {
   const {
     data: allBookings,
     isSuccess,
     isError,
-  } = useGetAllTenantBookingQuery();
+  } = useGetAllTenantBookingQuery(page);
 
   return { allBookings: allBookings?.data.data };
 };

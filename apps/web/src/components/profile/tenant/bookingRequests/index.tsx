@@ -12,77 +12,118 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { useConfirmBooking } from '@/features/tenant/transaction/hooks/useBooking';
 import { useState } from 'react';
-import { Badge } from '@/components/ui/badge';
-
+import { Separator } from '@/components/ui/separator';
+import BookingCard from '@/components/cards/BookingCard';
+import { useQueryClient } from '@tanstack/react-query';
 export default function BookingRequests() {
-  const { allBookings } = useGetAllTenantBooking();
+  const queryClient = useQueryClient();
+  const [page, setPage] = useState(1);
+  const { allBookings } = useGetAllTenantBooking(page);
   const [status, setStatus] = useState(0);
-
+  console.log(page);
   if (!allBookings) return <Loading />;
-
   return (
-    <div className="md:w-96">
-      {allBookings.map((x: any) => (
-        <div className="text-sm">
-          <div className="text-xs font-medium text-stone-600">ID {x.id}</div>
-          <Badge variant={'outline'}>{x.status.status}</Badge>
-          {x.status.id === 2 ? (
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button>See payment proof</Button>
-              </DialogTrigger>
-              <DialogContent className="min-h-[300px]">
-                <DialogHeader>
-                  <DialogTitle className="pb-3">Confirm payment</DialogTitle>
-                  <DialogDescription className="grid gap-3">
-                    {status === 0 ? (
-                      <div>
-                        <Image
-                          src={x.payment_proof}
-                          height={100}
-                          width={100}
-                          alt="Payment Proof"
-                          unoptimized
-                          className="w-full object-cover"
-                        />
-                        <div className="flex justify-between">
-                          <Button
-                            onClick={() => setStatus(4)}
-                            variant={'destructive'}
-                          >
-                            Cancel
-                          </Button>
-                          <div>
-                            <Button
-                              onClick={() => setStatus(1)}
-                              variant={'outline'}
-                            >
-                              Ask to reupload
-                            </Button>
-                            <Button
-                              onClick={() => setStatus(3)}
-                              className="bg-green-600 hover:bg-green-500"
-                            >
-                              Confirm
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <DialogConfirmation
-                        status={status}
-                        cb={() => setStatus(0)}
-                        data={x}
-                      />
-                    )}
-                  </DialogDescription>
-                </DialogHeader>
-              </DialogContent>
-            </Dialog>
-          ) : null}
+    <>
+      {allBookings.length > 0 ? (
+        <div className="flex flex-col gap-3">
+          {allBookings.map((x: any) => (
+            <div className="p-3 rounded-lg border w-full">
+              <BookingCard data={x} />
+              {x.status.id === 2 ? (
+                <div className="w-full flex flex-col items-end">
+                  <Dialog>
+                    <Separator className="my-3" />
+                    <DialogTrigger asChild>
+                      <Button size={'sm'} className="h-6">
+                        See payment proof
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="min-h-[300px]">
+                      <DialogHeader>
+                        <DialogTitle className="pb-3">
+                          Confirm payment
+                        </DialogTitle>
+                        <DialogDescription className="grid gap-3">
+                          {status === 0 ? (
+                            <div>
+                              <Image
+                                src={x.payment_proof}
+                                height={80}
+                                width={80}
+                                alt="Payment Proof"
+                                unoptimized
+                                className="w-full object-cover rounded-lg"
+                              />
+                              <div className="flex justify-between py-3">
+                                <Button
+                                  onClick={() => setStatus(4)}
+                                  variant={'destructive'}
+                                  className="h-6"
+                                >
+                                  Cancel
+                                </Button>
+                                <div className="flex gap-2">
+                                  <Button
+                                    onClick={() => setStatus(1)}
+                                    variant={'outline'}
+                                    className="h-6"
+                                  >
+                                    Ask to reupload
+                                  </Button>
+                                  <Button
+                                    onClick={() => setStatus(3)}
+                                    className="bg-green-600 hover:bg-green-500 h-6"
+                                  >
+                                    Confirm
+                                  </Button>
+                                </div>
+                              </div>
+                            </div>
+                          ) : (
+                            <DialogConfirmation
+                              status={status}
+                              cb={() => setStatus(0)}
+                              data={x}
+                            />
+                          )}
+                        </DialogDescription>
+                      </DialogHeader>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              ) : null}
+            </div>
+          ))}
+          <div className="w-full flex justify-between">
+            <Button
+              variant={'outline'}
+              disabled={page == 1}
+              onClick={() => {
+                setPage(Math.max(1, page - 1));
+                queryClient.invalidateQueries({
+                  queryKey: ['allBookingRequest'],
+                });
+              }}
+            >
+              Prev
+            </Button>
+            <Button
+              disabled={allBookings.length < 6}
+              onClick={() => {
+                setPage(page + 1);
+                queryClient.invalidateQueries({ queryKey: ['allBookingDate'] });
+              }}
+            >
+              Next
+            </Button>
+          </div>
         </div>
-      ))}
-    </div>
+      ) : (
+        <div className="text-center font-medium border text-sm  p-12 rounded-lg text-stone-400">
+          No incoming bookings
+        </div>
+      )}
+    </>
   );
 }
 

@@ -82,7 +82,6 @@ export default function SearchBar() {
     }
   };
   const queryClient = useQueryClient();
-  const pathname = usePathname();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     function convertNonAlphaToAscii(inputString: string) {
@@ -102,7 +101,7 @@ export default function SearchBar() {
       return result;
     }
     const location = values.location.split(',');
-    const paramsString = `/search?lat=${location[0]}&lng=${location[1]}&country=${location[3]}&start_date=${format(values.duration.from, 'yyyy-MM-dd')}&end_date=${format(values.duration.to, 'yyyy-MM-dd')}&adults=${values.guests.adults}&children=${values.guests.children}&loc_term=${location[4]}`;
+    const paramsString = `/search?lat=${location[0]}&lng=${location[1]}&country=${location[3]}&start_date=${format(values.duration.from, 'yyyy-MM-dd')}&end_date=${format(values.duration.to, 'yyyy-MM-dd')}&adults=${values.guests.adults}&children=${values.guests.children}&loc_term=${location[4]}&page=1`;
     router.push(paramsString);
 
     queryClient.refetchQueries({ queryKey: ['SearchListing', paramsString] });

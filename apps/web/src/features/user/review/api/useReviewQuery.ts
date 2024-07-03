@@ -5,7 +5,7 @@ export const useGetPastStaysQuery = () => {
   const { data, isSuccess, isError } = useQuery({
     queryKey: ['pastStays'],
     queryFn: async () => {
-      return await axiosInstance.get(`/review/user/all`);
+      return await axiosInstance.get(`/review/user/`);
     },
   });
 

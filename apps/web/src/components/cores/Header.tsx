@@ -68,15 +68,14 @@ export const Header = () => {
       {navbar ? (
         <div className="fixed top-0 w-full transition z-50 rounded-b-3xl clip-content">
           <div className="py-4 px-8 lg:px-32 flex transition justify-between bg-white text-lg items-center mx-auto border-b-2  rounded-b-3xl">
-            <div
-              onClick={() => push('/')}
-              className="group flex gap-2 items-center text-black "
-            >
-              <Tent />
-              <span className="text-2xl font-bold hover:cursor-pointer">
-                Roomer
-              </span>
-            </div>
+            <Link href={'/'}>
+              <div className="group flex gap-2 items-center text-black ">
+                <Tent />
+                <span className="text-2xl font-bold hover:cursor-pointer">
+                  Roomer
+                </span>
+              </div>
+            </Link>
             {userData.uid ? (
               <div className="flex items-center justify-around space-x-2 bg-black rounded-full p-5 h-10 w-auto">
                 {userData.rolesId == 1 && userData.image_url ? (
@@ -102,7 +101,11 @@ export const Header = () => {
                     />
                   </div>
                 ) : (
-                  <div className="w-6 h-6 bg-zinc-100 rounded-full text-xl flex justify-center items-center relative text-center pr-2 text-black"></div>
+                  <div className="w-6 h-6 bg-zinc-200 rounded-full flex justify-center items-center text-medium relative text-center uppercase text-[10px] text-black">
+                    {userData.rolesId == 1
+                      ? userData?.display_name.slice(0, 2)
+                      : tenantData?.display_name.slice(0, 2)}
+                  </div>
                 )}
                 <div className="hidden md:flex text-white pr-2 w-auto text-sm font-light">
                   {userData.rolesId == 1
@@ -135,10 +138,12 @@ export const Header = () => {
       ) : (
         <div className="fixed top-0 w-full z-50">
           <div className="py-4 px-8 lg:px-32 flex justify-between bg-white transition text-lg items-center mx-auto bg-opacity-0  rounded-b-3xl ">
-            <div className="flex gap-2 items-center text-white">
-              <Tent />
-              <span className="text-2xl font-bold">Roomer</span>
-            </div>
+            <Link href={'/'}>
+              <div className="flex gap-2 items-center text-white">
+                <Tent />
+                <span className="text-2xl font-bold">Roomer</span>
+              </div>
+            </Link>
             {userData.uid ? (
               <div className="flex items-center justify-around space-x-2 bg-white rounded-full p-5 h-10 w-auto">
                 {userData.rolesId == 1 && userData.image_url ? (
@@ -164,7 +169,11 @@ export const Header = () => {
                     />
                   </div>
                 ) : (
-                  <div className="w-6 h-6 bg-zinc-100 rounded-full text-xl flex justify-center items-center relative text-center pr-2 text-black"></div>
+                  <div className="w-6 h-6 bg-zinc-200 rounded-full flex justify-center items-center text-medium relative text-center uppercase text-[10px] text-black">
+                    {userData.rolesId == 1
+                      ? userData?.display_name.slice(0, 2)
+                      : tenantData?.display_name.slice(0, 2)}
+                  </div>
                 )}
                 <div className="hidden md:flex text-black pr-2 w-auto text-sm">
                   {userData.rolesId == 1

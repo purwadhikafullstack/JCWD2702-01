@@ -233,8 +233,9 @@ export const createListing = async (uid: string, listingData: any, roomTypeData:
     })
 }
 
-export const findMyListing = async (tenantsId: string) => {
-    return await prisma.listings.findMany({
+export const findMyListing = async (tenantsId: string, page: number) => {
+    const itemsPerPage = 4
+    const listings = await prisma.listings.findMany({
         where: {
             tenantsId: tenantsId
         }, include: {
@@ -260,7 +261,10 @@ export const findMyListing = async (tenantsId: string) => {
                 },
             },
         },
+        skip: (page - 1) * itemsPerPage,
+        take: itemsPerPage,
     })
+    return listings
 }
 
 export const deleteMyListing = async (listingId: string) => {
@@ -332,4 +336,12 @@ export const deleteMyListing = async (listingId: string) => {
             },
         });
     });
+}
+
+export const totalMyListing = async (tenantsId: string) => {
+    return await prisma.listings.findMany({
+        where: {
+            tenantsId: tenantsId
+        }
+    })
 }

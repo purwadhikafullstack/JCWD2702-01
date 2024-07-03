@@ -1,5 +1,6 @@
 import { Calendar } from '@/components/ui/calendar';
 import {
+  addDays,
   areIntervalsOverlapping,
   closestTo,
   isWithinInterval,
@@ -17,6 +18,30 @@ export default function FilterCalendar({
   room_typesIndex,
 }: any) {
   const { setValue } = form;
+  console.log('listing data in filter cal', data);
+  console.log('unbookable', unbookable);
+
+  const bookings = [...data.room_types[room_typesIndex].bookings].filter(
+    (x) => x.booking_statusId < 4,
+  );
+
+  const stock = data.room_types[room_typesIndex].stock;
+  console.log(bookings);
+
+  function toHide(bookings: any, date: { start: Date; end: Date }) {
+    let bookCheck = [];
+    for (let book of bookings) {
+      const bookRange = {
+        start: new Date(book.start_date),
+        end: new Date(book.end_date),
+      };
+
+      const bookOverlap = areIntervalsOverlapping(date, bookRange);
+      if (bookOverlap) {
+        bookCheck.push(bookOverlap);
+      }
+    }
+  }
 
   const handleDateChange = (selectedDate: DateRange | undefined) => {
     setDate(selectedDate);
@@ -28,11 +53,22 @@ export default function FilterCalendar({
     if (selectedDate?.from && selectedDate?.to) {
       if (selectedDate?.to > date?.to!) {
         setDate({ from: selectedDate.to, to: undefined });
+        setValue('duration', selectedDate as { from: Date; to: Date });
       } else {
         result = unbookable.filter((x: any) =>
           areIntervalsOverlapping(
             { start: selectedDate.from as Date, end: selectedDate.to as Date },
             { start: x.from, end: x.to },
+          ),
+        );
+
+        const isBooked = bookings.filter((x) =>
+          areIntervalsOverlapping(
+            { start: selectedDate.from as Date, end: selectedDate.to as Date },
+            {
+              start: subDays(x.start_date, 1),
+              end: subDays(x.end_date, 1),
+            },
           ),
         );
 
@@ -43,9 +79,25 @@ export default function FilterCalendar({
             from: selectedDate.from,
             to: subDays(closestDate as Date, 1),
           });
+          setValue('duration', {
+            from: selectedDate.from,
+            to: subDays(closestDate as Date, 1),
+          });
+        }
+
+        if (isBooked.length > 0) {
+          const froms = isBooked.map((x: any) => x.start_date);
+          const closestDate = closestTo(selectedDate.from as Date, froms);
+          setDate({
+            from: selectedDate.from,
+            to: subDays(closestDate as Date, 1),
+          });
+          setValue('duration', {
+            from: selectedDate.from,
+            to: subDays(closestDate as Date, 1),
+          });
         }
       }
-
       setValue('duration', selectedDate as { from: Date; to: Date });
     }
   };
@@ -55,6 +107,17 @@ export default function FilterCalendar({
       isWithinInterval(props.date, { start: subDays(x.from, 1), end: x.to }),
     );
 
+    const isBooked = bookings.filter((x) =>
+      isWithinInterval(props.date, {
+        start: subDays(x.start_date, 1),
+        end: subDays(x.end_date, 1),
+      }),
+    );
+    console.log('******', isBooked);
+
+    let isFullBooked;
+    if (isBooked.length >= stock) isFullBooked = true;
+    console.log('>', isFullBooked);
     const getActiveSeasonalPrice = (date: Date) => {
       return seasonal_prices.find((x: any) =>
         isWithinInterval(date, { start: x.start, end: x.end }),
@@ -76,10 +139,13 @@ export default function FilterCalendar({
           height: '50px',
         }}
       >
-        <div className={`text-xs ${isDisabled && 'line-through'}`}>
+        <div
+          className={`text-xs ${(isDisabled || isFullBooked) && 'line-through'}`}
+        >
           {props.date.getDate()}
         </div>
-        {!isDisabled && (
+
+        {!isDisabled && !isFullBooked && (
           <div
             className={
               seasonal_price_check &&
@@ -95,12 +161,31 @@ export default function FilterCalendar({
               : (data.room_types[room_typesIndex].price as number) / 1000}
           </div>
         )}
-        {isDisabled && (
-          <div style={{ fontSize: '0.65em', marginTop: '0.1em' }}>Booked</div>
-        )}
+
+        {isDisabled ||
+          (isFullBooked && (
+            <div style={{ fontSize: '0.65em', marginTop: '0.1em' }}>Booked</div>
+          ))}
       </span>
     );
   }
+
+  const isDateDisabled = (date: Date) => {
+    const isDisabled = unbookable.some((x: any) =>
+      isWithinInterval(date, { start: subDays(x.from, 1), end: x.to }),
+    );
+
+    const isBooked = bookings.filter((x) =>
+      isWithinInterval(date, {
+        start: subDays(x.start_date, 1),
+        end: subDays(x.end_date, 1),
+      }),
+    );
+
+    const isFullBooked = isBooked.length >= stock;
+
+    return isDisabled || isFullBooked;
+  };
 
   return (
     <Calendar
@@ -110,7 +195,7 @@ export default function FilterCalendar({
       fromDate={new Date()}
       defaultMonth={date?.from}
       selected={date}
-      disabled={[...unbookable]}
+      disabled={isDateDisabled}
       onSelect={handleDateChange}
       numberOfMonths={1}
       components={{
