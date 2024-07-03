@@ -11,7 +11,7 @@ module.exports = {
      cwd: '/var/www/html/jcwd270201.purwadhikabootcamp.com/apps/web',
    },
    {
-     name: 'subdomain-api',
+     name: 'jcwd270201.purwadhikabootcamp.com',
      script: 'npm',
      args: 'run serve',
      env: {
