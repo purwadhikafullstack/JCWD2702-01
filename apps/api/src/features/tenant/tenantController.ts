@@ -1,10 +1,16 @@
-import { IReqAccessToken } from "@/helpers/Token";
-import { NextFunction, Response, Request } from "express";
-import { registerTenant, getUserByUid, updateProfile, createListing, findMyListing, totalMyListing } from "./tenantService";
-import { createToken } from "@/helpers/Token";
-import { getTenantByUid } from "../user/userServices";
-import { deleteMyListing } from "./tenantService";
-import { listingsToShow } from '../sample/logics/listingsToShow';
+import { IReqAccessToken } from '@/helpers/Token';
+import { NextFunction, Response, Request } from 'express';
+import {
+  registerTenant,
+  getUserByUid,
+  updateProfile,
+  createListing,
+  findMyListing,
+  totalMyListing,
+} from './tenantService';
+import { createToken } from '@/helpers/Token';
+import { getTenantByUid } from '../user/userServices';
+import { deleteMyListing } from './tenantService';
 
 export const newTenant = async (
   req: Request,
@@ -132,43 +138,29 @@ export const newListing = async (
   }
 };
 
-export const myListing = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const reqToken = req as IReqAccessToken
-        const { uid } = reqToken.payload.data
-        const { page } = req.query
+export const myListing = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const reqToken = req as IReqAccessToken;
+    const { uid } = reqToken.payload.data;
+    const { page } = req.query;
 
-        const getTenantByUidResult = await getTenantByUid(uid)
-        if (getTenantByUidResult) {
-            const totalData = (await totalMyListing(getTenantByUidResult?.id)).length
-            const myListing = await findMyListing(getTenantByUidResult?.id, Number(page))
-            res.status(200).send({
-                error: false,
-                message: "Success",
-                myListing,
-                totalData
-            })
-        }
-
-      if (start_date && end_date) {
-        const date = {
-          start: new Date(start_date as string),
-          end: new Date(end_date as string),
-        };
-        const filtered = listingsToShow(myListing, date);
-
-        res.status(200).send({
-          error: false,
-          message: 'Success',
-          myListing: filtered,
-        });
-      } else {
-        res.status(200).send({
-          error: false,
-          message: 'Success',
-          myListing,
-        });
-      }
+    const getTenantByUidResult = await getTenantByUid(uid);
+    if (getTenantByUidResult) {
+      const totalData = (await totalMyListing(getTenantByUidResult?.id)).length;
+      const myListing = await findMyListing(
+        getTenantByUidResult?.id,
+        Number(page),
+      );
+      res.status(200).send({
+        error: false,
+        message: 'Success',
+        myListing,
+        totalData,
+      });
     }
   } catch (error) {
     next(error);

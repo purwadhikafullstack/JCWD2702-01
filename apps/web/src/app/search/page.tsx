@@ -226,7 +226,7 @@ export default function Page() {
                       title={x.title}
                       city={x.city}
                       country={x.country}
-                      price={x.room_types[0].price}
+                      price={x?.room_types[0]?.price}
                       seasonalPrice={
                         x.room_types[x.price_indexes?.room_index]
                           ?.seasonal_prices[x.price_indexes?.price_index].price

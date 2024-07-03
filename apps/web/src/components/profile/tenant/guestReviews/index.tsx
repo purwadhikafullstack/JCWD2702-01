@@ -10,10 +10,15 @@ export default function GuestReviews() {
 
   return (
     <div>
-      {guestReviews &&
+      {guestReviews.length > 0 ? (
         guestReviews.map((x: any, i: number) => (
           <GuestReviewCard isTenant={true} review={x} id={x.id} key={i} />
-        ))}
+        ))
+      ) : (
+        <div className="text-center font-medium border p-12 text-sm rounded-lg text-stone-400">
+          No guest reviews found
+        </div>
+      )}
     </div>
   );
 }

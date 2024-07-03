@@ -1,5 +1,4 @@
 'use client';
-
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -9,7 +8,8 @@ import {
 } from '@/features/auth/signin/type';
 import { useSwitchUserRole } from '@/features/user/profile/hooks/useSwitchUserRole';
 import { useGetProfile } from '@/features/user/profile/hooks/useGetProfile';
-
+import { Home } from 'lucide-react';
+import UserSidebar from './userSidebar';
 export default function ProfileSidebar({
   selectedMenuItem,
   onSelectMenuItem,
@@ -34,8 +34,9 @@ export default function ProfileSidebar({
     setTenantData(stateTenant);
   }, [stateUser, stateTenant]);
 
+  console.log(profile);
   return (
-    <div className="md:border-2 justify-self-start bg-pink-200 md:border-zinc-400 rounded-xl w-60 pb-4 h-full">
+    <div className="md:border-2 justify-self-start md:border-zinc-400 rounded-xl w-60 pb-4 h-full">
       <div className="pt-5 w-full flex flex-col items-center gap-3">
         {profile?.rolesId == 1 && profile?.image_url ? (
           <div className="w-32 h-32 bg-zinc-100 rounded-full text-white text-sm flex justify-center items-center relative text-center pr-2">
@@ -60,12 +61,23 @@ export default function ProfileSidebar({
             />
           </div>
         ) : (
-          <div className="w-32 h-32 bg-zinc-100 rounded-full text-xl flex justify-center items-center relative text-center pr-2 text-black"></div>
+          <div className="w-32 h-32 bg-zinc-100 rounded-full text-3xl flex justify-center items-center relative text-center uppercase numbers-font text-black">
+            {profile?.rolesId == 1
+              ? profile?.display_name.slice(0, 2)
+              : profile?.tenants?.display_name.slice(0, 2)}
+          </div>
         )}
         <div className="font-semibold text-center">
-          {profile?.rolesId == 1
-            ? profile?.display_name
-            : profile?.tenants?.display_name}
+          {profile?.rolesId == 1 ? (
+            profile?.display_name
+          ) : (
+            <div className="flex items-center gap-1">
+              <div>
+                <Home className="h-4 w-4" />
+              </div>
+              <div>{profile?.tenants?.display_name}</div>
+            </div>
+          )}
         </div>
       </div>
       <div className="pt-7 text-sm flex flex-col gap-3 px-4">
@@ -109,14 +121,14 @@ export default function ProfileSidebar({
         {profile?.rolesId == 1 ? (
           <div
             onClick={() => handleMenuItemClick('Past stays')}
-            className={`cursor-pointer flex items-center pl-2 h-8 ${selectedMenuItem === 'My reviews' ? 'bg-zinc-100 rounded-lg' : ''}`}
+            className={`cursor-pointer flex items-center pl-2 h-8 ${selectedMenuItem === 'Past stays' ? 'bg-zinc-100 rounded-lg' : ''}`}
           >
             Past stays
           </div>
         ) : (
           <div
             onClick={() => handleMenuItemClick('Sales report')}
-            className="cursor-pointer flex items-center pl-2 h-8"
+            className={`cursor-pointer flex items-center pl-2 h-8 ${selectedMenuItem === 'Sales report' ? 'bg-zinc-100 rounded-lg' : ''}`}
           >
             Sales report
           </div>

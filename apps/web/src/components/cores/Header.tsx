@@ -101,7 +101,11 @@ export const Header = () => {
                     />
                   </div>
                 ) : (
-                  <div className="w-6 h-6 bg-zinc-100 rounded-full text-xl flex justify-center items-center relative text-center pr-2 text-black"></div>
+                  <div className="w-6 h-6 bg-zinc-200 rounded-full flex justify-center items-center text-medium relative text-center uppercase text-[10px] text-black">
+                    {userData.rolesId == 1
+                      ? userData?.display_name.slice(0, 2)
+                      : tenantData?.display_name.slice(0, 2)}
+                  </div>
                 )}
                 <div className="hidden md:flex text-white pr-2 w-auto text-sm font-light">
                   {userData.rolesId == 1
@@ -165,7 +169,11 @@ export const Header = () => {
                     />
                   </div>
                 ) : (
-                  <div className="w-6 h-6 bg-zinc-100 rounded-full text-xl flex justify-center items-center relative text-center pr-2 text-black"></div>
+                  <div className="w-6 h-6 bg-zinc-200 rounded-full flex justify-center items-center text-medium relative text-center uppercase text-[10px] text-black">
+                    {userData.rolesId == 1
+                      ? userData?.display_name.slice(0, 2)
+                      : tenantData?.display_name.slice(0, 2)}
+                  </div>
                 )}
                 <div className="hidden md:flex text-black pr-2 w-auto text-sm">
                   {userData.rolesId == 1

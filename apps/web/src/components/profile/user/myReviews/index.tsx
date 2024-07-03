@@ -68,7 +68,7 @@ export default function myReviews() {
   if (!pastStays) return <Loading></Loading>;
   return (
     <div className="flex flex-col gap-3">
-      {pastStays &&
+      {pastStays.length > 0 ? (
         pastStays?.map((x: any, i: number) => (
           <PastStayReviewCard
             data={x}
@@ -76,7 +76,12 @@ export default function myReviews() {
             form={form}
             submitHandler={handleSubmit}
           />
-        ))}
+        ))
+      ) : (
+        <div className="text-center text-sm font-medium border p-12 rounded-lg text-stone-400">
+          No past stays found
+        </div>
+      )}
     </div>
   );
 }
