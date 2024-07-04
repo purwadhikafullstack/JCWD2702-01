@@ -5,7 +5,7 @@ require('dotenv').config();
 import { PORT } from './config';
 
 const app: Express = express();
-app.use(cors());
+app.use(cors({ origin: 'https://jcwd270201.purwadhikabootcamp.com' }));
 app.use(express.json())
 
 app.get('/', (req: Request, res: Response) => {
