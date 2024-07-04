@@ -212,7 +212,7 @@ export const ListingUploadImages = ({ onBack, onNext }: any) => {
               name="listingImages"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Property's building images</FormLabel>
+                  <FormLabel>Property&apos;s building images</FormLabel>
                   <FormControl className="h-44 flex- items-center justify-center">
                     <Input
                       multiple
@@ -234,8 +234,8 @@ export const ListingUploadImages = ({ onBack, onNext }: any) => {
               )}
             />
             <div className="text-sm text-zinc-500 italic">
-              You can share the building's front view, main areas, bathrooms,
-              and any other spaces of the propery here.
+              You can share the building&apos;s front view, main areas,
+              bathrooms, and any other spaces of the propery here.
             </div>
             <div className=" mt-4 flex justify-between items-end">
               <Button
