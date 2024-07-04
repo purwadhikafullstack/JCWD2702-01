@@ -1,20 +1,18 @@
-import { prisma } from "@/connection"
-
+import { prisma } from '@/connection';
 
 export const findUserByEmail = async ({ email }: { email: string }) => {
-    const findUser = await prisma.users.findUnique({
-        where: {
-            email: email,
-            is_verified: true
-        },
-        include: {
-            tenants: true
-        }
-    })
+  const findUser = await prisma.users.findUnique({
+    where: {
+      email: email,
+    },
+    include: {
+      tenants: true,
+    },
+  });
 
-    if (!findUser) {
-        throw new Error("User not found!")
-    }
+  if (!findUser) {
+    throw new Error('User not found!');
+  }
 
-    return findUser
-}
+  return findUser;
+};
