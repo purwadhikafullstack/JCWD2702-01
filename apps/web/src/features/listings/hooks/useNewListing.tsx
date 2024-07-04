@@ -6,7 +6,11 @@ export const useNewlisting = () => {
 
   const { mutate: mutationNewListing } = useNewListingMutation({
     onSuccess: (res: any) => {
-      console.log(res);
+      toast({
+        variant: 'success',
+        title: `New listing created successfully.`,
+        description: "You can now see the listing in My Listing section.",
+      });
     },
     onError: (err: any) => {
       console.log(err);

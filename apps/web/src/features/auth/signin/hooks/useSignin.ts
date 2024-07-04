@@ -28,6 +28,7 @@ export const useSignin = () => {
         }),
       );
       toast({
+        variant: 'success',
         description: `${res.data.message}`,
       });
       router.push('/');
@@ -76,12 +77,12 @@ export const usePersistSignin = () => {
 export const useLogout = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   const { mutate: mutationSignout } = useSignoutMutation({
     onSuccess: () => {
       deleteCookie();
-      queryClient.cancelQueries({ queryKey: ['profile'] })
+      queryClient.cancelQueries({ queryKey: ['profile'] });
       dispatch(
         setUser({
           uid: '',

@@ -5,8 +5,8 @@ import { Controller } from 'react-hook-form';
 
 export const RoomFacilitiesScrollArea = ({ form, facilities }: any) => {
   return (
-    <ScrollArea className="h-64 w-80 rounded-md border bg-zinc-100">
-      <div className="p-4">
+    <ScrollArea className="h-64 w-80 rounded-md">
+      <div className="">
         <Controller
           name="facilities"
           control={form.control}
@@ -14,7 +14,7 @@ export const RoomFacilitiesScrollArea = ({ form, facilities }: any) => {
             <>
               {facilities ? (
                 facilities.map((item: any, index: number) => (
-                  <div key={item.id} className="flex gap-2 items-center">
+                  <div key={item.id} className="flex my-1 gap-2 items-center">
                     <Checkbox
                       checked={field.value.includes(item.id)}
                       onCheckedChange={(checked) => {

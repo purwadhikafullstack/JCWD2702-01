@@ -8,6 +8,7 @@ export const useUpdateListing = () => {
   const { mutate: mutationUpdateListing } = useUpdateListingMutation({
     onSuccess: (res: any) => {
       toast({
+        variant: 'success',
         description: `${res.data.message}`,
       });
       queryClient.invalidateQueries({ queryKey: ['my-listings'] });

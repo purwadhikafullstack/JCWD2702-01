@@ -8,7 +8,10 @@ export const useDeletelisting = () => {
 
   const { mutate: mutationDeleteListing } = useDeleteListingMutation({
     onSuccess: (res: any) => {
-      console.log(res);
+      toast({
+        variant: 'success',
+        title: `Listing deleted successfully.`,
+      });
       queryClient.invalidateQueries({ queryKey: ['my-listings'] });
     },
     onError: (err: any) => {

@@ -20,7 +20,7 @@ export default function MyListings() {
   const { myListings } = useGetMyListings(currentPage);
   const router = useRouter();
   const [listings, setListings] = useState<IMyListing[]>([]);
-  console.log('myListing', myListings);
+  console.log('myListing', myListings.myListing);
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
   const totalPages = Math.ceil(myListings.totalData / 4);
 
@@ -42,7 +42,9 @@ export default function MyListings() {
   return (
     <div className="w-full h-full flex flex-col gap-4">
       <div className="flex w-full md:justify-end items-center gap-3">
-        <div className={`${myListings.length === 0 ? 'hidden' : 'flex gap-3'}`}>
+        <div
+          className={`${myListings?.myListing?.length === 0 ? 'hidden' : 'flex gap-3'}`}
+        >
           <SetNonavailability />
           <SetSeasonalPrice />
         </div>
@@ -91,9 +93,9 @@ export default function MyListings() {
             </div>
           </div>
         ) : (
-          <div className=" flex flex-col gap-1 items-center justify-center h-full text-zinc-500">
-            <span className="text-xl font-bold">No listing found</span>
-            <span className="text-base">
+          <div className=" flex flex-col p-8 rounded-lg border mt-5 gap-1 items-center justify-center h-full text-stone-400">
+            <span className="font-semibold">No listing found</span>
+            <span className="text-sm font-medium">
               You have yet to make a property listing
             </span>
           </div>

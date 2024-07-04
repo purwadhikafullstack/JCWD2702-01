@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -198,7 +199,7 @@ export const ListingUploadImages = ({ onBack, onNext }: any) => {
   return (
     <div className="flex flex-col gap-4 w-full h-full items-center justify-center">
       <div className="flex items-center justify-center font-semibold text-xl">
-        Listing details
+        Listing images
       </div>
       <div className=" w-3/5 h-full mt-5 flex items-center justify-center">
         <Form {...form}>
@@ -211,7 +212,7 @@ export const ListingUploadImages = ({ onBack, onNext }: any) => {
               name="listingImages"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Upload images</FormLabel>
+                  <FormLabel>Property's building images</FormLabel>
                   <FormControl className="h-44 flex- items-center justify-center">
                     <Input
                       multiple
@@ -225,12 +226,16 @@ export const ListingUploadImages = ({ onBack, onNext }: any) => {
                       className=" rounded-2xl h-1/2 flex items-center justify-center"
                     />
                   </FormControl>
+                  <FormDescription>
+                    *Maximum 5 images, maximum size 1MB each
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <div className="text-sm text-zinc-500">
-              *Maximum 5 images, maximum size 1MB each
+            <div className="text-sm text-zinc-500 italic">
+              You can share the building's front view, main areas, bathrooms,
+              and any other spaces of the propery here.
             </div>
             <div className=" mt-4 flex justify-between items-end">
               <Button

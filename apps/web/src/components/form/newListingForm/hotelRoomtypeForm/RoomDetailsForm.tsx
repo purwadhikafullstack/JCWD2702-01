@@ -3,6 +3,7 @@
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -43,7 +44,7 @@ export const RoomDetailsForm = ({
                         type="text"
                         placeholder="Room name"
                         {...field}
-                        className="rounded-full bg-zinc-100"
+                        className="rounded-full "
                       />
                     </FormControl>
                     <FormMessage />
@@ -59,9 +60,9 @@ export const RoomDetailsForm = ({
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="price"
+                        placeholder="Price"
                         {...field}
-                        className="rounded-full bg-zinc-100"
+                        className="rounded-full "
                       />
                     </FormControl>
                     <FormMessage />
@@ -77,9 +78,9 @@ export const RoomDetailsForm = ({
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="capacity"
+                        placeholder="Capacity"
                         {...field}
-                        className="rounded-full bg-zinc-100"
+                        className="rounded-full "
                       />
                     </FormControl>
                     <FormMessage />
@@ -95,9 +96,9 @@ export const RoomDetailsForm = ({
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="stock"
+                        placeholder="Stock"
                         {...field}
-                        className="rounded-full bg-zinc-100"
+                        className="rounded-full "
                       />
                     </FormControl>
                     <FormMessage />
@@ -113,11 +114,14 @@ export const RoomDetailsForm = ({
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="restrictions"
+                        placeholder="Restrictions"
                         {...field}
-                        className="rounded-full bg-zinc-100"
+                        className="rounded-full "
                       />
                     </FormControl>
+                    <FormDescription>
+                      Ex. No pets, no smoking, not infant friendly, etc.
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -127,22 +131,25 @@ export const RoomDetailsForm = ({
                 name="bedding_details"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Bedding Details</FormLabel>
+                    <FormLabel>Bedding details</FormLabel>
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="bedding details"
+                        placeholder="Bedding details"
                         {...field}
-                        className="rounded-full bg-zinc-100"
+                        className="rounded-full "
                       />
                     </FormControl>
+                    <FormDescription>
+                      Ex. 1 Queen Bed, 2 Twin Beds, etc.
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
             <div className="flex flex-col items-start gap-3 w-80">
-              <div className="font-semibold">Facilities</div>
+              <div className="font-semibold text-black">Facilities</div>
               <RoomFacilitiesScrollArea form={form} facilities={facilities} />
               <FormField
                 control={form.control}
@@ -154,7 +161,7 @@ export const RoomDetailsForm = ({
                       <select
                         name="breakfast_option"
                         id="breakfast_option"
-                        className="rounded-full bg-zinc-100 w-80 h-10 border"
+                        className="rounded-full  w-80 h-10 border"
                         value={field.value}
                         onChange={(e) => {
                           const value = e.target.value;
@@ -188,7 +195,7 @@ export const RoomDetailsForm = ({
                           type="text"
                           placeholder="Breakfast charge"
                           {...field}
-                          className="rounded-full bg-zinc-100 w-80"
+                          className="rounded-full  w-80"
                         />
                       </FormControl>
                       <FormMessage />
@@ -204,7 +211,7 @@ export const RoomDetailsForm = ({
               name="room_images"
               render={({ field }) => (
                 <FormItem className=" pt-1">
-                  <FormLabel>Upload images</FormLabel>
+                  <FormLabel>Room images</FormLabel>
                   <FormControl>
                     <Input
                       multiple
@@ -215,7 +222,7 @@ export const RoomDetailsForm = ({
                         onSetFiles(event);
                         field.onChange(event);
                       }}
-                      className="bg-zinc-100 rounded-xl w-full flex items-center justify-center"
+                      className="rounded-full w-full flex items-center justify-center"
                     />
                   </FormControl>
                   <FormMessage />

@@ -25,6 +25,8 @@ import { DateRange } from 'react-day-picker';
 import { Calendar } from '@/components/ui/calendar';
 import { SetNonAvailabilityFormProps } from '@/components/profile/tenant/myListing/type';
 import { useSetNonavailability } from '@/features/tenant/property/hooks/useSetNonavailability';
+import { areIntervalsOverlapping, closestTo, subDays } from 'date-fns';
+import { format } from 'date-fns';
 
 export const SetNonavailabilityForm = ({
   listing,
@@ -35,6 +37,14 @@ export const SetNonavailabilityForm = ({
     to: undefined,
   });
   const [roomTypeIndex, setRoomTypeIndex] = useState(0);
+
+  const bookings: any[] = [];
+  for (let booking of listing.room_types[roomTypeIndex].bookings) {
+    bookings.push({
+      from: new Date(booking.start_date),
+      to: new Date(booking.end_date),
+    });
+  }
 
   const existingSeasonalPrice = [
     ...listing.room_types[roomTypeIndex].nonavailability,
@@ -49,10 +59,38 @@ export const SetNonavailabilityForm = ({
     },
   });
   const handleDateChange = (selectedDate: DateRange | undefined) => {
-    setDate(selectedDate);
+    if (!selectedDate?.from || !selectedDate?.to) {
+      setDate(selectedDate);
+      form.setValue('start_date', selectedDate?.from as Date);
+      form.setValue('end_date', selectedDate?.to as Date);
+      return;
+    }
 
-    form.setValue('start_date', selectedDate?.from as Date);
-    form.setValue('end_date', selectedDate?.to as Date);
+    setDate(selectedDate);
+    form.setValue('start_date', selectedDate.from);
+    form.setValue('end_date', selectedDate.to);
+
+    const disabledDates = [...existingSeasonalPrice, ...bookings];
+
+    const overlappingDates = disabledDates.filter((x: any) =>
+      areIntervalsOverlapping(
+        { start: selectedDate.from as Date, end: selectedDate.to as Date },
+        { start: x.from, end: x.to },
+      ),
+    );
+
+    if (selectedDate.to > date?.to!) {
+      setDate({ from: selectedDate.to, to: undefined });
+      form.setValue('start_date', selectedDate.to);
+      form.setValue('end_date', null);
+    } else if (overlappingDates.length > 0) {
+      const froms = overlappingDates.map((x: any) => x.from);
+      const closestDate = closestTo(selectedDate.from, froms);
+      const newEndDate = subDays(closestDate as Date, 1);
+
+      setDate({ from: selectedDate.from, to: newEndDate });
+      form.setValue('end_date', newEndDate);
+    }
   };
 
   const room_types = listing.room_types;
@@ -65,7 +103,7 @@ export const SetNonavailabilityForm = ({
         ? values.room_types
         : listing.room_types[0].id,
       start_date: new Date(values.start_date),
-      end_date: new Date(values.end_date),
+      end_date: new Date(values.end_date as Date),
     });
   };
   return (
@@ -85,10 +123,10 @@ export const SetNonavailabilityForm = ({
                 defaultMonth={date?.from}
                 selected={date}
                 onSelect={handleDateChange}
-                disabled={[...existingSeasonalPrice]}
+                disabled={[...existingSeasonalPrice, ...bookings]}
               />
               <div className="flex flex-col gap-3 w-full">
-                {listing?.categoriesId === 10 ? (
+                {listing?.categoriesId === 10 && (
                   <div className="flex flex-col">
                     <FormField
                       control={form.control}
@@ -126,10 +164,13 @@ export const SetNonavailabilityForm = ({
                       )}
                     />
                   </div>
-                ) : (
-                  <div></div>
                 )}
               </div>
+              {date?.from && date?.to ? (
+                <div className="mb-4 text-black w-full text-center">{`Duration: ${format(date.from, 'MMMM dd yyyy')} - ${format(date.to, 'MMMM dd yyyy')}`}</div>
+              ) : (
+                <div className="mb-4 w-full text-center">Pick a date</div>
+              )}
             </div>
             <Button
               type="submit"
