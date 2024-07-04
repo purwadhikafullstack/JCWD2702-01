@@ -5,7 +5,7 @@ module.exports = {
       script: 'npm',
       args: 'run serve',
       env: {
-        PORT: 2711,
+        PORT: 2721,
         NODE_ENV: 'production',
       },
       cwd: '/var/www/html/jcwd270201.purwadhikabootcamp.com/apps/web',
@@ -15,7 +15,7 @@ module.exports = {
       script: 'npm',
       args: 'run serve',
       env: {
-        PORT: 2712,
+        PORT: 2722,
         NODE_ENV: 'production',
       },
       cwd: '/var/www/html/jcwd270201.purwadhikabootcamp.com/apps/api',
