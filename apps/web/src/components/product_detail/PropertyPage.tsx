@@ -66,6 +66,8 @@ export default function PropertyPage({
     setCurrentRoom(index);
   };
 
+  console.log(imageCollection);
+
   if (isLoaded)
     return (
       <div className="py-32 w-[85vw] xl:w-[70vw] mx-auto">
@@ -172,14 +174,16 @@ export default function PropertyPage({
                           Show more
                         </TooltipTrigger>
                         <TooltipContent className="grid gap-3">
-                          {data.listing_facilities.slice(9).map((x: any, i: number) => (
-                            <div key={i}>
-                              <FacilityBadge
-                                icon={true}
-                                text={x.facility.facility}
-                              ></FacilityBadge>
-                            </div>
-                          ))}
+                          {data.listing_facilities
+                            .slice(9)
+                            .map((x: any, i: number) => (
+                              <div key={i}>
+                                <FacilityBadge
+                                  icon={true}
+                                  text={x.facility.facility}
+                                ></FacilityBadge>
+                              </div>
+                            ))}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>

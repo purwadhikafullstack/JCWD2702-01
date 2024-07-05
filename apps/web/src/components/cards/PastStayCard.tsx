@@ -41,7 +41,7 @@ export default function PastStayReviewCard({
       <div key={index} className=" flex gap-3 items-start justify-between ">
         <div className="flex gap-3">
           <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_API_URL}/${data.room_type.listing.listing_images[0].image_url}`}
+            src={`${data.room_type.listing.listing_images[0].image_url}`}
             width={100}
             height={100}
             alt="Listing Image"

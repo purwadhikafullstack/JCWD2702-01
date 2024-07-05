@@ -19,8 +19,6 @@ export default function ProtectedRoute({ children }: any) {
   const [loading, setLoading] = useState(true);
   const [stateReady, setStateReady] = useState(false);
 
-  console.log({ user: existingUser, tenant: existingTenant, roles: userRoles });
-
   const checkAuthorizeUser = async () => {
     const cookie = await getCookie();
     if (!cookie) {
@@ -46,7 +44,6 @@ export default function ProtectedRoute({ children }: any) {
       console.log('cookie exists');
       if (existingTenant) {
         if (path.includes('/be-a-tenant') || path.includes('/tenant/set-up')) {
-          console.log('<<<<<');
           router.push('/');
         }
       }
