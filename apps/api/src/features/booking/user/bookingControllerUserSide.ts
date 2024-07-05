@@ -6,6 +6,7 @@ import {
   cancelBilling,
   confirmBilling,
   getAllBillingsByUser,
+  updatePaymentLink,
 } from '@/features/booking/user/bookingServiceUserSide';
 import { midtransBooking } from './midtrans';
 
@@ -30,6 +31,8 @@ export const newBooking = async (
     if (Number(type) == 2) {
       const redirectUrl = await midtransBooking(bill);
       if (!redirectUrl) throw new Error('Midtrans error.');
+
+      await updatePaymentLink(bill.id, redirectUrl);
 
       res.status(200).send({
         error: false,

@@ -199,13 +199,13 @@ export const getAllBillingsByUser = async (uid: string, page: number) => {
   return allBillings;
 };
 
-// const updatePaymentLink = async (id: string, link: string) => {
-//   await prisma.bookings.update({
-//     where: {
-//       id: id,
-//     },
-//     data: {
-//       payment_url: link,
-//     },
-//   });
-// };
+export const updatePaymentLink = async (id: string, link: string) => {
+  await prisma.bookings.update({
+    where: {
+      id: id,
+    },
+    data: {
+      payment_url: link,
+    },
+  });
+};
