@@ -10,7 +10,7 @@ import Loading from '@/app/loading';
 import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import UploadBookingButton from '@/components/booking/uploadBookingButton';
+import UploadBookingButton from '@/components/booking/UploadBookingButton';
 import { useAutoPayment } from '@/features/user/transaction/hooks/useBooking';
 export default function Page() {
   const searchParams = useSearchParams();
