@@ -35,7 +35,9 @@ export const useSignin = () => {
     },
     onError: (err: any) => {
       toast({
-        description: `${err.response.data.message}`,
+        variant: 'destructive',
+        title: `${err.response.data.message}`,
+        description: `${err.response.data.message == 'Account is not verified!' ? 'Click Forgot Password to be directed to verify your account.' : null}`,
       });
     },
   });
