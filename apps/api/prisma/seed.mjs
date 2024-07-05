@@ -151,18 +151,18 @@ const users = [
 ];
 
 let tenant_profile = [
-  { display_name: 'Lunar Motels' },
-  { display_name: 'The 101' },
-  { display_name: 'Kampoeng Saya' },
-  { display_name: 'Mahendra Stays' },
-  { display_name: 'Kozystay' },
-  { display_name: 'Adhiraa' },
-  { display_name: 'Jakarta Stays' },
-  { display_name: 'EstherLiving' },
-  { display_name: 'RentWithZanna' },
-  { display_name: 'Compass Stay' },
-  { display_name: 'HomeByEika' },
-  { display_name: 'HomeRumi' },
+  { display_name: 'Lunar Motels', email: 'wulan@test.com' },
+  { display_name: 'The 101', email: 'dito@test.com' },
+  { display_name: 'Kampoeng Saya', email: 'made@test.com' },
+  { display_name: 'Mahendra Stays', email: 'mahendra@test.com' },
+  { display_name: 'Kozystay', email: 'isabel@test.com' },
+  { display_name: 'Adhiraa', email: 'dhira@test.com' },
+  { display_name: 'Jakarta Stays', email: 'christiana@test.com' },
+  { display_name: 'EstherLiving', email: 'esther@test.com' },
+  { display_name: 'RentWithZanna', email: 'zanna@test.com' },
+  { display_name: 'Compass Stay', email: 'compass@test.com' },
+  { display_name: 'HomeByEika', email: 'eika@test.com' },
+  { display_name: 'HomeRumi', email: 'harumi@test.com' },
 ];
 
 let listing = [
@@ -1363,8 +1363,8 @@ async function main() {
 
   tenant_profile = await Promise.all(
     tenant_profile.map(async (tenant, index) => ({
-      ...tenant,
-      usersId: createdUsers[index].uid,
+      display_name: tenant.display_name,
+      usersId: createdUsers.find((user) => user.email == tenant.email).uid,
     })),
   );
 
@@ -1394,7 +1394,7 @@ async function main() {
 
   const createdListings = await prisma.listings.findMany();
 
-  console.log('Tenant Profile', createdTenantProfiles);
+  // console.log('Tenant Profile', createdTenantProfiles);
 
   for (let listing of createdListings) {
     await prisma.listings.update({
@@ -1409,7 +1409,7 @@ async function main() {
     });
   }
 
-  console.log(createdListings);
+  // console.log(createdListings);
 
   await Promise.all(
     room_types.map(async (types, index) => {
@@ -1475,7 +1475,7 @@ async function main() {
     })),
   );
 
-  console.log(bookings);
+  // console.log(bookings);
 
   await prisma.bookings.createMany({ data: bookings });
 

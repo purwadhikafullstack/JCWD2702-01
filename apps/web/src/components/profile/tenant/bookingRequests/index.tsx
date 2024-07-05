@@ -20,7 +20,7 @@ export default function BookingRequests() {
   const [page, setPage] = useState(1);
   const { allBookings } = useGetAllTenantBooking(page);
   const [status, setStatus] = useState(0);
-  console.log(page);
+  console.log(allBookings);
   if (!allBookings) return <Loading />;
   return (
     <>
@@ -139,39 +139,55 @@ const DialogConfirmation = ({
   const { mutationConfirmBooking } = useConfirmBooking();
   if (status === 3) {
     return (
-      <div className="text-center">
-        <div>Confirm booking?</div>
-        <div>{data.id}</div>
-        <Button
-          onClick={() => mutationConfirmBooking({ status, bookingId: data.id })}
-        >
-          Yes
-        </Button>
-        <Button onClick={() => cb()}>No</Button>
+      <div className="pt-12 gap-3 h-full flex flex-col justify-center items-center">
+        <div className="w-[250px] text-center">
+          Confirm booking with ID {data.id}?
+        </div>
+        <div className="flex gap-3">
+          <Button
+            className="bg-green-600 hover:bg-green-500"
+            onClick={() =>
+              mutationConfirmBooking({ status, bookingId: data.id })
+            }
+          >
+            Yes
+          </Button>
+          <Button onClick={() => cb()}>No</Button>
+        </div>
       </div>
     );
   } else if (status === 1) {
     return (
-      <div className="text-center">
+      <div className="pt-12 gap-3 h-full flex flex-col justify-center items-center">
         <div>Ask customer to reupload picture?</div>
-        <Button
-          onClick={() => mutationConfirmBooking({ status, bookingId: data.id })}
-        >
-          Yes
-        </Button>
-        <Button onClick={() => cb()}>No</Button>
+        <div className="flex gap-3">
+          <Button
+            variant={'outline'}
+            onClick={() =>
+              mutationConfirmBooking({ status, bookingId: data.id })
+            }
+          >
+            Yes
+          </Button>
+          <Button onClick={() => cb()}>No</Button>
+        </div>
       </div>
     );
   } else if (status === 4) {
     return (
-      <div className="text-center">
+      <div className="pt-12 gap-3 h-full flex flex-col justify-center items-center">
         <div>Cancel booking?</div>
-        <Button
-          onClick={() => mutationConfirmBooking({ status, bookingId: data.id })}
-        >
-          Yes
-        </Button>
-        <Button onClick={() => cb()}>No</Button>
+        <div className="flex gap-3">
+          <Button
+            variant={'destructive'}
+            onClick={() =>
+              mutationConfirmBooking({ status, bookingId: data.id })
+            }
+          >
+            Yes
+          </Button>
+          <Button onClick={() => cb()}>No</Button>
+        </div>
       </div>
     );
   }

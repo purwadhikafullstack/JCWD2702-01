@@ -18,6 +18,7 @@ export const getBookingsByTenantId = async (id: string, page: number) => {
             include: {
               bookings: {
                 include: {
+                  user: true,
                   payment_type: true,
                   status: true,
                   room_type: {

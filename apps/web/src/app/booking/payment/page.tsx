@@ -10,6 +10,7 @@ import Loading from '@/app/loading';
 import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import UploadBookingButton from '@/components/booking/uploadBookingButton';
 import { useAutoPayment } from '@/features/user/transaction/hooks/useBooking';
 export default function Page() {
   const searchParams = useSearchParams();
@@ -131,20 +132,25 @@ export default function Page() {
               </div>
             </div>
           </div>
-          <div className="text-center grid gap-3">
+          <div className="text-center grid gap-4">
             <div className="font-bold">How to pay</div>
             <div className="text-xs font-medium text-stone-400">
               Make sure the payment is successfully made and upload the payment
-              proof to verify
+              proof to verify.
             </div>
             <div className="flex gap-3 justify-center">
               <Button onClick={() => router.push('/')} variant={'outline'}>
                 Back to home
               </Button>
-              <Button onClick={() => router.refresh()}>
-                Check payment status
-              </Button>
+              <UploadBookingButton bookingId={bookingId} />
             </div>
+            <Button
+              variant={'secondary'}
+              className="flex justify-center"
+              onClick={() => router.refresh()}
+            >
+              Check payment status
+            </Button>
           </div>
         </div>
       )}

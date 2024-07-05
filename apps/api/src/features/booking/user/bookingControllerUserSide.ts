@@ -162,7 +162,7 @@ export const allBookingsByUser = async (
     const reqToken = req as IReqAccessToken;
     const { uid } = reqToken.payload.data;
     const { page } = req.query;
-    console.log(page)
+    console.log(page);
     const allBookings = await getAllBillingsByUser(uid, Number(page) || 1);
 
     res.status(200).send({

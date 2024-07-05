@@ -209,6 +209,7 @@ model bookings {
   payment_proof     String?
   payment_type      payment_types       @relation(fields: [payment_typesId], references: [id])
   payment_typesId   Int
+  payment_url       String?
   booking_histories booking_histories[]
   reviews           reviews[]
   promotion         promotions?         @relation(fields: [promotionsId], references: [id])

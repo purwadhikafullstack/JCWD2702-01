@@ -27,8 +27,6 @@ export default function OrderHistory() {
     },
   });
 
-  const { isDirty } = form.formState;
-
   const onSubmit = async (values: z.infer<typeof UploadProofSchema>) => {
     const fd = new FormData();
 
