@@ -4,9 +4,109 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Booking reminder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <h1>Booking ID {{bookingId}}!</h1>
-    <p>Ceritanya ini details dari reminder</p>
+  <body style="text-align: center; align-items: center; position: relative">
+    <img
+      src="https://jcwd270201.purwadhikabootcamp.com/api//src/image/Roomer.png"
+      alt="Navbar"
+      style="
+        align-items: center;
+        text-align: center;
+        object-fit: cover;
+        width: 500px;
+      "
+    />
+    <h1
+      style="align-items: center; text-align: center; font-family: Montserrat"
+    >
+      Booking Reminder
+    </h1>
+    <p
+      style="
+        font-family: Montserrat;
+        align-items: center;
+        text-align: center;
+        padding-top: 10px;
+        font-size: large;
+      "
+    >
+      Isn&apos;t it exciting? You have one more day until your stay with booking
+      details <br />
+      as below. Make sure to check-in on time!
+    </p>
+    <p
+      style="
+        font-family: Montserrat;
+        align-items: center;
+        text-align: center;
+        padding-top: 30px;
+        font-weight: 600;
+      "
+    >
+      {{listing_title}}
+    </p>
+    <div
+      style="
+        font-family: Montserrat;
+        align-items: center;
+        text-align: center;
+        width: 570px;
+        margin-left: 430px;
+      "
+    >
+      {{address}}
+    </div>
+    <p style="font-family: Montserrat; align-items: center; text-align: center">
+      {{phone}}
+    </p>
+    <p
+      style="
+        font-family: Montserrat;
+        align-items: center;
+        text-align: center;
+        padding-top: 10px;
+        font-weight: 600;
+      "
+    >
+      Check in
+    </p>
+    <p style="font-family: Montserrat; align-items: center; text-align: center">
+      {{start_date}}
+    </p>
+    <p
+      style="
+        font-family: Montserrat;
+        align-items: center;
+        text-align: center;
+        font-weight: 600;
+      "
+    >
+      Check out
+    </p>
+    <p style="font-family: Montserrat; align-items: center; text-align: center">
+      {{end_date}}
+    </p>
+
+    <hr style="border-top: 3px; color: silver; width: 600px" />
+    <p
+      style="
+        font-family: Montserrat;
+        align-items: center;
+        text-align: center;
+        font-size: x-small;
+        color: grey;
+        padding-top: 10px;
+      "
+    >
+      Jl. BSD Green Office Park, GOP 9 - G Floor BSD City, Sampora, Kec. Cisauk,
+      Kabupaten <br />
+      Tangerang, Banten 15345
+    </p>
   </body>
 </html>

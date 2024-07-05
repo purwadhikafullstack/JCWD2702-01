@@ -13,11 +13,10 @@ export default function ProtectedRoute({ children }: any) {
   const { mutationPersist } = usePersistSignin();
   const stateUser = useSelector((state: any) => state.user);
   const stateTenant = useSelector((state: any) => state.tenant);
-  const existingUser = stateUser.display_name;
-  const existingTenant = stateTenant.display_name;
-  const userRoles = stateUser.rolesId;
   const [loading, setLoading] = useState(true);
-  const [stateReady, setStateReady] = useState(false);
+  const [userState, setUserState] = useState(false);
+  const [tenantState, setTenantState] = useState(false);
+  const [userRolesId, setUserRolesId] = useState(0);
 
   const checkAuthorizeUser = async () => {
     const cookie = await getCookie();
@@ -42,8 +41,13 @@ export default function ProtectedRoute({ children }: any) {
         router.push('/');
       }
       console.log('cookie exists');
-      if (existingTenant) {
-        if (path.includes('/be-a-tenant') || path.includes('/tenant/set-up')) {
+      if (tenantState) {
+        if (path.includes('/be-a-tenant')) {
+          router.push('/');
+        }
+      }
+      if (userRolesId === 1) {
+        if (path.includes('/tenant/new-listing')) {
           router.push('/');
         }
       }
@@ -65,16 +69,20 @@ export default function ProtectedRoute({ children }: any) {
   }, [mutationPersist]);
 
   useEffect(() => {
-    if (stateUser && stateTenant) {
-      setStateReady(true);
+    if (stateUser.display_name) {
+      setUserState(true);
     }
+    if (stateTenant.display_name) {
+      setTenantState(true);
+    }
+    setUserRolesId(stateUser.rolesId);
   }, [stateUser, stateTenant]);
 
   useEffect(() => {
-    if (!loading && stateReady) {
+    if (!loading) {
       checkAuthorizeUser();
     }
-  }, [loading, stateReady, path]);
+  }, [loading, path, userState, tenantState, userRolesId]);
 
   return loading ? <Loading /> : <>{children}</>;
 }

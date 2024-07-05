@@ -45,7 +45,7 @@ export const newUser = async (
       transporterNodemailer.sendMail({
         from: 'Roomer',
         to: email,
-        subject: 'Verify Your Account!',
+        subject: 'Complete your Roomer registration!',
         html: verificationHTMLCompiled,
       });
     }
