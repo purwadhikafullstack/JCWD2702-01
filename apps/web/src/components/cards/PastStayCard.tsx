@@ -36,12 +36,13 @@ export default function PastStayReviewCard({
   form,
   submitHandler,
 }: any) {
+  console.log(data);
   return (
     <div className="border rounded-lg grid gap-3 p-3">
       <div key={index} className=" flex gap-3 items-start justify-between ">
         <div className="flex gap-3">
           <Image
-            src={`${data.room_type.listing.listing_images[0].image_url}`}
+            src={data.room_type.listing.listing_images[0].image_url}
             width={100}
             height={100}
             alt="Listing Image"

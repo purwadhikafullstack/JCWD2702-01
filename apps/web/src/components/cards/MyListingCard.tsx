@@ -4,6 +4,7 @@ import { UpdateListing } from '../profile/tenant/myListing/updateListing';
 import { MapPin } from 'lucide-react';
 import { toCurrency } from '../cores/ToCurrency';
 export const MyListingCard = ({ item, handleDeleteListing }: any) => {
+  console.log(item);
   return (
     <div
       key={item.id}
@@ -12,7 +13,7 @@ export const MyListingCard = ({ item, handleDeleteListing }: any) => {
       <div className="w-full h-44 flex justify-around gap-4 p-3">
         <div className="flex-1 rounded-xl relative">
           <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_API_URL}${item.listing_images[0].image_url}`}
+            src={item.listing_images[0].image_url}
             fill={true}
             alt="picture"
             className="rounded-xl"
