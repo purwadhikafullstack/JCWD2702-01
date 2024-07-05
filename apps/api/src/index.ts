@@ -1,12 +1,19 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
-import cors from 'cors'
+import cors from 'cors';
 import routers from './routers';
 require('dotenv').config();
 import { PORT } from './config';
 
 const app: Express = express();
-app.use(cors({ origin: 'https://jcwd270201.purwadhikabootcamp.com' }));
-app.use(express.json())
+app.use(
+  cors({
+    origin: [
+      'https://jcwd270201.purwadhikabootcamp.com',
+      'http://localhost:3000',
+    ],
+  }),
+);
+app.use(express.json());
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello, Purwadhika Student!');
