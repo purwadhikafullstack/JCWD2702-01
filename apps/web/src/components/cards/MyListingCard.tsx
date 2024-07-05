@@ -16,7 +16,7 @@ export const MyListingCard = ({ item, handleDeleteListing }: any) => {
       <div className="w-full h-44 flex justify-around gap-4 p-3">
         <div className="flex-1 rounded-xl relative">
           <Image
-            src={item.listing_images[0].image_url}
+            src={item.listing_images[0].image_url.replace('api//', 'api/')}
             fill={true}
             alt="picture"
             className="rounded-xl"
