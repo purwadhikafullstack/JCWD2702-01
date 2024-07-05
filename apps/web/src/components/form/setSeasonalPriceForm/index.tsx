@@ -116,7 +116,11 @@ export const SetSeasonalPriceForm = ({
                               <SelectContent className="rounded-xl">
                                 {listing.room_types.map(
                                   (item: any, i: number) => (
+<<<<<<< HEAD
                                     <SelectItem value={`${item.id}`}>
+=======
+                                    <SelectItem key={i} value={`${item.id}`}>
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                                       {item.name}
                                     </SelectItem>
                                   ),

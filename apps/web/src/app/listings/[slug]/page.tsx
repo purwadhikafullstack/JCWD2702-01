@@ -20,7 +20,11 @@ export default function Page({ params }: any) {
       startDate={queryParams.get('start_date') || ''}
       endDate={queryParams.get('end_date') || ''}
       adults={queryParams.get('adults') || ''}
+<<<<<<< HEAD
       children={queryParams.get('children') || ''}
+=======
+      kids={queryParams.get('children') || ''}
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
       data={sample}
       imageCollection={imageCollection}
     />

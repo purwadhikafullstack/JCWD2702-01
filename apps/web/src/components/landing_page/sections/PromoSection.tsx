@@ -46,8 +46,8 @@ export const BestDeals = () => {
           className="mx-auto"
         >
           <CarouselContent className="mx-auto -ml-4">
-            {promos.map((x, i) => (
-              <CarouselItem className="xl:basis-1/2 2xl:basis-1/3">
+            {promos.map((x, i: number) => (
+              <CarouselItem key={i} className="xl:basis-1/2 2xl:basis-1/3">
                 <ThumbnailCard
                   redirectUrl={x.redirectUrl}
                   imageUrl={`${x.image}`}

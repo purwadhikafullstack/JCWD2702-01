@@ -119,8 +119,13 @@ export default function BookingConfirmationForm({
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
+<<<<<<< HEAD
                     {payment_methods.map((x: any) => (
                       <SelectItem value={x.value.toString()}>
+=======
+                    {payment_methods.map((x: any, i: number) => (
+                      <SelectItem key={i} value={x.value.toString()}>
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                         {x.label}
                       </SelectItem>
                     ))}
@@ -141,9 +146,15 @@ export default function BookingConfirmationForm({
             </div>
             <Separator />
             <div className="text-xs">
+<<<<<<< HEAD
               By selecting the button below, I agree to the Host's House
               Rules, Ground rules for guests, Airbnb's Rebooking and Refund
               Policy, and that Airbnb can charge my payment method if I’m
+=======
+              By selecting the button below, I agree to the Host&apos;s House
+              Rules, Ground rules for guests, Airbnb&apos;s Rebooking and Refund
+              Policy, and that Airbnb can charge my payment method if I&apos;m
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
               responsible for damage.
             </div>
           </div>

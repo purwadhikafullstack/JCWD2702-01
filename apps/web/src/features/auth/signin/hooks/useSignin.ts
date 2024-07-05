@@ -6,9 +6,10 @@ import { useRouter } from 'next/navigation';
 import { setCookie, deleteCookie } from '@/utils/Cookies';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@/stores/redux/slice/userSlice';
-import { useToast } from '@/components/ui/use-toast';
 import { setTenant } from '@/stores/redux/slice/tenantSlice';
+import { useToast } from '@/components/ui/use-toast';
 import { useSignoutMutation } from '../api/useSignoutMutation';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const useSignin = () => {
   const dispatch = useDispatch();
@@ -27,13 +28,16 @@ export const useSignin = () => {
         }),
       );
       toast({
+        variant: 'success',
         description: `${res.data.message}`,
       });
       router.push('/');
     },
     onError: (err: any) => {
       toast({
-        description: `${err.response.data.message}`,
+        variant: 'destructive',
+        title: `${err.response.data.message}`,
+        description: `${err.response.data.message == 'Account is not verified!' ? 'Click Forgot Password to be directed to verify your account.' : null}`,
       });
     },
   });
@@ -75,10 +79,12 @@ export const usePersistSignin = () => {
 export const useLogout = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
 
   const { mutate: mutationSignout } = useSignoutMutation({
     onSuccess: () => {
       deleteCookie();
+      queryClient.cancelQueries({ queryKey: ['profile'] });
       dispatch(
         setUser({
           uid: '',

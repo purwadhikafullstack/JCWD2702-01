@@ -42,8 +42,11 @@ import {
 } from '@/components/ui/popover';
 import { DateRange } from 'react-day-picker';
 import { Badge } from '@/components/ui/badge';
+<<<<<<< HEAD
 import { X } from 'lucide-react';
 
+=======
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -158,8 +161,15 @@ export function DataTable<TData, TValue>({
               <SelectValue placeholder="Select listing" />
             </SelectTrigger>
             <SelectContent>
+<<<<<<< HEAD
               {listings.map((x: any) => (
                 <SelectItem value={x.title}>{x.title}</SelectItem>
+=======
+              {listings?.map((x: any, i: number) => (
+                <SelectItem key={i} value={x.title}>
+                  {x.title}
+                </SelectItem>
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
               ))}
             </SelectContent>
           </Select>

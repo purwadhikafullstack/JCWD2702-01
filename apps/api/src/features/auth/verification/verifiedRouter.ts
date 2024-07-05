@@ -3,6 +3,7 @@ import {
   VerifiedUserAccount,
   CheckAccountVerifiedStatus,
   newVerificationLink,
+  verifiedNewUserEmail
 } from './verifiedController';
 import { uploader } from '@/middleware/Uploader';
 import { tokenVerify } from '@/helpers/Token';
@@ -29,5 +30,6 @@ router.post(
   handleErrorValidator,
   newVerificationLink,
 );
+router.put('/new-email-verify', tokenVerify, verifiedNewUserEmail)
 
 export default router;

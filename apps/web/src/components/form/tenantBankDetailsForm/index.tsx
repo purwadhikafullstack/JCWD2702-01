@@ -51,7 +51,7 @@ export default function TenantBankDetailsForm({ nextStep }: any) {
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder="card holder name"
+                    placeholder="Chris L Martin"
                     className=" rounded-full"
                   />
                 </FormControl>
@@ -69,7 +69,7 @@ export default function TenantBankDetailsForm({ nextStep }: any) {
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder="card number"
+                    placeholder="1234567890000000"
                     className=" rounded-full"
                   />
                 </FormControl>
@@ -86,7 +86,7 @@ export default function TenantBankDetailsForm({ nextStep }: any) {
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder="expiry date"
+                    placeholder="01-12"
                     className=" rounded-full"
                   />
                 </FormControl>
@@ -103,7 +103,7 @@ export default function TenantBankDetailsForm({ nextStep }: any) {
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder="card verification value"
+                    placeholder="987"
                     className=" rounded-full"
                   />
                 </FormControl>

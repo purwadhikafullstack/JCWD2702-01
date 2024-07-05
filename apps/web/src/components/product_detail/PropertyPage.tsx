@@ -23,19 +23,28 @@ export default function PropertyPage({
   startDate,
   endDate,
   adults,
+<<<<<<< HEAD
   children,
+=======
+  kids,
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
 }: {
   data: any;
   imageCollection: string[];
   startDate?: string;
   endDate?: string;
   adults?: string;
+<<<<<<< HEAD
   children?: string;
+=======
+  kids?: string;
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
 }) {
   const [currentRoom, setCurrentRoom] = useState(0);
   console.log(data);
   const listingId = data.id;
   const room_typesId = data.room_types[currentRoom].id;
+<<<<<<< HEAD
   // console.log(data);
   // const bookings = [...data.room_types[currentRoom].bookings]
   //   .filter((x) => x.booking_statusId < 4)
@@ -43,6 +52,8 @@ export default function PropertyPage({
   //     from: new Date(x.start_date),
   //     to: subDays(new Date(x.end_date), 1),
   //   }));
+=======
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
 
   const bookings = [...data.room_types[currentRoom].bookings].filter(
     (x) => x.booking_statusId < 4,
@@ -73,6 +84,11 @@ export default function PropertyPage({
     setCurrentRoom(index);
   };
 
+<<<<<<< HEAD
+=======
+  console.log(imageCollection);
+
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
   if (isLoaded)
     return (
       <div className="py-32 w-[85vw] xl:w-[70vw] mx-auto">
@@ -121,7 +137,11 @@ export default function PropertyPage({
             startDate={startDate}
             endDate={endDate}
             adults={adults}
+<<<<<<< HEAD
             children={children}
+=======
+            kids={kids}
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
           ></FilterCard>
           <div className="w-full">
             <div className="hidden md:block" id="Title">
@@ -162,6 +182,7 @@ export default function PropertyPage({
               <div id="Amenities" className="grid gap-2">
                 <div className="text-xl w-80 font-bold">Amenities</div>
                 <div className="grid grid-cols-2 gap-2 lg:w-[40%]">
+<<<<<<< HEAD
                   {data.listing_facilities.slice(0, 9).map((x: any) => (
                     <div className="">
                       <FacilityBadge
@@ -170,6 +191,18 @@ export default function PropertyPage({
                       ></FacilityBadge>
                     </div>
                   ))}
+=======
+                  {data.listing_facilities
+                    .slice(0, 9)
+                    .map((x: any, i: number) => (
+                      <div key={i}>
+                        <FacilityBadge
+                          icon={true}
+                          text={x.facility.facility}
+                        ></FacilityBadge>
+                      </div>
+                    ))}
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                   {data.listing_facilities.length > 9 && (
                     <TooltipProvider>
                       <Tooltip>
@@ -177,6 +210,7 @@ export default function PropertyPage({
                           Show more
                         </TooltipTrigger>
                         <TooltipContent className="grid gap-3">
+<<<<<<< HEAD
                           {data.listing_facilities.slice(9).map((x: any) => (
                             <div className="">
                               <FacilityBadge
@@ -185,6 +219,18 @@ export default function PropertyPage({
                               ></FacilityBadge>
                             </div>
                           ))}
+=======
+                          {data.listing_facilities
+                            .slice(9)
+                            .map((x: any, i: number) => (
+                              <div key={i}>
+                                <FacilityBadge
+                                  icon={true}
+                                  text={x.facility.facility}
+                                ></FacilityBadge>
+                              </div>
+                            ))}
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -214,7 +260,11 @@ export default function PropertyPage({
                 <div id="Rooms" className="grid gap-2">
                   <div className="text-xl w-80 font-bold">Rooms</div>
                   {data.room_types.map((x: any, i: number) => (
+<<<<<<< HEAD
                     <HotelRoomCard roomData={x} />
+=======
+                    <HotelRoomCard key={i} roomData={x} />
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                   ))}
                 </div>
               )}
@@ -222,7 +272,11 @@ export default function PropertyPage({
                 <div id="Reviews" className="grid gap-2">
                   <div className="text-xl w-80 font-bold">Reviews</div>
                   {data.reviews.map((x: any, i: number) => (
+<<<<<<< HEAD
                     <GuestReviewCard review={x} id={x.id} />
+=======
+                    <GuestReviewCard key={i} review={x} id={x.id} />
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                   ))}
                 </div>
               )}

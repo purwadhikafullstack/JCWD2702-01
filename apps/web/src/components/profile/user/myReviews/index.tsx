@@ -1,4 +1,5 @@
 import Loading from '@/app/loading';
+<<<<<<< HEAD
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -21,10 +22,14 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
+=======
+import { useGetPastStays } from '@/features/user/review/hooks/useGetReview';
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
 import { isDirty, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { usePostReview } from '@/features/user/review/hooks/useReview';
+<<<<<<< HEAD
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import {
@@ -33,6 +38,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+=======
+
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
 export const ReviewSchema = z.object({
   rating: z.number(),
   review: z
@@ -42,7 +50,11 @@ export const ReviewSchema = z.object({
   bookingsId: z.string(),
 });
 import PastStayReviewCard from '@/components/cards/PastStayCard';
+<<<<<<< HEAD
 export default function myReviews() {
+=======
+export default function MyReviews() {
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
   const form = useForm<z.infer<typeof ReviewSchema>>({
     resolver: zodResolver(ReviewSchema),
     defaultValues: {
@@ -53,7 +65,10 @@ export default function myReviews() {
     },
   });
   const { pastStays } = useGetPastStays();
+<<<<<<< HEAD
   console.log(pastStays);
+=======
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
   const { mutationPostReview } = usePostReview();
 
   const handleSubmit = async (values: z.infer<typeof ReviewSchema>) => {
@@ -68,15 +83,31 @@ export default function myReviews() {
   if (!pastStays) return <Loading></Loading>;
   return (
     <div className="flex flex-col gap-3">
+<<<<<<< HEAD
       {pastStays &&
         pastStays?.map((x: any, i: number) => (
           <PastStayReviewCard
+=======
+      {pastStays.length > 0 ? (
+        pastStays?.map((x: any, i: number) => (
+          <PastStayReviewCard
+            key={i}
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
             data={x}
             index={i}
             form={form}
             submitHandler={handleSubmit}
           />
+<<<<<<< HEAD
         ))}
+=======
+        ))
+      ) : (
+        <div className="text-center text-sm font-medium border p-12 rounded-lg text-stone-400">
+          No past stays found
+        </div>
+      )}
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
     </div>
   );
 }

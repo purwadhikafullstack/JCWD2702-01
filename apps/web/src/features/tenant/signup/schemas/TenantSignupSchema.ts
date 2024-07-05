@@ -12,8 +12,8 @@ export const TenantSignupFormSchema = z.object({
 });
 
 export const TenantBankDetailsFormSchema = z.object({
-    card_holder_name: z.string(),
-    card_number: z.string(),
-    exp_date: z.string(),
-    cvv: z.string()
+    card_holder_name: z.string().min(1, { message: "this field is required" }),
+    card_number: z.string().min(1, { message: "this field is required" }).max(19, { message: "card number have 15 max length" }),
+    exp_date: z.string().min(1, { message: "this field is required" }),
+    cvv: z.string().min(1, { message: "cvv number is required" })
 })

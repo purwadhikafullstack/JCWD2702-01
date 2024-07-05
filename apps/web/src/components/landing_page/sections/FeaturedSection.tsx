@@ -30,9 +30,12 @@ export const FeaturedRooms = ({ listings }: { listings: any[] }) => {
           className="mx-auto"
         >
           <CarouselContent className="mx-auto -ml-4">
-            {listings?.slice(0, 7).map((x, i) => (
-              <CarouselItem className="md:basis-1/2 xl:basis-1/4 2xl:basis-1/5">
-                <Link href={`/sandbox/${x.slug}`}>
+            {listings?.slice(0, 7).map((x, i: number) => (
+              <CarouselItem
+                key={i}
+                className="md:basis-1/2 xl:basis-1/4 2xl:basis-1/5"
+              >
+                <Link href={`/listings/${x.slug}`}>
                   <ListingCard
                     key={x.id}
                     imageUrl={`${process.env.NEXT_PUBLIC_BASE_API_URL}${x.listing_images[0].image_url}`}

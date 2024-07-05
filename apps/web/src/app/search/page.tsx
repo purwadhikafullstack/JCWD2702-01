@@ -179,7 +179,13 @@ export default function Page() {
                   </SelectTrigger>
                   <SelectContent className="rounded-lg">
                     {categories?.map((x: any, i: number) => (
+<<<<<<< HEAD
                       <SelectItem value={`${x.id}`}>{x.category}</SelectItem>
+=======
+                      <SelectItem key={i} value={`${x.id}`}>
+                        {x.category}
+                      </SelectItem>
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                     ))}
                     <SelectItem value="clear">Clear category filter</SelectItem>
                   </SelectContent>
@@ -226,7 +232,11 @@ export default function Page() {
                       title={x.title}
                       city={x.city}
                       country={x.country}
+<<<<<<< HEAD
                       price={x.room_types[0].price}
+=======
+                      price={x?.room_types[0]?.price}
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                       seasonalPrice={
                         x.room_types[x.price_indexes?.room_index]
                           ?.seasonal_prices[x.price_indexes?.price_index].price
@@ -250,6 +260,10 @@ export default function Page() {
                     .fill(null)
                     .map((x, i: number) => (
                       <button
+<<<<<<< HEAD
+=======
+                        key={i}
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                         className={
                           page == i + 1
                             ? 'font-bold'

@@ -46,7 +46,11 @@ export default function FilterCard({
   startDate,
   endDate,
   adults,
+<<<<<<< HEAD
   children,
+=======
+  kids,
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
 }: {
   no_book: any[];
   seasonal_prices: any[];
@@ -61,7 +65,11 @@ export default function FilterCard({
   startDate?: string;
   endDate?: string;
   adults?: string;
+<<<<<<< HEAD
   children?: string;
+=======
+  kids?: string;
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
 }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -70,7 +78,11 @@ export default function FilterCard({
         from: startDate ? new Date(startDate) : undefined,
         to: endDate ? new Date(endDate) : undefined,
       },
+<<<<<<< HEAD
       guests: { adults: Number(adults), children: Number(children), pets: 0 },
+=======
+      guests: { adults: Number(adults), children: Number(kids), pets: 0 },
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
       seasonal_price: 0,
       seasonal_night: 0,
       normal_price: 0,

@@ -3,6 +3,10 @@
 import {
   Form,
   FormControl,
+<<<<<<< HEAD
+=======
+  FormDescription,
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
   FormField,
   FormItem,
   FormLabel,
@@ -43,7 +47,11 @@ export const RoomDetailsForm = ({
                         type="text"
                         placeholder="Room name"
                         {...field}
+<<<<<<< HEAD
                         className="rounded-full bg-zinc-100"
+=======
+                        className="rounded-full "
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                       />
                     </FormControl>
                     <FormMessage />
@@ -59,9 +67,15 @@ export const RoomDetailsForm = ({
                     <FormControl>
                       <Input
                         type="text"
+<<<<<<< HEAD
                         placeholder="price"
                         {...field}
                         className="rounded-full bg-zinc-100"
+=======
+                        placeholder="Price"
+                        {...field}
+                        className="rounded-full "
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                       />
                     </FormControl>
                     <FormMessage />
@@ -77,9 +91,15 @@ export const RoomDetailsForm = ({
                     <FormControl>
                       <Input
                         type="text"
+<<<<<<< HEAD
                         placeholder="capacity"
                         {...field}
                         className="rounded-full bg-zinc-100"
+=======
+                        placeholder="Capacity"
+                        {...field}
+                        className="rounded-full "
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                       />
                     </FormControl>
                     <FormMessage />
@@ -95,9 +115,15 @@ export const RoomDetailsForm = ({
                     <FormControl>
                       <Input
                         type="text"
+<<<<<<< HEAD
                         placeholder="stock"
                         {...field}
                         className="rounded-full bg-zinc-100"
+=======
+                        placeholder="Stock"
+                        {...field}
+                        className="rounded-full "
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                       />
                     </FormControl>
                     <FormMessage />
@@ -113,11 +139,22 @@ export const RoomDetailsForm = ({
                     <FormControl>
                       <Input
                         type="text"
+<<<<<<< HEAD
                         placeholder="restrictions"
                         {...field}
                         className="rounded-full bg-zinc-100"
                       />
                     </FormControl>
+=======
+                        placeholder="Restrictions"
+                        {...field}
+                        className="rounded-full "
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Ex. No pets, no smoking, not infant friendly, etc.
+                    </FormDescription>
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                     <FormMessage />
                   </FormItem>
                 )}
@@ -127,6 +164,7 @@ export const RoomDetailsForm = ({
                 name="bedding_details"
                 render={({ field }) => (
                   <FormItem>
+<<<<<<< HEAD
                     <FormLabel>Bedding Details</FormLabel>
                     <FormControl>
                       <Input
@@ -136,13 +174,31 @@ export const RoomDetailsForm = ({
                         className="rounded-full bg-zinc-100"
                       />
                     </FormControl>
+=======
+                    <FormLabel>Bedding details</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        placeholder="Bedding details"
+                        {...field}
+                        className="rounded-full "
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Ex. 1 Queen Bed, 2 Twin Beds, etc.
+                    </FormDescription>
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
             <div className="flex flex-col items-start gap-3 w-80">
+<<<<<<< HEAD
               <div className="font-semibold">Facilities</div>
+=======
+              <div className="font-semibold text-black">Facilities</div>
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
               <RoomFacilitiesScrollArea form={form} facilities={facilities} />
               <FormField
                 control={form.control}
@@ -154,7 +210,11 @@ export const RoomDetailsForm = ({
                       <select
                         name="breakfast_option"
                         id="breakfast_option"
+<<<<<<< HEAD
                         className="rounded-full bg-zinc-100 w-80 h-10 border"
+=======
+                        className="rounded-full  w-80 h-10 border"
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                         value={field.value}
                         onChange={(e) => {
                           const value = e.target.value;
@@ -188,7 +248,11 @@ export const RoomDetailsForm = ({
                           type="text"
                           placeholder="Breakfast charge"
                           {...field}
+<<<<<<< HEAD
                           className="rounded-full bg-zinc-100 w-80"
+=======
+                          className="rounded-full  w-80"
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                         />
                       </FormControl>
                       <FormMessage />
@@ -204,7 +268,11 @@ export const RoomDetailsForm = ({
               name="room_images"
               render={({ field }) => (
                 <FormItem className=" pt-1">
+<<<<<<< HEAD
                   <FormLabel>Upload images</FormLabel>
+=======
+                  <FormLabel>Room images</FormLabel>
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                   <FormControl>
                     <Input
                       multiple
@@ -215,7 +283,11 @@ export const RoomDetailsForm = ({
                         onSetFiles(event);
                         field.onChange(event);
                       }}
+<<<<<<< HEAD
                       className="bg-zinc-100 rounded-xl w-full flex items-center justify-center"
+=======
+                      className="rounded-full w-full flex items-center justify-center"
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                     />
                   </FormControl>
                   <FormMessage />

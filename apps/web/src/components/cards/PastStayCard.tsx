@@ -36,12 +36,20 @@ export default function PastStayReviewCard({
   form,
   submitHandler,
 }: any) {
+<<<<<<< HEAD
+=======
+  console.log(data);
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
   return (
     <div className="border rounded-lg grid gap-3 p-3">
       <div key={index} className=" flex gap-3 items-start justify-between ">
         <div className="flex gap-3">
           <Image
+<<<<<<< HEAD
             src={`${process.env.NEXT_PUBLIC_BASE_API_URL}/${data.room_type.listing.listing_images[0].image_url}`}
+=======
+            src={data.room_type.listing.listing_images[0].image_url}
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
             width={100}
             height={100}
             alt="Listing Image"

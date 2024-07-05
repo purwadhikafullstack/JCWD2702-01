@@ -6,11 +6,11 @@ import {
   updateProfile,
   createListing,
   findMyListing,
+  totalMyListing,
 } from './tenantService';
 import { createToken } from '@/helpers/Token';
 import { getTenantByUid } from '../user/userServices';
 import { deleteMyListing } from './tenantService';
-import { listingsToShow } from '../sample/logics/listingsToShow';
 
 export const newTenant = async (
   req: Request,
@@ -146,33 +146,21 @@ export const myListing = async (
   try {
     const reqToken = req as IReqAccessToken;
     const { uid } = reqToken.payload.data;
-    const { start_date, end_date } = req.query;
+    const { page } = req.query;
+
     const getTenantByUidResult = await getTenantByUid(uid);
-
     if (getTenantByUidResult) {
+      const totalData = (await totalMyListing(getTenantByUidResult?.id)).length;
       const myListing = await findMyListing(
-        getTenantByUidResult?.id
+        getTenantByUidResult?.id,
+        Number(page),
       );
-
-      if (start_date && end_date) {
-        const date = {
-          start: new Date(start_date as string),
-          end: new Date(end_date as string),
-        };
-        const filtered = listingsToShow(myListing, date);
-
-        res.status(200).send({
-          error: false,
-          message: 'Success',
-          myListing: filtered,
-        });
-      } else {
-        res.status(200).send({
-          error: false,
-          message: 'Success',
-          myListing,
-        });
-      }
+      res.status(200).send({
+        error: false,
+        message: 'Success',
+        myListing,
+        totalData,
+      });
     }
   } catch (error) {
     next(error);

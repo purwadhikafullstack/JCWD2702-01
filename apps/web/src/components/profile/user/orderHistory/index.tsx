@@ -14,7 +14,7 @@ export const UploadProofSchema = z.object({
   image_url: z.string(),
 });
 
-export default function orderHistory() {
+export default function OrderHistory() {
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const [bookingId, setBookingId] = useState('');
@@ -27,7 +27,6 @@ export default function orderHistory() {
     },
   });
 
-  console.log('>>>', page);
   const { isDirty } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof UploadProofSchema>) => {
@@ -72,44 +71,52 @@ export default function orderHistory() {
   const queryClient = useQueryClient();
   if (!allBookings) return <Loading></Loading>;
   return (
-    <div className="flex flex-col gap-3">
-      {allBookings.map((x: any) => (
-        <div className="p-3 rounded-lg border w-full">
-          <BookingCard data={x} />
-          {x.booking_statusId === 1 && (
-            <BookingOptions
-              setBookingId={setBookingId}
-              bookingId={bookingId}
-              form={form}
-              onSetFiles={onSetFiles}
-              onSubmit={onSubmit}
-              images={images}
-              data={x}
-            />
-          )}
+    <>
+      {allBookings.length > 0 ? (
+        <div className="flex flex-col gap-3">
+          {allBookings.map((x: any, i: number) => (
+            <div key={i} className="p-3 rounded-lg border w-full">
+              <BookingCard data={x} />
+              {x.booking_statusId === 1 && (
+                <BookingOptions
+                  setBookingId={setBookingId}
+                  bookingId={bookingId}
+                  form={form}
+                  onSetFiles={onSetFiles}
+                  onSubmit={onSubmit}
+                  images={images}
+                  data={x}
+                />
+              )}
+            </div>
+          ))}
+          <div className="w-full flex justify-between">
+            <Button
+              variant={'outline'}
+              disabled={page == 1}
+              onClick={() => {
+                setPage(Math.max(1, page - 1));
+                queryClient.invalidateQueries({ queryKey: ['allBookingDate'] });
+              }}
+            >
+              Prev
+            </Button>
+            <Button
+              disabled={allBookings.length < 6}
+              onClick={() => {
+                setPage(page + 1);
+                queryClient.invalidateQueries({ queryKey: ['allBookingDate'] });
+              }}
+            >
+              Next
+            </Button>
+          </div>
         </div>
-      ))}
-      <div className="w-full flex justify-between">
-        <Button
-          variant={'outline'}
-          disabled={page == 1}
-          onClick={() => {
-            setPage(Math.max(1, page - 1));
-            queryClient.invalidateQueries({ queryKey: ['allBookingDate'] });
-          }}
-        >
-          Prev
-        </Button>
-        <Button
-          disabled={allBookings.length < 6}
-          onClick={() => {
-            setPage(page + 1);
-            queryClient.invalidateQueries({ queryKey: ['allBookingDate'] });
-          }}
-        >
-          Next
-        </Button>
-      </div>
-    </div>
+      ) : (
+        <div className="text-center font-medium text-sm border p-12 rounded-lg text-stone-400">
+          No orders found
+        </div>
+      )}
+    </>
   );
 }

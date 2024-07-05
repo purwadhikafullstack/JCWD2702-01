@@ -28,7 +28,7 @@ export const newUser = async (
           email: createdUser.email,
           isVerified: createdUser.is_verified,
         },
-        expiresIn: '5s',
+        expiresIn: '1h',
       });
 
       const verificationHTML = fs.readFileSync(
@@ -45,7 +45,7 @@ export const newUser = async (
       transporterNodemailer.sendMail({
         from: 'Roomer',
         to: email,
-        subject: 'Verify Your Account!',
+        subject: 'Complete your Roomer registration!',
         html: verificationHTMLCompiled,
       });
     }

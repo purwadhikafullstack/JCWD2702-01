@@ -10,7 +10,11 @@ import { useGetListingsFacilities } from '@/features/listings/hooks/useGetListin
 import { useUpdateListing } from '@/features/listings/hooks/useUpdateListing';
 import { ListingForm } from './ListingForm';
 
+<<<<<<< HEAD
 export const UpdateListingForm = forwardRef(({ item }: any, ref) => {
+=======
+const UpdateListingForm = forwardRef(({ item }: any, ref) => {
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
   const [images, setImages] = useState([]);
   const { mutationUpdateListing } = useUpdateListing();
   const { facilities } = useGetListingsFacilities();
@@ -117,3 +121,10 @@ export const UpdateListingForm = forwardRef(({ item }: any, ref) => {
     </div>
   );
 });
+<<<<<<< HEAD
+=======
+
+UpdateListingForm.displayName = 'UpdateListingForm';
+
+export { UpdateListingForm };
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853

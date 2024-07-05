@@ -16,9 +16,12 @@ const nextConfig = {
         protocol: 'https',
       },
       {
-
         hostname: 'localhost',
         protocol: 'http',
+      },
+      {
+        hostname: 'jcwd270201.purwadhikabootcamp.com',
+        protocol: 'https',
       },
     ],
   },

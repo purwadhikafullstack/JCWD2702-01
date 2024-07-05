@@ -49,7 +49,15 @@ export const SelectCategory = ({ onNext }: any) => {
         )}
       </div>
       <div className="flex justify-end">
+<<<<<<< HEAD
         <Button className="w-28 h-8" type="submit">
+=======
+        <Button
+          className="w-28 h-8"
+          type="submit"
+          disabled={!selectedCategory ? true : false}
+        >
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
           Next
         </Button>
       </div>

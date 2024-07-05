@@ -31,12 +31,17 @@ export default function SetNonavailability() {
     <div className="flex items-center justify-center">
       <AlertDialog>
         <AlertDialogTrigger>
+<<<<<<< HEAD
           <Button className="h-7 bg-zinc-200 text-black flex items-center justify-center">
+=======
+          <Button className="h-7 text-xs md:text-sm hover:bg-stone-300 bg-stone-200 text-black flex items-center justify-center">
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
             Set Nonavailability
           </Button>
         </AlertDialogTrigger>
         <AlertDialogContent className="min-h-3/4 min-w-[1000px] flex flex-col items-center justify-center">
           <AlertDialogHeader className="w-full">
+<<<<<<< HEAD
             <AlertDialogTitle className="w-full flex items-center justify-center">
               <div className="flex-none items-center justify-start">
                 <AlertDialogCancel className="border-none text-zinc-600">
@@ -44,6 +49,17 @@ export default function SetNonavailability() {
                 </AlertDialogCancel>
               </div>
               <div className="flex flex-1 items-center justify-center text-2xl pr-8">
+=======
+            <AlertDialogTitle className="w-full flex items-center justify-between">
+              <Button
+                variant="ghost"
+                onClick={handleBackToListings}
+                className={`${selectedListing ? 'flex' : 'hidden'}`}
+              >
+                {'<'}
+              </Button>
+              <div className="flex items-center justify-center text-2xl">
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                 <div className="flex flex-col items-center justify-center">
                   {selectedListing
                     ? 'Set Nonavailability'
@@ -53,6 +69,7 @@ export default function SetNonavailability() {
                   </div>
                 </div>
               </div>
+<<<<<<< HEAD
             </AlertDialogTitle>
             <AlertDialogDescription>
               {selectedListing ? (
@@ -62,6 +79,15 @@ export default function SetNonavailability() {
                     {'<'}
                   </Button>
                 </>
+=======
+              <AlertDialogCancel className="border-none text-zinc-600">
+                x
+              </AlertDialogCancel>
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              {selectedListing ? (
+                <SetNonavailabilityForm listing={selectedListing} />
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
               ) : (
                 <GetMyListings onSelectListing={handleSelectListing} />
               )}

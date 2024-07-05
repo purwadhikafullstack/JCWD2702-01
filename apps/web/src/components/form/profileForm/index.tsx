@@ -14,7 +14,11 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import * as z from 'zod';
 import { ProfileFormSchema } from '@/features/user/profile/schemas/ProfileFormSchema';
+<<<<<<< HEAD
 import { Image, User2 } from 'lucide-react';
+=======
+import { Image, User2, Mail } from 'lucide-react';
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
 import { useSelector } from 'react-redux';
 import {
   IPersistSignin,
@@ -24,6 +28,11 @@ import { useState, useEffect } from 'react';
 import { useUpdateUserProfile } from '@/features/user/profile/hooks/useUpdateUser';
 import { useUpdateTenantProfile } from '@/features/tenant/profile/hooks/useUpdateTenantProfile';
 import { ProfilePicture } from './ProfilePicture';
+<<<<<<< HEAD
+=======
+import { useGetProfile } from '@/features/user/profile/hooks/useGetProfile';
+import { useLogout } from '@/features/auth/signin/hooks/useSignin';
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
 
 export default function ProfileForm() {
   const [userData, setUserData] = useState<IPersistSignin>(
@@ -32,12 +41,27 @@ export default function ProfileForm() {
   const [tenantData, setTenantData] = useState<IPersistTenantData>(
     {} as IPersistTenantData,
   );
+<<<<<<< HEAD
+=======
+  const { profile } = useGetProfile();
+  const providersId: number = profile?.providersId;
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
   const stateUser = useSelector((state: any) => state.user);
   const stateTenant = useSelector((state: any) => state.tenant);
   const { mutationUpdateUserProfile } = useUpdateUserProfile();
   const { mutationUpdateTenantProfile } = useUpdateTenantProfile();
+<<<<<<< HEAD
   const [images, setImages] = useState([]);
 
+=======
+  const { mutationSignout } = useLogout();
+  const [images, setImages] = useState([]);
+
+  const handleLogout = () => {
+    mutationSignout();
+  };
+
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
   const onSetFiles = (event: any) => {
     try {
       const acceptedFormat = ['jpg', 'jpeg', 'webp', 'png'];
@@ -70,6 +94,10 @@ export default function ProfileForm() {
     resolver: zodResolver(ProfileFormSchema),
     defaultValues: {
       username: '',
+<<<<<<< HEAD
+=======
+      email: '',
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
       image_url: '',
     },
   });
@@ -84,6 +112,10 @@ export default function ProfileForm() {
       'data',
       JSON.stringify({
         display_name: values.username,
+<<<<<<< HEAD
+=======
+        email: values.email,
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
       }),
     );
     if (images) {
@@ -95,14 +127,20 @@ export default function ProfileForm() {
       mutationUpdateUserProfile(fd, {
         onSuccess: () => {
           reset();
+<<<<<<< HEAD
           window.location.reload();
+=======
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
         },
       });
     } else {
       mutationUpdateTenantProfile(fd, {
         onSuccess: () => {
           reset();
+<<<<<<< HEAD
           window.location.reload();
+=======
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
         },
       });
     }
@@ -116,7 +154,15 @@ export default function ProfileForm() {
   return (
     <div className="flex flex-col gap-7 w-auto md:w-96">
       <div className="block md:hidden">
+<<<<<<< HEAD
         <ProfilePicture userData={userData} tenantData={tenantData} />
+=======
+        <ProfilePicture
+          userData={userData}
+          tenantData={tenantData}
+          profile={profile}
+        />
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
@@ -130,9 +176,15 @@ export default function ProfileForm() {
                   <Input
                     type="text"
                     placeholder={
+<<<<<<< HEAD
                       userData.rolesId == 1
                         ? userData.display_name
                         : tenantData?.display_name
+=======
+                      profile?.rolesId == 1
+                        ? profile?.display_name
+                        : profile?.tenants?.display_name
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
                     }
                     {...field}
                     suffix={<User2 />}
@@ -145,6 +197,31 @@ export default function ProfileForm() {
           />
           <FormField
             control={form.control}
+<<<<<<< HEAD
+=======
+            name="email"
+            render={({ field }) => (
+              <FormItem
+                className={`${profile?.rolesId === 1 ? 'block' : 'hidden'}`}
+              >
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder={profile?.email}
+                    {...field}
+                    suffix={<Mail />}
+                    className=" rounded-full bg-zinc-100"
+                    disabled={providersId === 2 ? true : false}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
             name="image_url"
             render={({ field }) => (
               <FormItem>

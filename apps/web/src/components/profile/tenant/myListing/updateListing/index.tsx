@@ -16,8 +16,13 @@ export const UpdateListing = ({ item }: any) => {
   const formRef = useRef<any>();
   return (
     <Drawer>
+<<<<<<< HEAD
       <DrawerTrigger className="w-5 h-5 flex items-center justify-center">
         <FilePenLine className="max-w-full min-w-full" />
+=======
+      <DrawerTrigger className="flex items-center gap-1 p-1 px-3 hover:bg-stone-100 rounded-full text-xs font-medium">
+        <FilePenLine className="w-4 h-4" /> Edit
+>>>>>>> c4807c71e6e7e16f48741b7526ae8aa2a2057853
       </DrawerTrigger>
       <DrawerContent className="flex flex-col h-full">
         <div className="flex flex-col overflow-auto md:flex-row items-stretch flex-grow md:overflow-hidden md:px-20">
