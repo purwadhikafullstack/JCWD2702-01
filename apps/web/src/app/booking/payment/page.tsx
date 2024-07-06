@@ -97,7 +97,11 @@ export default function Page() {
           </div>
           <div className="p-8 grid gap-5 border rounded-lg">
             <div className="flex justify-between items-center">
-              <div className="font-bold">{booking.payment_type.type}</div>
+              <div className="font-bold">
+                {booking.payment_typesId == 1
+                  ? 'Manual Transfer'
+                  : 'Online Payment'}
+              </div>
               <Image src={'/BCA.png'} width={100} height={100} alt="BCA Logo" />
             </div>
             <Separator></Separator>
