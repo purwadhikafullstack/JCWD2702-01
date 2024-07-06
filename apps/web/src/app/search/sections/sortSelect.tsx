@@ -14,8 +14,8 @@ export function SortSearch({ sortChangeHandler, sort }: any) {
         onValueChange={sortChangeHandler}
         defaultValue={`${sort.sortBy},${sort.sort}`}
       >
-        <SelectTrigger className="h-5 rounded-full text-xs">
-          <SelectValue className=" text-sm font-semibold" />
+        <SelectTrigger className="md:h-5 rounded-full text-xs">
+          <SelectValue className="text-sm font-semibold" />
         </SelectTrigger>
         <SelectContent className=" rounded-lg">
           <SelectItem className="text-xs" value={`location,`}>

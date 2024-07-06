@@ -1,7 +1,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { ColumnDef, Row } from '@tanstack/react-table';
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { ArrowUpDown, MapPin, MoreHorizontal } from 'lucide-react';
 import { format, isWithinInterval } from 'date-fns';
 import { toCurrency } from '@/components/cores/ToCurrency';
 import {
@@ -9,8 +9,10 @@ import {
   DialogContent,
   DialogTrigger,
   DialogDescription,
+  DialogHeader,
+  DialogTitle,
 } from '@/components/ui/dialog';
-
+import Image from 'next/image';
 export type Sales = {
   id: string;
   display_name: string;
@@ -21,6 +23,7 @@ export type Sales = {
     title: string;
   };
   details: any | undefined;
+  booking: any | undefined;
 };
 
 export const columns2: ColumnDef<Sales>[] = [
@@ -102,11 +105,11 @@ export const columns2: ColumnDef<Sales>[] = [
     },
   },
   {
-    accessorKey: 'details',
+    accessorKey: 'booking',
     header: 'Details',
     cell: ({ row }) => {
-      const details = row.getValue('details');
-      const listing = row.getValue('listing');
+      const booking = row.getValue('booking') as any;
+      console.log('>>>>>', booking);
       return (
         <Dialog>
           <DialogTrigger asChild>
@@ -119,13 +122,95 @@ export const columns2: ColumnDef<Sales>[] = [
             </Button>
           </DialogTrigger>
           <DialogContent>
-            <DialogDescription>
-              <div>{JSON.stringify(details)}</div>
-              <div>
-                
-              </div>
-              <div>{JSON.stringify(listing)}</div>
-            </DialogDescription>
+            <DialogHeader>
+              <DialogTitle className="pb-3">Order details</DialogTitle>
+              <DialogDescription className="grid text-stone-800 gap-3">
+                <div className="grid gap-3">
+                  <div className="text-xs w-full flex justify-between">
+                    <p>{booking?.id}</p>
+                    <p>
+                      {format(
+                        new Date(booking?.created_at),
+                        'yyyy-MM-dd HH:mm',
+                      )}
+                    </p>
+                  </div>
+                  <div className="flex gap-3">
+                    <Image
+                      src={
+                        booking?.room_type.listing.listing_images[0].image_url
+                      }
+                      width={100}
+                      height={100}
+                      alt="listing"
+                      unoptimized
+                      className="w-[150px] h-[80px] object-cover rounded-lg"
+                    />
+                    <div>
+                      <div className="font-bold">
+                        {booking?.room_type.listing.title}
+                      </div>
+                      <div className="flex items-center text-xs">
+                        <MapPin className="p-1 ml-[-8px]" />
+                        <span className="font-medium">
+                          {`${booking?.room_type.listing.city}, ${booking?.room_type.listing.country}`}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid">
+                    <div className="flex w-full justify-between">
+                      <div>Duration</div>
+                      <div className="font-semibold">
+                        {format(new Date(booking?.start_date), 'dd MMMM yyyy')}
+                        {' - '}
+                        {format(new Date(booking?.end_date), 'dd MMMM yyyy')}
+                      </div>
+                    </div>
+                    <div className="flex w-full justify-between">
+                      <div>Number of guests</div>
+                      <div className="font-semibold">
+                        {booking?.num_of_guests}
+                      </div>
+                    </div>
+                    <div className="flex w-full justify-between">
+                      <div>Include breakfast</div>
+                      <div className="font-semibold">
+                        {booking?.details?.include_breakfast ? 'Yes' : 'No'}
+                      </div>
+                    </div>
+                    <div className="flex w-full justify-between">
+                      <div>
+                        {booking?.details?.normal_night +
+                          booking?.details?.seasonal_night}{' '}
+                        night(s)
+                      </div>
+                      <div className="font-semibold">
+                        {toCurrency(
+                          booking?.details?.normal_price +
+                            booking?.details?.seasonal_price,
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex w-full justify-between">
+                      <div>Taxes & Fees</div>
+                      <div className="font-semibold">
+                        {toCurrency(booking?.details?.taxes_and_fees)}
+                      </div>
+                    </div>
+                    <div className="flex font-bold w-full justify-between">
+                      <div>Total</div>
+                      <div>{toCurrency(booking?.total_price)}</div>
+                    </div>
+                  </div>
+                  {booking?.details?.breakfast_price &&
+                  booking?.details?.include_breakfast ? (
+                    <div>{toCurrency(booking?.details?.breakfast_price)}</div>
+                  ) : null}
+                </div>
+              </DialogDescription>
+            </DialogHeader>
           </DialogContent>
         </Dialog>
       );

@@ -23,6 +23,8 @@ import { SearchListingCard } from '@/components/cards/SearchLisingCard';
 import SearchBarVariant from '@/components/cores/searchbar/searchBarVariant';
 import { SortSearch } from './sections/sortSelect';
 import { Button } from '@/components/ui/button';
+import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet';
+
 export default function Page() {
   const searchParams = useSearchParams();
   const [page, setPage] = useState(Number(searchParams.get('page')));
@@ -108,26 +110,28 @@ export default function Page() {
   if (!categories && !facilities && !searchResult) return <Loading />;
   return (
     <div className="my-32">
-      <div className="flex flex-col w-[90vw] mx-auto lg:w-[60vw] flex-col items-center justify-center gap-8">
-        <SearchBarVariant
-          onSubmitCallback={(val: any) => {
-            const params = new URLSearchParams(val);
-            params.set('page', '1');
-            window.history.replaceState(null, '', '?' + params.toString());
-            setQueryParams(params);
-          }}
-          dateParam={{
-            from: searchParams.get('start_date'),
-            to: searchParams.get('end_date'),
-          }}
-          guestsParam={{
-            adults: searchParams.get('adults'),
-            children: searchParams.get('children'),
-          }}
-          locationParam={searchParams.get('loc_term')}
-        />
+      <div className="flex flex-col w-[90vw] mx-auto lg:w-[60vw] flex-col md:items-center justify-center gap-8">
+        <div className="flex justify-center">
+          <SearchBarVariant
+            onSubmitCallback={(val: any) => {
+              const params = new URLSearchParams(val);
+              params.set('page', '1');
+              window.history.replaceState(null, '', '?' + params.toString());
+              setQueryParams(params);
+            }}
+            dateParam={{
+              from: searchParams.get('start_date'),
+              to: searchParams.get('end_date'),
+            }}
+            guestsParam={{
+              adults: searchParams.get('adults'),
+              children: searchParams.get('children'),
+            }}
+            locationParam={searchParams.get('loc_term')}
+          />
+        </div>
         <div className="grid md:flex gap-10">
-          <div className="md:top-24 md:sticky h-[500px] rounded-lg w-[300px]">
+          <div className="hidden md:top-24 md:block md:sticky h-[500px] rounded-lg w-[300px]">
             <div id="head" className="flex items-center justify-between">
               <div className="font-bold text-lg">Filter</div>
               <div className="text-sm">Reset</div>
@@ -167,7 +171,6 @@ export default function Page() {
                   </div>
                 </div>
               </div>
-
               <div>
                 <div className="text-sm font-bold my-2">Categories</div>
                 <Select
@@ -208,15 +211,106 @@ export default function Page() {
               </div>
             </div>
           </div>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button className="md:hidden font-bold" variant={'outline'}>
+                Show filter
+              </Button>
+            </SheetTrigger>
+            <SheetContent side={'bottom'} className="rounded-t-3xl">
+              <div className="p-5">
+                <div id="head" className="flex items-center justify-between">
+                  <div className="font-bold text-lg">Filter</div>
+                  <div className="text-sm">Reset</div>
+                </div>
+                <div className="grid gap-4">
+                  <div>
+                    <div className="text-sm font-bold my-1">Price range</div>
+                    <div className="text-xs text-stone-400 font-medium">
+                      Per room, per night
+                    </div>
+                    <div className="flex flex-col gap-2 mt-2">
+                      <Slider
+                        defaultValue={priceRange}
+                        onValueChange={(range: any) => {
+                          setPriceRange(range);
+                          const params = new URLSearchParams(queryParams);
+                          params.set('minPrice', range[0]);
+                          params.set('maxPrice', range[1]);
+                          window.history.replaceState(
+                            null,
+                            '',
+                            '?' + params.toString(),
+                          );
+                          setQueryParams(params);
+                        }}
+                        max={10000000}
+                        step={50000}
+                        min={0}
+                      />
+                      <div className="numbers-font text-xs flex justify-between">
+                        <span className="font-medium">
+                          {toCurrency(priceRange[0])}
+                        </span>
+                        <span className="font-medium">
+                          {toCurrency(priceRange[1])}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold my-2">Categories</div>
+                    <Select
+                      defaultValue={searchParams.get('category') || ''}
+                      onValueChange={(value) => handleCategoryChange(value)}
+                    >
+                      <SelectTrigger className="rounded-full w-full">
+                        <SelectValue placeholder="Select category" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-lg">
+                        {categories?.map((x: any, i: number) => (
+                          <SelectItem key={i} value={`${x.id}`}>
+                            {x.category}
+                          </SelectItem>
+                        ))}
+                        <SelectItem value="clear">
+                          Clear category filter
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold my-2">Facilities</div>
+                    <ScrollArea className="h-[200px]">
+                      {facilities?.map((x: any, i: number) => (
+                        <div
+                          className="text-sm group py-1 flex items-center gap-2 font-medium"
+                          key={i}
+                          onClick={() => console.log('facility ID ', x.id)}
+                        >
+                          <Checkbox
+                          // checked={selectedCategories.includes(String(x.id))}
+                          />
+                          <label className="group-hover:cursor-pointer text-stone-600">
+                            {x.facility}
+                          </label>
+                        </div>
+                      ))}
+                    </ScrollArea>
+                  </div>
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
           {searchResult?.data.length < 1 ? (
             <div className="text-center font-medium text-stone-400 w-[50vw]">
               <div className="font-semibold text-lg">No listings found</div>
               <div className="text-sm">No listing under that search tag.</div>
             </div>
           ) : (
-            <div className="flex flex-col gap-3 w-[50vw] items-end">
+            <div className="flex flex-col gap-3 md:items-end">
               <SortSearch sortChangeHandler={handleSortChange} sort={sort} />
-              <div className="w-full grid gap-4">
+              <div className="w-[90vw] flex flex-col md:grid md:w-full gap-4">
                 {searchResult?.data.map((x: any, i: number) => (
                   <Link
                     key={i}
@@ -240,7 +334,7 @@ export default function Page() {
                 ))}
               </div>
               {searchResult?.toShowLength > 8 && (
-                <div className="flex gap-5">
+                <div className="justify-center w-[90vw] md:w-auto flex gap-5">
                   <Button
                     variant={'outline'}
                     disabled={page == 1}
