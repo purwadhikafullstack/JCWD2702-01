@@ -143,7 +143,7 @@ export default function Page() {
               Make sure the payment is successfully made and upload the payment
               proof to verify.
             </div>
-            <div className="flex flex-col gap-3 justify-center w-32">
+            <div className="flex flex-col gap-3 items-center">
               <Button onClick={() => router.push('/')} variant={'outline'}>
                 Back to home
               </Button>
