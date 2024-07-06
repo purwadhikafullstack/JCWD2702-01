@@ -143,7 +143,7 @@ export default function Page() {
               Make sure the payment is successfully made and upload the payment
               proof to verify.
             </div>
-            <div className="flex flex-col gap-3 items-center">
+            <div className="grid mx-40 gap-3 items-center">
               <Button onClick={() => router.push('/')} variant={'outline'}>
                 Back to home
               </Button>

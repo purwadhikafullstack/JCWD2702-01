@@ -48,6 +48,7 @@ export const getAllSales = async (uid: string) => {
           payment_type: booking.payment_type.type,
           listing: booking.room_type?.listing,
           details: booking.details,
+          booking: booking,
         });
       }
     }

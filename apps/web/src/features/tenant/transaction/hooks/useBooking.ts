@@ -9,7 +9,7 @@ export const useConfirmBooking = () => {
   const { mutate: mutationConfirmBooking } = useConfirmBookingMutation({
     onSuccess: (res: any) => {
       console.log(res);
-      toast({ description: 'Booking confirmation sent.' });
+      toast({ variant: 'success', description: 'Booking confirmation sent.' });
       router.refresh();
     },
     onError: (err: any) => {

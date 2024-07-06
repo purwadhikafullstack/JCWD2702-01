@@ -60,9 +60,7 @@ export function DataTable<TData, TValue>({
     from: undefined,
     to: undefined,
   });
-
-  console.log('active Filter', activeFilter);
-  console.log(console.log(JSON.stringify(columnFilters)));
+  
   const table = useReactTable({
     data,
     columns,

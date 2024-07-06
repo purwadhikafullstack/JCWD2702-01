@@ -111,7 +111,7 @@ export function GuestsFormExtension({ form, data, room_typesIndex }: any) {
                   id="date"
                   variant="outline"
                   className={cn(
-                    'text-semibold lg:w-72 font-medium',
+                    'text-semibold font-medium',
                     Object.values(form.watch('guests')).reduce(
                       (acc: number, x: any) => acc + x,
                       0,

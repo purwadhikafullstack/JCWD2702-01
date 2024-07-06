@@ -120,10 +120,11 @@ export const columns2: ColumnDef<Sales>[] = [
           </DialogTrigger>
           <DialogContent>
             <DialogDescription>
-              <div className="w-full h-[200px] flex">
-                <div>{JSON.stringify(details)}</div>
-                <div>{JSON.stringify(listing)}</div>
+              <div>{JSON.stringify(details)}</div>
+              <div>
+                
               </div>
+              <div>{JSON.stringify(listing)}</div>
             </DialogDescription>
           </DialogContent>
         </Dialog>

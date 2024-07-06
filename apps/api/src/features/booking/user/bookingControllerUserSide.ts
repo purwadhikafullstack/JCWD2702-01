@@ -100,6 +100,8 @@ export const confirmPayment = async (
           ? req.files
           : req.files['images'];
 
+        if (!uploadedFiles) throw new Error('Payment proof image is required!');
+
         updateBooking = await confirmBilling({
           id: bookingId,
           files: uploadedFiles,

@@ -39,10 +39,12 @@ export const useNewBooking = () => {
 export const useUploadPaymentProof = () => {
   const { toast } = useToast();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { mutate: mutationPaymentProof } = useUploadPaymentProofMutation({
     onSuccess: (res: any) => {
       toast({ description: 'Payment proof sent.' });
+      queryClient.invalidateQueries({ queryKey: ['allBookingData'] });
       router.refresh();
     },
     onError: (err: any) => {

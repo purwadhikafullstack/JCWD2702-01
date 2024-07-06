@@ -18,7 +18,6 @@ export const getBookings = async (
     const reqToken = req as IReqAccessToken;
     const { uid } = reqToken.payload.data;
     const { page } = req.query;
-    console.log(page)
     const allBookings = await getBookingsByTenantId(uid, Number(page) || 1);
 
     res.status(200).send({

@@ -10,6 +10,7 @@ export default function SalesReport() {
   const { myListings } = useGetMyListings();
 
   if (!allSales && !myListings) return <Loading />;
+  console.log(allSales, myListings.myListing);
   return (
     <div>
       <Suspense fallback={<Loading />}>

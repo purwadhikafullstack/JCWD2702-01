@@ -18,30 +18,12 @@ export default function FilterCalendar({
   room_typesIndex,
 }: any) {
   const { setValue } = form;
-  console.log('listing data in filter cal', data);
-  console.log('unbookable', unbookable);
 
   const bookings = [...data.room_types[room_typesIndex].bookings].filter(
     (x) => x.booking_statusId < 4,
   );
 
   const stock = data.room_types[room_typesIndex].stock;
-  console.log(bookings);
-
-  function toHide(bookings: any, date: { start: Date; end: Date }) {
-    let bookCheck = [];
-    for (let book of bookings) {
-      const bookRange = {
-        start: new Date(book.start_date),
-        end: new Date(book.end_date),
-      };
-
-      const bookOverlap = areIntervalsOverlapping(date, bookRange);
-      if (bookOverlap) {
-        bookCheck.push(bookOverlap);
-      }
-    }
-  }
 
   const handleDateChange = (selectedDate: DateRange | undefined) => {
     setDate(selectedDate);
@@ -113,7 +95,6 @@ export default function FilterCalendar({
         end: subDays(x.end_date, 1),
       }),
     );
-    console.log('******', isBooked);
 
     let isFullBooked;
     if (isBooked.length >= stock) isFullBooked = true;
