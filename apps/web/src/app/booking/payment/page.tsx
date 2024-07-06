@@ -146,14 +146,14 @@ export default function Page() {
               {booking.payment_typesId == 1 && (
                 <UploadBookingButton bookingId={bookingId} />
               )}
-              {booking.payment_typesId == 2 ||
-                (transaction_status == 'pending' && (
-                  <Button
-                    onClick={() => window.open(booking.payment_url, '_blank')}
-                  >
-                    Go to Midtrans payment
-                  </Button>
-                ))}
+              {(booking.payment_typesId == 2 ||
+                transaction_status == 'pending') && (
+                <Button
+                  onClick={() => window.open(booking.payment_url, '_blank')}
+                >
+                  Go to Midtrans payment
+                </Button>
+              )}
               <Button
                 variant={'secondary'}
                 className="flex justify-center"
