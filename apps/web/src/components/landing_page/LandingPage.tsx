@@ -19,7 +19,7 @@ export default function LandingPage() {
     <div>
       <div className="w-full overflow-hidden">
         <div className="absolute z-[15] flex flex-col gap-12 items-center justify-center inset-0 h-[85vh] md:h-[70vh]">
-          <div className="drop-shadow-[0_5px_15px_rgba(0,0,0,0.4)] font-bold w-[60%] text-5xl w-[50%] lg:w-full text-center text-white">
+          <div className="drop-shadow-[0_5px_15px_rgba(0,0,0,0.4)] font-bold w-[60%] text-3xl md:text-5xl w-[50%] lg:w-full text-center text-white">
             Find the accommodation of your next adventure
           </div>
           <SearchBar></SearchBar>
