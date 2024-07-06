@@ -9,6 +9,7 @@ import { useUploadPaymentProof } from '@/features/user/transaction/hooks/useBook
 import BookingCard from '@/components/cards/BookingCard';
 import { useQueryClient } from '@tanstack/react-query';
 import { BookingOptions } from './sections/bookingOptions';
+import { Separator } from '@/components/ui/separator';
 
 export const UploadProofSchema = z.object({
   image_url: z.string(),
@@ -66,6 +67,7 @@ export default function OrderHistory() {
     }
   };
 
+  console.log(allBookings);
   const queryClient = useQueryClient();
   if (!allBookings) return <Loading></Loading>;
   return (
@@ -75,7 +77,7 @@ export default function OrderHistory() {
           {allBookings.map((x: any, i: number) => (
             <div key={i} className="p-3 rounded-lg border w-full">
               <BookingCard data={x} />
-              {x.booking_statusId === 1 && (
+              {x.booking_statusId === 1 && x.payment_typesId === 1 && (
                 <BookingOptions
                   setBookingId={setBookingId}
                   bookingId={bookingId}
@@ -85,6 +87,20 @@ export default function OrderHistory() {
                   images={images}
                   data={x}
                 />
+              )}
+              {x.booking_statusId === 1 && x.payment_typesId === 2 && (
+                <div>
+                  <Separator className="my-3" />
+                  <div className="w-full flex gap-2 justify-end">
+                    <Button
+                      onClick={() => window.open(x.payment_url, '_blank')}
+                      size={'sm'}
+                      className="h-6"
+                    >
+                      Go to Midtrans payment
+                    </Button>
+                  </div>
+                </div>
               )}
             </div>
           ))}

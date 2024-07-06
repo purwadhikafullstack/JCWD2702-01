@@ -33,7 +33,6 @@ export default function ProfileSidebar({
     setTenantData(stateTenant);
   }, [stateUser, stateTenant]);
 
-  console.log(profile);
   return (
     <div className="md:shadow-md md:border justify-self-start rounded-xl w-60 pb-4 h-full">
       <div className="pt-5 w-full flex flex-col items-center gap-3">

@@ -32,6 +32,7 @@ export default function Page() {
     }
   });
   if (!booking) return <Loading></Loading>;
+  console.log(booking);
   return (
     <div className="my-32 md:w-[600px] mx-auto grid gap-5">
       {booking.booking_statusId > 1 ? (
@@ -96,7 +97,7 @@ export default function Page() {
           </div>
           <div className="p-8 grid gap-5 border rounded-lg">
             <div className="flex justify-between items-center">
-              <div className="font-bold">Manual transfer</div>
+              <div className="font-bold">{booking.payment_type.type}</div>
               <Image src={'/BCA.png'} width={100} height={100} alt="BCA Logo" />
             </div>
             <Separator></Separator>
@@ -138,19 +139,29 @@ export default function Page() {
               Make sure the payment is successfully made and upload the payment
               proof to verify.
             </div>
-            <div className="flex gap-3 justify-center">
+            <div className="flex flex-col gap-3 justify-center w-32">
               <Button onClick={() => router.push('/')} variant={'outline'}>
                 Back to home
               </Button>
-              <UploadBookingButton bookingId={bookingId} />
+              {booking.payment_typesId == 1 && (
+                <UploadBookingButton bookingId={bookingId} />
+              )}
+              {booking.payment_typesId == 2 ||
+                (transaction_status == 'pending' && (
+                  <Button
+                    onClick={() => window.open(booking.payment_url, '_blank')}
+                  >
+                    Go to Midtrans payment
+                  </Button>
+                ))}
+              <Button
+                variant={'secondary'}
+                className="flex justify-center"
+                onClick={() => router.refresh()}
+              >
+                Check payment status
+              </Button>
             </div>
-            <Button
-              variant={'secondary'}
-              className="flex justify-center"
-              onClick={() => router.refresh()}
-            >
-              Check payment status
-            </Button>
           </div>
         </div>
       )}
