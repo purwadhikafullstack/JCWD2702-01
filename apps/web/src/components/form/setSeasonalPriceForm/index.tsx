@@ -26,6 +26,16 @@ import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
 import { SetSeasonalPriceFormProps } from '@/components/profile/tenant/myListing/type';
 import { useSetSeasonalPrice } from '@/features/tenant/property/hooks/useSetSeasonalPrice';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { format } from 'date-fns';
 
 export const SetSeasonalPriceForm = ({
   listing,
@@ -36,7 +46,7 @@ export const SetSeasonalPriceForm = ({
     to: undefined,
   });
   const [roomTypeIndex, setRoomTypeIndex] = useState(0);
-
+  const [confirmation, setConfirmation] = useState(false);
   const existingSeasonalPrice = [
     ...listing.room_types[roomTypeIndex].seasonal_prices,
   ].map((x) => ({ from: new Date(x.start_date), to: new Date(x.end_date) }));
@@ -62,6 +72,7 @@ export const SetSeasonalPriceForm = ({
   const onSubmit = async (
     values: z.infer<typeof setSeasonalPriceFormSchema>,
   ) => {
+    console.log('HEY!!', values);
     mutationSetSeasonalPrice({
       price: values.price,
       room_types_id: values.room_types
@@ -71,6 +82,9 @@ export const SetSeasonalPriceForm = ({
       end_date: new Date(values.end_date),
     });
   };
+  if (confirmation) {
+    return <div></div>;
+  }
   return (
     <div className="w-full h-full pt-2 flex items-center justify-center">
       <Form {...form}>
@@ -152,19 +166,35 @@ export const SetSeasonalPriceForm = ({
                 />
               </div>
             </div>
-            <Button
-              type="submit"
-              className="w-80"
-              disabled={
-                form.watch('start_date') &&
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button>Set Price</Button>
+              </DialogTrigger>
+              {form.watch('start_date') &&
                 form.watch('end_date') &&
-                form.watch('price')
-                  ? false
-                  : true
-              }
-            >
-              Set Price
-            </Button>
+                form.watch('price') && (
+                  <DialogContent className="sm:max-w-[425px]">
+                    <div>
+                      You will be setting the price for room type{' '}
+                      {JSON.stringify(listing.room_types[roomTypeIndex].name)}{' '}
+                      listing {JSON.stringify(listing.title)} from{' '}
+                      {format(
+                        form.watch('start_date') as Date,
+                        'eee, MMMM dd yyyy',
+                      )}{' '}
+                      to{' '}
+                      {format(
+                        new Date(form.watch('end_date')) as Date,
+                        'eee, MMMM dd yyyy',
+                      )}
+                      . This action is uneditable and irreversible. Continue?
+                    </div>
+                    <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
+                      Yes
+                    </Button>
+                  </DialogContent>
+                )}
+            </Dialog>
           </div>
         </form>
       </Form>
