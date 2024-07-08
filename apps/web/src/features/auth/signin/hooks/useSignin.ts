@@ -82,8 +82,8 @@ export const useLogout = () => {
   const queryClient = useQueryClient();
 
   const { mutate: mutationSignout } = useSignoutMutation({
-    onSuccess: () => {
-      deleteCookie();
+    onSuccess: async () => {
+      await deleteCookie();
       dispatch(
         setUser({
           uid: '',
@@ -99,7 +99,9 @@ export const useLogout = () => {
       );
       queryClient.cancelQueries({ queryKey: ['profile'] });
       router.push('/');
-      // window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     },
     onError: (err: any) => {
       console.log(err);

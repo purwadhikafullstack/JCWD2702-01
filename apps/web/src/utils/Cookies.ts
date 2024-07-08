@@ -17,8 +17,8 @@ export const getUpdateEmailCookie = () => {
   return cookies().get('updcookie');
 };
 
-export const deleteCookie = () => {
-  cookies().delete('acctkn');
+export const deleteCookie = async () => {
+  await cookies().delete('acctkn');
 };
 
 export const deleteUpdateCookie = () => {

@@ -11,8 +11,8 @@ export const useUpdateUserProfile = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const { mutationSignout } = useLogout();
-  const handleLogout = () => {
-    mutationSignout();
+  const handleLogout = async () => {
+    await mutationSignout();
   };
 
   const { mutate: mutationUpdateUserProfile } = useUpdateUserMutation({
