@@ -99,7 +99,7 @@ export const useLogout = () => {
       );
       queryClient.cancelQueries({ queryKey: ['profile'] });
       router.push('/');
-      window.location.reload();
+      // window.location.reload();
     },
     onError: (err: any) => {
       console.log(err);
