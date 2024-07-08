@@ -44,6 +44,9 @@ export const updateAutoPayment = async (
       return booking;
     });
 
+    console.log('ini bill');
+    console.log(bill);
+
     await sendConfirmationEmail({
       email: bill.user.email,
       bookingId: bookingId as string,
