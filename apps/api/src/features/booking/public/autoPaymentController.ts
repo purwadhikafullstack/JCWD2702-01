@@ -1,7 +1,7 @@
 import { prisma, mysqlConnection } from '@/connection';
 import { Response, Request, NextFunction } from 'express';
 import schedule from 'node-schedule';
-import { addMinutes } from 'date-fns';
+import { addMinutes, format } from 'date-fns';
 import {
   sendConfirmationEmail,
   sendReminderEmail,
@@ -21,6 +21,11 @@ export const updateAutoPayment = async (
         },
         include: {
           user: true,
+          room_type: {
+            include: {
+              listing: true,
+            },
+          },
         },
         data: {
           booking_statusId: 3,
@@ -42,6 +47,11 @@ export const updateAutoPayment = async (
     await sendConfirmationEmail({
       email: bill.user.email,
       bookingId: bookingId as string,
+      listing_title: bill.room_type?.listing.title as string,
+      address: bill.room_type?.listing.address as string,
+      phone: bill.room_type?.listing.contact_person as string,
+      start_date: `${format(bill.start_date, 'MMMM dd, YYYY')} 14:00`,
+      end_date: `${format(bill.end_date, 'MMMM dd, YYYY')} 11:00`,
     });
 
     const date = addMinutes(new Date(), 5);

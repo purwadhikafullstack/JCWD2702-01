@@ -7,7 +7,7 @@ import {
   sendReminderEmail,
 } from '@/features/booking/tenant/bookingServiceTenantSide';
 import schedule from 'node-schedule';
-import { addMinutes } from 'date-fns';
+import { addMinutes, format } from 'date-fns';
 
 export const getBookings = async (
   req: Request,
@@ -42,10 +42,17 @@ export const confirmBooking = async (
       Number(status),
     );
 
+    tenantConfirm;
+
     if (tenantConfirm && Number(status) === 3) {
       await sendConfirmationEmail({
         email: tenantConfirm.user.email,
         bookingId: bookingId as string,
+        listing_title: tenantConfirm.room_type?.listing.title as string,
+        address: tenantConfirm.room_type?.listing.address as string,
+        phone: tenantConfirm.room_type?.listing.contact_person as string,
+        start_date: `${format(tenantConfirm.start_date, 'MMMM dd, YYYY')} 14:00`,
+        end_date: `${format(tenantConfirm.end_date, 'MMMM dd, YYYY')} 11:00`,
       });
 
       const date = addMinutes(new Date(), 5);

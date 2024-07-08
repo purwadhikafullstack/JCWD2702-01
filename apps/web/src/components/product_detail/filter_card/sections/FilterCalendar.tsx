@@ -143,10 +143,13 @@ export default function FilterCalendar({
           </div>
         )}
 
-        {isDisabled ||
-          (isFullBooked && (
-            <div style={{ fontSize: '0.65em', marginTop: '0.1em' }}>Booked</div>
-          ))}
+        {isFullBooked && (
+          <div style={{ fontSize: '0.65em', marginTop: '0.1em' }}>Booked</div>
+        )}
+
+        {isDisabled && (
+          <div style={{ fontSize: '0.65em', marginTop: '0.1em' }}>Closed</div>
+        )}
       </span>
     );
   }

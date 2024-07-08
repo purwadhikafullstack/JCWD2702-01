@@ -75,6 +75,11 @@ export const confirmBookingByTenant = async (id: string, status: number) => {
         },
         include: {
           user: true,
+          room_type: {
+            include: {
+              listing: true,
+            },
+          },
         },
       });
 
@@ -138,9 +143,19 @@ export const confirmBookingByTenant = async (id: string, status: number) => {
 export const sendConfirmationEmail = async ({
   email,
   bookingId,
+  listing_title,
+  address,
+  start_date,
+  end_date,
+  phone,
 }: {
   email: string;
   bookingId: string;
+  listing_title: string;
+  address: string;
+  start_date: string;
+  end_date: string;
+  phone: string;
 }) => {
   const verificationHTML = fs.readFileSync(
     process.env.NODEMAILER_BOOKING_SUCCESS_TEMPLATE_PATH as string,
@@ -151,6 +166,11 @@ export const sendConfirmationEmail = async ({
     await Handlebars.compile(verificationHTML);
   verificationHTMLCompiled = verificationHTMLCompiled({
     bookingId,
+    listing_title,
+    address,
+    start_date,
+    end_date,
+    phone,
   });
 
   transporterNodemailer.sendMail({
