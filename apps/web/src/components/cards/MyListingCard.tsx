@@ -4,10 +4,6 @@ import { UpdateListing } from '../profile/tenant/myListing/updateListing';
 import { MapPin } from 'lucide-react';
 import { toCurrency } from '../cores/ToCurrency';
 export const MyListingCard = ({ item, handleDeleteListing }: any) => {
-  console.log(item);
-  item.listing_images[0].image_url &&
-    console.log(item.listing_images[0].image_url, 'ADA');
-
   return (
     <div
       key={item.id}

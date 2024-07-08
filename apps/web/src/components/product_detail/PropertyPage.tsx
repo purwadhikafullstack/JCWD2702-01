@@ -33,14 +33,12 @@ export default function PropertyPage({
   kids?: string;
 }) {
   const [currentRoom, setCurrentRoom] = useState(0);
-  console.log(data);
   const listingId = data.id;
   const room_typesId = data.room_types[currentRoom].id;
 
   const bookings = [...data.room_types[currentRoom].bookings].filter(
     (x) => x.booking_statusId < 4,
   );
-  console.log(bookings);
   const nonavailabilities = [
     ...data.room_types[currentRoom].nonavailability,
   ].map((x) => ({
@@ -65,8 +63,6 @@ export default function PropertyPage({
   const selectRoomId = (index: number) => {
     setCurrentRoom(index);
   };
-
-  console.log(imageCollection);
 
   if (isLoaded)
     return (

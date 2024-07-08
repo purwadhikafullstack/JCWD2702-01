@@ -32,7 +32,6 @@ export default function Page() {
     }
   });
   if (!booking) return <Loading></Loading>;
-  console.log(booking);
   return (
     <div className="my-32 md:w-[600px] mx-auto grid gap-5">
       {booking.booking_statusId > 1 ? (

@@ -75,15 +75,6 @@ export const columns2: ColumnDef<Sales>[] = [
       return <div className="text-center font-medium">{formatted}</div>;
     },
     filterFn: (row: any, columnId: string, filterValue: any) => {
-      console.log(
-        'check',
-        filterValue,
-        row.getValue('order_date'),
-        isWithinInterval(new Date(row.getValue('order_date')), {
-          start: filterValue.from,
-          end: new Date(new Date(filterValue.to).setHours(23, 59, 59)),
-        }),
-      );
       return isWithinInterval(new Date(row.getValue('order_date')), {
         start: filterValue.from,
         end: new Date(filterValue.to.setHours(23, 59, 59)),
@@ -109,7 +100,6 @@ export const columns2: ColumnDef<Sales>[] = [
     header: 'Details',
     cell: ({ row }) => {
       const booking = row.getValue('booking') as any;
-      console.log('>>>>>', booking);
       return (
         <Dialog>
           <DialogTrigger asChild>

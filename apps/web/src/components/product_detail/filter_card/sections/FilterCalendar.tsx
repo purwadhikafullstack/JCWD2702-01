@@ -98,7 +98,6 @@ export default function FilterCalendar({
 
     let isFullBooked;
     if (isBooked.length >= stock) isFullBooked = true;
-    console.log('>', isFullBooked);
     const getActiveSeasonalPrice = (date: Date) => {
       return seasonal_prices.find((x: any) =>
         isWithinInterval(date, { start: x.start, end: x.end }),
@@ -138,8 +137,10 @@ export default function FilterCalendar({
             style={{ fontSize: '0.65em', marginTop: '0.1em' }}
           >
             {seasonal_price_check
-              ? seasonal_price_check.price / 1000
-              : (data.room_types[room_typesIndex].price as number) / 1000}
+              ? (seasonal_price_check.price / 1000).toFixed()
+              : (
+                  (data.room_types[room_typesIndex].price as number) / 1000
+                ).toFixed()}
           </div>
         )}
 

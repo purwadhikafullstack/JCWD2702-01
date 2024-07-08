@@ -37,7 +37,7 @@ export const useSignin = () => {
       toast({
         variant: 'destructive',
         title: `${err.response.data.message}`,
-        description: `${err.response.data.message == 'Account is not verified!' ? 'Click Forgot Password to be directed to verify your account.' : null}`,
+        description: `${err.response.data.message == 'Account is not verified!' ? 'Click Forgot Password to be directed to verify your account.' : 'Please try again.'}`,
       });
     },
   });
@@ -99,7 +99,7 @@ export const useLogout = () => {
       );
       queryClient.cancelQueries({ queryKey: ['profile'] });
       router.push('/');
-      // window.location.reload();
+      window.location.reload();
     },
     onError: (err: any) => {
       console.log(err);

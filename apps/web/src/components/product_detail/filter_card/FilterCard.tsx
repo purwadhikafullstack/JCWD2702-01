@@ -122,8 +122,6 @@ export default function FilterCard({
     form: form,
   });
 
-  console.log(priceBasedOnRange);
-
   return (
     <div className={cn('w-full shadow-md rounded-xl p-6', className)}>
       <PriceDisplay

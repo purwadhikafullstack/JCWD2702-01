@@ -67,7 +67,6 @@ export default function OrderHistory() {
     }
   };
 
-  console.log(allBookings);
   const queryClient = useQueryClient();
   if (!allBookings) return <Loading></Loading>;
   return (

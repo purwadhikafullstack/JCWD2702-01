@@ -12,7 +12,6 @@ import {
 import Link from 'next/link';
 
 export const FeaturedRooms = ({ listings }: { listings: any[] }) => {
-  console.log(listings);
   return (
     <div className="my-16 flex flex-col gap-6">
       <div className="text-3xl font-bold">Featured rooms</div>

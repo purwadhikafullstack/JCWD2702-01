@@ -74,7 +74,6 @@ export default function PlacesAutocomplete({
             country = component.long_name;
           }
         });
-        console.log(structured_formatting, '>>>');
 
         function convertNonAlphaToAscii(inputString: string) {
           let result = '';

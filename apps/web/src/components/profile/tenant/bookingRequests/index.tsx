@@ -20,7 +20,6 @@ export default function BookingRequests() {
   const [page, setPage] = useState(1);
   const { allBookings } = useGetAllTenantBooking(page);
   const [status, setStatus] = useState(0);
-  console.log(allBookings);
   if (!allBookings) return <Loading />;
   return (
     <>

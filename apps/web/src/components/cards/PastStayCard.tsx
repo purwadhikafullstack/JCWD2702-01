@@ -36,7 +36,6 @@ export default function PastStayReviewCard({
   form,
   submitHandler,
 }: any) {
-  console.log(data);
   return (
     <div className="border rounded-lg grid gap-3 p-3">
       <div key={index} className=" flex gap-3 items-start justify-between ">

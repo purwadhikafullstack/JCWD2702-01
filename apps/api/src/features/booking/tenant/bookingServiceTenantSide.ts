@@ -5,7 +5,6 @@ import fs from 'fs';
 import Handlebars from 'handlebars';
 
 export const getBookingsByTenantId = async (id: string, page: number) => {
-  console.log(page);
   const numPerPage = 6;
   const listingsByTenant = await prisma.tenants.findUnique({
     where: {
@@ -54,7 +53,6 @@ export const getBookingsByTenantId = async (id: string, page: number) => {
     }
   }
 
-  // console.log(bookings);
   return bookings
     .sort(
       (a: any, b: any) =>
@@ -184,9 +182,19 @@ export const sendConfirmationEmail = async ({
 export const sendReminderEmail = async ({
   email,
   bookingId,
+  listing_title,
+  address,
+  start_date,
+  end_date,
+  phone,
 }: {
   email: string;
   bookingId: string;
+  listing_title: string;
+  address: string;
+  start_date: string;
+  end_date: string;
+  phone: string;
 }) => {
   const verificationHTML = fs.readFileSync(
     process.env.NODEMAILER_BOOKING_REMINDER_TEMPLATE_PATH as string,
@@ -197,6 +205,11 @@ export const sendReminderEmail = async ({
     await Handlebars.compile(verificationHTML);
   verificationHTMLCompiled = verificationHTMLCompiled({
     bookingId,
+    listing_title,
+    address,
+    start_date,
+    end_date,
+    phone,
   });
 
   transporterNodemailer.sendMail({

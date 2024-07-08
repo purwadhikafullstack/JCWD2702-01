@@ -32,7 +32,8 @@ export const ExploreCity = () => {
       text: 'Kuala Lumpur',
     },
     {
-      redirectUrl: '/',
+      redirectUrl:
+        '/search?lat=-6.917245132212107&lng=107.61494597543596&country=Indonesia&page=1',
       image: '/bandung.jpg',
       text: 'Bandung',
     },

@@ -32,7 +32,6 @@ export default function SearchBarVariant({
     from: dateParam.from ? new Date(dateParam.from) : undefined,
     to: dateParam.to ? new Date(dateParam.to) : undefined,
   });
-  console.log('ini date', date, dateParam.from);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const searchParams = useSearchParams();

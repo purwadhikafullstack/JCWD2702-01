@@ -44,17 +44,14 @@ export const updateAutoPayment = async (
       return booking;
     });
 
-    console.log('ini bill');
-    console.log(bill);
-
     await sendConfirmationEmail({
       email: bill.user.email,
       bookingId: bookingId as string,
       listing_title: bill.room_type?.listing.title as string,
       address: bill.room_type?.listing.address as string,
       phone: bill.room_type?.listing.contact_person as string,
-      start_date: `${format(bill.start_date, 'MMMM dd, YYYY')} 14:00`,
-      end_date: `${format(bill.end_date, 'MMMM dd, YYYY')} 11:00`,
+      start_date: `${format(bill.start_date, 'eee, MMMM dd yyyy')} 14:00`,
+      end_date: `${format(bill.end_date, 'eee, MMMM dd yyyy')} 11:00`,
     });
 
     const date = addMinutes(new Date(), 5);
@@ -62,6 +59,11 @@ export const updateAutoPayment = async (
       sendReminderEmail({
         email: bill.user.email,
         bookingId: bookingId as string,
+        listing_title: bill.room_type?.listing.title as string,
+        address: bill.room_type?.listing.address as string,
+        phone: bill.room_type?.listing.contact_person as string,
+        start_date: `${format(bill.start_date, 'eee, MMMM dd yyyy')} 14:00`,
+        end_date: `${format(bill.end_date, 'eee, MMMM dd yyyy')} 11:00`,
       }),
     );
 

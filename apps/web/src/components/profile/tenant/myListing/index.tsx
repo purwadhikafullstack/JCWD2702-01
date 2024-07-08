@@ -20,7 +20,6 @@ export default function MyListings() {
   const { myListings } = useGetMyListings(currentPage);
   const router = useRouter();
   const [listings, setListings] = useState<IMyListing[]>([]);
-  console.log('myListing', myListings.myListing);
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
   const totalPages = Math.ceil(myListings.totalData / 4);
 

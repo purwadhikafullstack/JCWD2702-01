@@ -42,9 +42,6 @@ export const confirmBooking = async (
       Number(status),
     );
 
-    tenantConfirm;
-    console.log(tenantConfirm);
-
     if (tenantConfirm && Number(status) === 3) {
       await sendConfirmationEmail({
         email: tenantConfirm.user.email,
@@ -61,6 +58,11 @@ export const confirmBooking = async (
         sendReminderEmail({
           email: tenantConfirm.user.email,
           bookingId: bookingId as string,
+          listing_title: tenantConfirm.room_type?.listing.title as string,
+          address: tenantConfirm.room_type?.listing.address as string,
+          phone: tenantConfirm.room_type?.listing.contact_person as string,
+          start_date: `${format(tenantConfirm.start_date, 'eee, MMMM dd yyyy')} 14:00`,
+          end_date: `${format(tenantConfirm.end_date, 'eee, MMMM dd yyyy')} 11:00`,
         }),
       );
 
