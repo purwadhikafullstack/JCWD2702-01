@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { IMyListing, ISelectedListing } from '../type';
 import { Button } from '@/components/ui/button';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 export default function GetMyListings({ onSelectListing }: ISelectedListing) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +22,7 @@ export default function GetMyListings({ onSelectListing }: ISelectedListing) {
   };
 
   return (
-    <div className="w-full h-full flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-full">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {myListings ? (
           myListings?.myListing?.map((item: any) => (
@@ -42,13 +43,13 @@ export default function GetMyListings({ onSelectListing }: ISelectedListing) {
                   />
                 </div>
                 <div className="flex-initial w-full sm:w-60 grow flex flex-col gap-1">
-                  <div className="text-lg text-pretty font-bold text-black">
+                  <div className="text-pretty font-bold text-black">
                     {item.title}
                   </div>
                   <div className="text-xs text-pretty">
-                    {`${item.city} ${item.country}`}
+                    {`${item.city}, ${item.country}`}
                   </div>
-                  <div className="text-base font-semibold pt-3 text-black">
+                  <div className="text-sm font-semibold pt-3 text-black">
                     {item.room_types[0].price.toLocaleString('id-ID', {
                       style: 'currency',
                       currency: 'IDR',

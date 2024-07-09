@@ -27,6 +27,12 @@ import { SetNonAvailabilityFormProps } from '@/components/profile/tenant/myListi
 import { useSetNonavailability } from '@/features/tenant/property/hooks/useSetNonavailability';
 import { areIntervalsOverlapping, closestTo, subDays } from 'date-fns';
 import { format } from 'date-fns';
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 
 export const SetNonavailabilityForm = ({
   listing,
@@ -172,17 +178,50 @@ export const SetNonavailabilityForm = ({
                 <div className="mb-4 w-full text-center">Pick a date</div>
               )}
             </div>
-            <Button
-              type="submit"
-              className="w-80"
-              disabled={
-                form.watch('start_date') && form.watch('end_date')
-                  ? false
-                  : true
-              }
-            >
-              Set Nonavailability
-            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button className="w-full">Set Nonavailability</Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="sm:max-w-[425px]">
+                {form.watch('end_date') && form.watch('start_date') && (
+                  <div>
+                    <div className="text-sm text-center text">
+                      You will be setting
+                      {listing.room_types[roomTypeIndex].name &&
+                        `room type ${listing.room_types[roomTypeIndex].name} from`}{' '}
+                      listing {listing.title} unavailable
+                      <div>
+                        from{' '}
+                        {format(
+                          form.watch('start_date') as Date,
+                          'eee, MMMM dd yyyy',
+                        )}{' '}
+                        to{' '}
+                        {format(
+                          form.watch('end_date') as Date,
+                          'eee, MMMM dd yyyy',
+                        )}
+                        .
+                      </div>
+                      This action is uneditable and irreversible. Continue?
+                    </div>
+                    <div className="flex gap-3 my-3 justify-center">
+                      <AlertDialogCancel className="w-24">No</AlertDialogCancel>
+                      <Button
+                        disabled={
+                          !form.watch('start_date') && !form.watch('end_date')
+                        }
+                        className="w-24"
+                        type="submit"
+                        onClick={form.handleSubmit(onSubmit)}
+                      >
+                        Yes
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </form>
       </Form>

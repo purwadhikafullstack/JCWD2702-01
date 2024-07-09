@@ -26,16 +26,14 @@ import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
 import { SetSeasonalPriceFormProps } from '@/components/profile/tenant/myListing/type';
 import { useSetSeasonalPrice } from '@/features/tenant/property/hooks/useSetSeasonalPrice';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
 import { format } from 'date-fns';
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { AlertDialogCancel } from '@/components/ui/alert-dialog';
+import { toCurrency } from '@/components/cores/ToCurrency';
 
 export const SetSeasonalPriceForm = ({
   listing,
@@ -166,35 +164,57 @@ export const SetSeasonalPriceForm = ({
                 />
               </div>
             </div>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button>Set Price</Button>
-              </DialogTrigger>
-              {form.watch('start_date') &&
-                form.watch('end_date') &&
-                form.watch('price') && (
-                  <DialogContent className="sm:max-w-[425px]">
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button className="w-full">Set Price</Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="sm:max-w-[425px]">
+                {form.watch('end_date') &&
+                  form.watch('start_date') &&
+                  form.watch('price') && (
                     <div>
-                      You will be setting the price for room type{' '}
-                      {JSON.stringify(listing.room_types[roomTypeIndex].name)}{' '}
-                      listing {JSON.stringify(listing.title)} from{' '}
-                      {format(
-                        form.watch('start_date') as Date,
-                        'eee, MMMM dd yyyy',
-                      )}{' '}
-                      to{' '}
-                      {format(
-                        new Date(form.watch('end_date')) as Date,
-                        'eee, MMMM dd yyyy',
-                      )}
-                      . This action is uneditable and irreversible. Continue?
+                      <div className="text-sm text-center text">
+                        You will be setting the price for
+                        {listing.room_types[roomTypeIndex].name &&
+                          `room type ${listing.room_types[roomTypeIndex].name} from`}{' '}
+                        listing {listing.title} to{' '}
+                        {toCurrency(Number(form.watch('price')))}
+                        <div>
+                          from{' '}
+                          {format(
+                            form.watch('start_date') as Date,
+                            'eee, MMMM dd yyyy',
+                          )}{' '}
+                          to{' '}
+                          {format(
+                            form.watch('end_date') as Date,
+                            'eee, MMMM dd yyyy',
+                          )}
+                          .
+                        </div>
+                        This action is uneditable and irreversible. Continue?
+                      </div>
+                      <div className="flex gap-3 my-3 justify-center">
+                        <AlertDialogCancel className="w-24">
+                          No
+                        </AlertDialogCancel>
+                        <Button
+                          className="w-24"
+                          type="submit"
+                          disabled={
+                            !form.watch('start_date') &&
+                            !form.watch('end_date') &&
+                            !form.watch('price')
+                          }
+                          onClick={form.handleSubmit(onSubmit)}
+                        >
+                          Yes
+                        </Button>
+                      </div>
                     </div>
-                    <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
-                      Yes
-                    </Button>
-                  </DialogContent>
-                )}
-            </Dialog>
+                  )}
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </form>
       </Form>

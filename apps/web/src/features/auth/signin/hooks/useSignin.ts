@@ -37,7 +37,7 @@ export const useSignin = () => {
       toast({
         variant: 'destructive',
         title: `${err.response.data.message}`,
-        description: `${err.response.data.message == 'Account is not verified!' ? 'Click Forgot Password to be directed to verify your account.' : 'Please try again.'}`,
+        description: `${err.response.data.message == 'Account is not verified!' ? 'Click Forgot Password to be directed to verify your account.' : err.response.data.message == 'User not found!' ? 'Please re-check your email input or sign up.' : 'Please try again.'}`,
       });
     },
   });

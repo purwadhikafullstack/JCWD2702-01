@@ -14,6 +14,7 @@ import {
 import GetMyListings from '../getMyListing';
 import { SetNonavailabilityForm } from '@/components/form/setNonavailibilityForm';
 import { IMyListing } from '../type';
+import { ChevronLeft, X } from 'lucide-react';
 
 export default function SetNonavailability() {
   const [selectedListing, setSelectedListing] = useState<IMyListing | null>(
@@ -43,7 +44,7 @@ export default function SetNonavailability() {
                 onClick={handleBackToListings}
                 className={`${selectedListing ? 'flex' : 'hidden'}`}
               >
-                {'<'}
+                <ChevronLeft></ChevronLeft>
               </Button>
               <div className="flex items-center justify-center text-2xl">
                 <div className="flex flex-col items-center justify-center">
@@ -56,7 +57,7 @@ export default function SetNonavailability() {
                 </div>
               </div>
               <AlertDialogCancel className="border-none text-zinc-600">
-                x
+                <X></X>
               </AlertDialogCancel>
             </AlertDialogTitle>
             <AlertDialogDescription>

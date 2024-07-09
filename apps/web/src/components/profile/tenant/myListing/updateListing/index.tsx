@@ -42,7 +42,7 @@ export const UpdateListing = ({ item }: any) => {
           </div>
         </div>
         <DrawerFooter className="flex items-center justify-center pt-3 bg-zinc-100">
-          <Button  className="w-44" onClick={() => formRef.current.submitForm()}>
+          <Button className="w-44" onClick={() => formRef.current.submitForm()}>
             Save changes
           </Button>
           <DrawerClose>
